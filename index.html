@@ -98,6 +98,7 @@ td.r,th.r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:grid;gap:10px;align-content:start;border-top:4px solid var(--cc)}
 .card .grp{font-size:12px;color:var(--muted);font-weight:500}
 .card .one{font-weight:500}
+.cgroups{display:grid;gap:22px}.cgroup{display:grid;gap:12px}.cgroup-h{display:flex;align-items:baseline;gap:4px 12px;flex-wrap:wrap;padding-bottom:6px;border-bottom:3px solid var(--cc)}.cgroup-h h3{font-size:19px}.cgroup-h span{font-size:13px;color:var(--muted)}.carriers.pair{grid-template-columns:repeat(auto-fit,minmax(290px,1fr))}.cgrp td{background:var(--surface2);font-weight:700;font-size:13px;color:var(--ink);border-left:4px solid var(--cc)}.cgrp td span{font-weight:500;font-size:11.5px;color:var(--muted);margin-left:10px}
 .plist{display:grid;gap:6px;margin:0;padding:0;list-style:none;font-size:14px}
 .plist li{display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding-block:6px;border-bottom:1px dashed var(--line)}
 .plist li:last-child{border-bottom:0}
@@ -475,7 +476,7 @@ table.pt{width:100%;min-width:0;border-collapse:collapse;font-size:13px;table-la
         <div class="jg"><div class="w">MNP<small>のりかえ</small></div><p class="m">番号ポータビリティ。<strong>電話番号そのまま他社へ</strong>移ること。</p><p class="say">お客様へ：<b>「お乗り換え」</b></p></div>
         <div class="jg"><div class="w">新規<small>しんき</small></div><p class="m"><strong>新しい電話番号</strong>で契約すること。お子様の初スマホなど。</p><p class="say">お客様へ：<b>「新しくご契約」</b></p></div>
         <div class="jg"><div class="w">予番<small>よばん</small></div><p class="m"><strong>MNP予約番号</strong>。今の会社で発行してもらう乗り換え用の番号で、有効期限は発行日を含めて15日。<strong>MNPでは必須</strong>（不要なのはアップグレード＝au⇄UQ、ソフトバンク⇄ワイモバイルの番号移行のときだけ）。</p><p class="say">お客様へ：<b>「お乗り換え用の予約番号」</b></p></div>
-        <div class="jg"><div class="w">S4<small>エスフォー</small></div><p class="m"><strong>補償サービス</strong>（故障・紛失に備えるオプション）のこと。2年返却で壊れたまま返すときの費用も変わる。</p><p class="say">お客様へ：<b>「端末の補償サービス」</b></p></div>
+        <div class="jg"><div class="w">S4<small>エスフォー</small></div><p class="m">通信では<strong>補償・移植・コンテンツ</strong>のこと。補償は故障・紛失に備えるオプション、移植はデータ移行、コンテンツはノートン・ADクリーナーなどのアプリ。</p><p class="say">お客様へ：<b>「端末の補償・データのお引っ越し・おすすめアプリ」</b></p></div>
         <div class="jg"><div class="w">SIM単<small>シムたん</small></div><p class="m"><strong>SIMだけの乗り換え</strong>（端末は買わず、回線だけMNPする）。施策の条件は端末購入と同じで、<strong>乗り換え元の契約が181日以上</strong>必要（足りなくても手続き自体はできる）。</p><p class="say">お客様へ：<b>「SIMだけのお乗り換え」</b></p></div>
         <div class="jg"><div class="w">施策<small>しさく</small></div><p class="m">乗り換えや購入のときに付くポイント・値引きなどの特典。乗り換え施策は<strong>SIM単でも端末購入でも、乗り換え元の契約が181日以上</strong>ないと使えない（手続きはできる）。キャリア契約と分リセでも条件が違う（第5章）。</p><p class="say">お客様へ：<b>「特典」「キャンペーン」</b></p></div>
         <div class="jg"><div class="w">分リセ<small>ぶんりせ</small></div><p class="m"><strong>分割リセットプログラム</strong>の略。端末を分割で買い、24か月目に返却すると残りの支払いがリセットされる店舗のプログラム。キャリア契約と違い、乗り換え施策に<strong>今の端末の買取が必須ではない</strong>。</p><p class="say">お客様へ：<b>「分割リセットプログラム」</b></p></div>
@@ -507,17 +508,17 @@ table.pt{width:100%;min-width:0;border-collapse:collapse;font-size:13px;table-la
         <table>
           <thead><tr><th>ブランド</th><th>代表プラン</th><th>データ</th><th class="r">割引前</th><th class="r">全割引後の目安</th><th>お客様の一番のメリット</th></tr></thead>
           <tbody>
-            <tr><td><span class="tag" style="--cc:var(--c-docomo)">ドコモ</span></td><td>ドコモ MAX</td><td>無制限</td><td class="r">8,448円</td><td class="r"><span class="pop">5,148円</span></td><td>動画サービス2つが追加料金なし</td></tr>
+            <tr class="cgrp" style="--cc:var(--c-docomo)"><td colspan="6">ドコモ系<span>ドコモ・ahamo（ドコモの回線）</span></td></tr><tr><td><span class="tag" style="--cc:var(--c-docomo)">ドコモ</span></td><td>ドコモ MAX</td><td>無制限</td><td class="r">8,448円</td><td class="r"><span class="pop">5,148円</span></td><td>動画サービス2つが追加料金なし</td></tr>
             <tr><td><span class="tag" style="--cc:var(--c-ahamo)">ahamo</span></td><td>ahamo</td><td>30GB（増量中40GB）</td><td class="r">2,970円</td><td class="r"><span class="pop">2,970円</span></td><td>割引条件なしでこの値段</td></tr>
-            <tr><td><span class="tag" style="--cc:var(--c-au)">au</span></td><td>auバリューリンクプラン</td><td>使い放題</td><td class="r">8,008円</td><td class="r"><span class="pop">5,478円</span></td><td>Pontaパス込み、衛星通信も使える</td></tr>
+            <tr class="cgrp" style="--cc:var(--c-au)"><td colspan="6">au系<span>au・UQ mobile（KDDIの回線）</span></td></tr><tr><td><span class="tag" style="--cc:var(--c-au)">au</span></td><td>auバリューリンクプラン</td><td>使い放題</td><td class="r">8,008円</td><td class="r"><span class="pop">5,478円</span></td><td>Pontaパス込み、衛星通信も使える</td></tr>
             <tr><td><span class="tag" style="--cc:var(--c-uq)">UQ mobile</span></td><td>トクトクプラン2</td><td>〜30GB</td><td class="r">4,048円</td><td class="r"><span class="pop">1,628円〜</span></td><td>使わない月は自動で安くなる</td></tr>
-            <tr><td><span class="tag" style="--cc:var(--c-sb)">ソフトバンク</span></td><td>テイガク無制限</td><td>無制限</td><td class="r">8,008円</td><td class="r"><span class="pop">5,148円</span></td><td>ギガを気にせず使える</td></tr>
+            <tr class="cgrp" style="--cc:var(--c-sb)"><td colspan="6">SB系<span>ソフトバンク・ワイモバイル（ソフトバンクの回線）</span></td></tr><tr><td><span class="tag" style="--cc:var(--c-sb)">ソフトバンク</span></td><td>テイガク無制限</td><td>無制限</td><td class="r">8,008円</td><td class="r"><span class="pop">5,148円</span></td><td>ギガを気にせず使える</td></tr>
             <tr><td><span class="tag" style="--cc:var(--c-ym)">ワイモバイル</span></td><td>シンプル3 M</td><td>30GB</td><td class="r">4,378円</td><td class="r"><span class="pop">1,958円</span></td><td>光セットで毎月1,650円引き</td></tr>
           </tbody>
         </table>
       </div>
 
-      <div class="carriers">
+      <div class="cgroups"><section class="cgroup" style="--cc:var(--c-docomo)"><div class="cgroup-h"><h3>ドコモ系</h3><span>ドコモ・ahamo（ドコモの回線）</span></div><div class="carriers pair">
         <article class="card" style="--cc:var(--c-docomo)">
           <div><span class="tag" style="--cc:var(--c-docomo)">ドコモ</span> <span class="grp">／メインブランド</span></div>
           <p class="one">無制限にエンタメ特典2つ＋海外データ30GB。光・家族・dカードをそろえるほど安くなる。</p>
@@ -541,7 +542,7 @@ table.pt{width:100%;min-width:0;border-collapse:collapse;font-size:13px;table-la
           <div class="who"><b>こんなお客様に</b>手続きを自分でできる／割引条件をそろえたくない／20〜30GBくらい使う。<br>※家族割・光セット割は対象外（家族の回線数には数えられる）。契約は18歳以上。</div>
         </article>
 
-        <article class="card" style="--cc:var(--c-au)">
+        </div></section><section class="cgroup" style="--cc:var(--c-au)"><div class="cgroup-h"><h3>au系</h3><span>au・UQ mobile（KDDIの回線）</span></div><div class="carriers pair"><article class="card" style="--cc:var(--c-au)">
           <div><span class="tag" style="--cc:var(--c-au)">au</span> <span class="grp">／メインブランド（KDDI）</span></div>
           <p class="one">使い放題にPontaパス・衛星通信・海外データが付く。</p>
           <ul class="plist">
@@ -565,7 +566,7 @@ table.pt{width:100%;min-width:0;border-collapse:collapse;font-size:13px;table-la
           <div class="who"><b>こんなお客様に</b>家のネット・でんきをセットにできる → トクトクプラン2／割引条件なしで通話もしたい → コミコミプランバリュー</div>
         </article>
 
-        <article class="card" style="--cc:var(--c-sb)">
+        </div></section><section class="cgroup" style="--cc:var(--c-sb)"><div class="cgroup-h"><h3>SB系</h3><span>ソフトバンク・ワイモバイル（ソフトバンクの回線）</span></div><div class="carriers pair"><article class="card" style="--cc:var(--c-sb)">
           <div><span class="tag" style="--cc:var(--c-sb)">ソフトバンク</span> <span class="grp">／メインブランド</span></div>
           <p class="one">PayPayをよく使う人はペイトク2で還元、ポイント不要ならテイガク無制限。</p>
           <ul class="plist">
@@ -589,7 +590,7 @@ table.pt{width:100%;min-width:0;border-collapse:collapse;font-size:13px;table-la
           <p class="disc"><strong>データくりこし</strong>：シンプル3（S・M・L）とも、余ったデータは翌月にくりこせる。<strong>データ増量オプション</strong>（月550円）でS +2GB／M・L +5GB（初加入6か月無料）。</p>
           <div class="who"><b>こんなお客様に</b>家がソフトバンク光・SoftBank Air／店舗で相談したい節約派</div>
         </article>
-      </div>
+      </div></section></div>
 
       <div class="callout warn">
         <h3>接客で最初に聞く5つ</h3>
@@ -828,7 +829,7 @@ table.pt{width:100%;min-width:0;border-collapse:collapse;font-size:13px;table-la
             <tr><td>返却時の利用料</td><td>最大22,000円</td><td>最大22,000円</td><td>機種ごとに上限あり</td></tr>
             <tr><td>利用料が0円になる条件</td><td>ドコモで機種を買い替え</td><td>auで機変 or 機種のみ購入</td><td>機変 or 機種のみ購入</td></tr>
             <tr><td>回線契約なしで加入</td><td>できる</td><td><strong>加入時は回線が必要</strong></td><td>できる</td></tr>
-            <tr><td>壊れたまま返却</td><td>22,000円（S4加入なら2,200円）</td><td>22,000円（S4加入で0〜2,200円）</td><td>最大44,000円（あんしん保証パック継続なら0円）</td></tr>
+            <tr><td>壊れたまま返却</td><td>22,000円（補償加入なら2,200円）</td><td>22,000円（補償加入で0〜2,200円）</td><td>最大44,000円（あんしん保証パック継続なら0円）</td></tr>
           </tbody>
         </table>
       </div>
@@ -847,7 +848,7 @@ table.pt{width:100%;min-width:0;border-collapse:collapse;font-size:13px;table-la
           <ul class="tight">
             <li>端末は<strong>自分のものにならない</strong>（返す前提の価格）</li>
             <li>返却時に利用料がかかる場合がある。同じ会社で買い替えれば0円</li>
-            <li>画面割れなどは追加費用 → <strong>S4（補償）とセットで</strong>考える</li>
+            <li>画面割れなどは追加費用 → <strong>補償とセットで</strong>考える</li>
             <li>分割払いには審査がある。紛失すると返せず、残りを払うことになる</li>
           </ul>
         </div>
@@ -881,7 +882,7 @@ table.pt{width:100%;min-width:0;border-collapse:collapse;font-size:13px;table-la
           </ul>
         </div>
         <div class="callout">
-          <h3>補償（S4）加入者には先に金額を伝える</h3>
+          <h3>補償加入者には先に金額を伝える</h3>
           <ul class="tight">
             <li><strong>ドコモ</strong>：ケータイ補償サービス／smartあんしん補償に加入していれば故障時 <strong>2,200円</strong>。</li>
             <li><strong>au</strong>：故障紛失サポート加入で <strong>0〜2,200円</strong>（AppleCare付きで2025年9月以降発売のiPhoneは0円、Androidは2,200円）。</li>
@@ -2092,7 +2093,7 @@ table.pt{width:100%;min-width:0;border-collapse:collapse;font-size:13px;table-la
     {c:"term",q:"買場で「BB」と言ったら何のこと？",o:["光回線やホームルーターなど家のインターネット","ブラックベリーの端末","ブランドバッグ","補償サービス"],a:0,e:"BB＝ブロードバンド。お客様には「ご自宅のインターネット」と言いかえます。"},
     {c:"term",q:"「予番（よばん）」とは？",o:["MNP予約番号","予約した来店番号","端末の製造番号","暗証番号"],a:0,e:"乗り換え用に今の会社で発行する番号で、有効期限は発行日を含めて15日。MNPでは必須、アップグレード（番号移行）のときだけ不要です。"},
     {c:"term",q:"「移植」とは何の作業？",o:["データ移行（写真・連絡先・LINEなどを新しい端末へ移す）","SIMカードの差し替え","修理","端末の初期化"],a:0,e:"お客様には「データのお引っ越し」と伝えるとわかりやすいです。"},
-    {c:"term",q:"「S4」は何を指す？",o:["補償サービス","端末のサイズ","5Gの規格","料金プラン名"],a:0,e:"故障・紛失に備えるオプション。2年返却で壊れたまま返すときの費用にも関わります。"},
+    {c:"term",q:"「S4」は何を指す？",o:["補償・移植・コンテンツ（ノートン、ADクリーナーなど）","端末のサイズ","5Gの規格","料金プラン名"],a:0,e:"通信では、補償（故障・紛失に備えるオプション）・移植（データ移行）・コンテンツ（ノートン、ADクリーナーなどのアプリ）のことをS4と呼びます。"},
     {c:"term",q:"「機変」とは？",o:["同じ会社のまま端末だけ替える機種変更","他社への乗り換え","新しい番号での契約","プラン変更"],a:0,e:"他社への乗り換えはMNP（のりかえ）、新しい番号は新規です。"},
     {c:"term",q:"「実質負担額」の説明として正しいのは？",o:["端末を返却する前提で、お客様が実際に払う額","端末を一括で買ったときの本体価格","毎月の通信料の合計","下取りでもらえる金額"],a:0,e:"返却前提の金額なので、端末は手元に残りません。"},
     {c:"term",q:"UQ mobileはどのグループのサブブランド？",o:["KDDI（au）","ソフトバンク","ドコモ","楽天"],a:0,e:"UQ mobile＝KDDI、ワイモバイル＝ソフトバンクです。"},
@@ -2144,7 +2145,7 @@ table.pt{width:100%;min-width:0;border-collapse:collapse;font-size:13px;table-la
     {c:"ret",q:"ソフトバンク「新トクするサポート＋」の分割回数は？",o:["48回","24回","36回","12回"],a:0,e:"25か月目以降の返却で残り最大24回分が不要です。"},
     {c:"ret",q:"3社とも返却時にかかるようになった利用料は最大いくら？",o:["22,000円","5,500円","44,000円","かからない"],a:0,e:"同じ会社で次の機種を買い替えれば0円になります。"},
     {c:"ret",q:"加入時に回線契約が必要なのはどれ？",o:["au スマホトクするプログラム＋","ドコモ いつでもカエドキプログラム","ソフトバンク 新トクするサポート＋","どれも回線なしで加入できる"],a:0,e:"ドコモとソフトバンクは機種のみでも加入できます。"},
-    {c:"ret",q:"ドコモのプログラムで、S4（補償）なしで画面割れのまま返すと？",o:["22,000円","2,200円","0円","端末代の全額"],a:0,e:"補償に入っていれば2,200円です。"},
+    {c:"ret",q:"ドコモのプログラムで、補償なしで画面割れのまま返すと？",o:["22,000円","2,200円","0円","端末代の全額"],a:0,e:"補償に入っていれば2,200円です。"},
     {c:"ret",q:"返却前にお客様にしてもらう操作は？",o:["移植・バックアップ→「iPhoneを探す」などのロック解除→初期化","SIMを入れたまま送る","ケースを付けたまま送る","何もしなくてよい"],a:0,e:"ロックが残っていると返却できません。"},
 
     {c:"iphone",q:"UQ mobile・ワイモバイルで買える一番新しい新品iPhoneは？",o:["iPhone 17e","iPhone 17","iPhone 18 Pro","iPhone Air"],a:0,e:"17・17 Pro・Air・18 Proは扱いなし。17e（256GB／512GB）を案内します。"},

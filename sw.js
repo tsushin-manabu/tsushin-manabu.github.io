@@ -1,6 +1,6 @@
 // 一度開いたページとフォントを保存して、通信がなくても表示できるようにする。
 // 保存したものをすぐ表示しつつ、裏で最新版を取りに行く（次に開いたとき新しくなる）。
-const CACHE = 'drill-v1';
+const CACHE = 'drill-v2';
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(['./', './index.html', './manifest.webmanifest', './icon-180.png', './icon-192.png'])));
   self.skipWaiting();
