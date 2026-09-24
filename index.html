@@ -1,0 +1,2250 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>body{margin:0}</style><meta name="robots" content="noindex,nofollow"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="新人ドリル"><meta name="apple-mobile-web-app-status-bar-style" content="default"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-180.png"><link rel="icon" href="icon-192.png"></head><body>
+<title>通信カウンター新人ドリル</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<style>
+:root{
+  --bg:#F1F3EE; --surface:#FFFFFF; --surface2:#F7F8F4; --ink:#171C1A; --muted:#58625D; --line:#D8DCD3;
+  --accent:#1F4FD1; --accent-ink:#FFFFFF; --accent-soft:#E6ECFB;
+  --pop:#FFE14D; --pop-ink:#1A1A12;
+  --good:#1D7F47; --good-soft:#E2F3E8; --bad:#C0392B; --bad-soft:#FBE7E4; --warn:#9A6400; --warn-soft:#FFF3D6;
+  --c-docomo:#C8102E; --c-ahamo:#2F8F55; --c-au:#E0560B; --c-uq:#C2306B; --c-sb:#56636B; --c-ym:#9C2A86;
+  --k-family:#2F6FDB; --k-bb:#0E8C7F; --k-hr:#0E8C7F; --k-denki:#C28400; --k-card:#8A3FC7; --k-long:#6B7280; --k-low:#3D8B37; --k-promo:#D0467A;
+  --paid:#1F2A44;
+  --display:"Dela Gothic One","Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",sans-serif;
+  --body:"Zen Kaku Gothic New","Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic","Meiryo",sans-serif;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#111513; --surface:#1A1F1D; --surface2:#161A18; --ink:#E8ECE7; --muted:#A1AAA4; --line:#2D3431;
+    --accent:#86A2FF; --accent-ink:#0B1020; --accent-soft:#1E2743;
+    --pop:#E9CB3C; --pop-ink:#15140A;
+    --good:#5CC98A; --good-soft:#15291E; --bad:#FF8A7A; --bad-soft:#3A1C18; --warn:#F2C35B; --warn-soft:#2E2512;
+    --k-family:#7FA6FF; --k-bb:#4FD1BF; --k-hr:#4FD1BF; --k-denki:#F2C35B; --k-card:#C49BFF; --k-long:#A7AFBA; --k-low:#7ED67A; --k-promo:#FF8FB6;
+    --paid:#C9D3F0;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#111513; --surface:#1A1F1D; --surface2:#161A18; --ink:#E8ECE7; --muted:#A1AAA4; --line:#2D3431;
+  --accent:#86A2FF; --accent-ink:#0B1020; --accent-soft:#1E2743;
+  --pop:#E9CB3C; --pop-ink:#15140A;
+  --good:#5CC98A; --good-soft:#15291E; --bad:#FF8A7A; --bad-soft:#3A1C18; --warn:#F2C35B; --warn-soft:#2E2512;
+  --k-family:#7FA6FF; --k-bb:#4FD1BF; --k-hr:#4FD1BF; --k-denki:#F2C35B; --k-card:#C49BFF; --k-long:#A7AFBA; --k-low:#7ED67A; --k-promo:#FF8FB6;
+  --paid:#C9D3F0;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased}
+.wrap{max-width:980px;margin:0 auto;padding-inline:16px;padding-block:0 64px}
+a{color:var(--accent)}
+h1,h2,h3{text-wrap:balance;line-height:1.35;margin:0}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(28px,6vw,44px);letter-spacing:.01em}
+h2{font-family:var(--display);font-weight:400;font-size:clamp(21px,4vw,27px)}
+h3{font-size:17px;font-weight:700}
+p{margin:0}
+.num,.price{font-variant-numeric:tabular-nums}
+
+.top{padding-block:28px 18px;display:grid;gap:10px}
+.eyebrow{font-size:12px;letter-spacing:.14em;color:var(--muted);font-weight:700}
+.lede{color:var(--muted);max-width:62ch}
+.stamp{display:inline-flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:13px}
+.stamp b{background:var(--pop);color:var(--pop-ink);padding:2px 8px;border-radius:4px;font-weight:700}
+
+.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line);display:flex;gap:2px;margin-inline:-16px;padding-inline:16px;overflow-x:auto}
+.tab{appearance:none;border:0;background:none;color:var(--muted);font:inherit;font-weight:700;font-size:15px;padding:12px 12px;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px;padding-block:18px 4px}
+.chip{display:inline-block;border:1px solid var(--line);background:var(--surface);color:var(--ink);text-decoration:none;border-radius:999px;padding:4px 12px;font-size:13px;font-weight:500}
+.chip:hover{border-color:var(--accent)}
+
+section.ch{padding-block:36px 8px;border-bottom:1px solid var(--line);display:grid;gap:18px}
+.ch-head{display:grid;gap:6px}
+.ch-no{font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--accent)}
+.ch-lead{color:var(--muted);max-width:64ch}
+
+.gloss{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.gloss div{background:var(--surface);padding:14px 16px;display:grid;gap:4px;align-content:start}
+.gloss dt{font-weight:700}
+.gloss dd{margin:0;color:var(--muted);font-size:14px}
+
+.jargon{display:grid;gap:10px}
+.jg{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;display:grid;grid-template-columns:minmax(92px,auto) 1fr;gap:4px 14px;align-items:start}
+.jg .w{font-family:var(--display);font-size:20px;line-height:1.3;grid-row:span 2}
+.jg .w small{display:block;font-family:var(--body);font-size:11.5px;color:var(--muted);font-weight:500}
+.jg .m{font-size:14.5px}
+.jg .say{font-size:13px;color:var(--muted)}
+.jg .say b{color:var(--ink);font-weight:500}
+
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:14px}
+th,td{padding:10px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+thead th{background:var(--surface2);font-size:12px;letter-spacing:.06em;color:var(--muted);font-weight:700;white-space:nowrap}
+tbody tr:last-child td{border-bottom:0}
+td.r,th.r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.price{font-weight:700;white-space:nowrap}
+.pop{background:var(--pop);color:var(--pop-ink);padding:1px 6px;border-radius:3px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.note{font-size:13px;color:var(--muted)}
+
+.tag{display:inline-flex;align-items:center;gap:6px;font-weight:700;white-space:nowrap}
+.tag::before{content:"";width:10px;height:10px;border-radius:2px;background:var(--cc,var(--muted))}
+.carriers{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:grid;gap:10px;align-content:start;border-top:4px solid var(--cc)}
+.card .grp{font-size:12px;color:var(--muted);font-weight:500}
+.card .one{font-weight:500}
+.plist{display:grid;gap:6px;margin:0;padding:0;list-style:none;font-size:14px}
+.plist li{display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding-block:6px;border-bottom:1px dashed var(--line)}
+.plist li:last-child{border-bottom:0}
+.plist small{grid-column:1/-1;color:var(--muted);font-size:12.5px;line-height:1.5}
+.who{background:var(--surface2);border-radius:8px;padding:10px 12px;font-size:13.5px;display:grid;gap:2px}
+.who b{display:block;font-size:12px;letter-spacing:.08em;color:var(--muted)}
+.merit{background:var(--good-soft);border-radius:8px;padding:10px 12px;font-size:13.5px;display:grid;gap:2px}
+.merit b{display:block;font-size:12px;letter-spacing:.08em;color:var(--good)}
+.disc{font-size:13px;color:var(--muted)}
+
+.callout{border-left:4px solid var(--accent);background:var(--accent-soft);padding:12px 16px;border-radius:0 8px 8px 0;display:grid;gap:6px;font-size:14.5px}
+.callout.warn{border-left-color:var(--warn);background:var(--warn-soft)}
+.callout h3{font-size:15px}
+ul.tight{margin:0;padding-left:1.2em;display:grid;gap:4px}
+
+/* discount matrix */
+.kchip{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:13px;white-space:nowrap}
+.kchip::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--kc)}
+.mx td{font-size:13px;line-height:1.55;min-width:128px}
+.mx td b{display:block;font-size:14px;font-variant-numeric:tabular-nums;color:var(--kc,var(--ink))}
+.mx td.no{color:var(--muted)}
+.mx td .ex{display:inline-block;font-size:11px;font-weight:700;color:var(--c-ym);border:1px solid currentColor;border-radius:4px;padding:0 4px;margin-left:4px}
+.mx th:first-child,.mx td:first-child{position:sticky;left:0;background:var(--surface);z-index:1;min-width:96px}
+.mx thead th:first-child{background:var(--surface2)}
+
+/* timeline */
+.tl{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:grid;gap:16px}
+.tl-row{display:grid;gap:6px}
+.tl-label{font-weight:700;font-size:14px;display:flex;gap:8px;flex-wrap:wrap;align-items:baseline}
+.tl-label span{font-weight:400;color:var(--muted);font-size:12.5px}
+.bar{position:relative;height:30px;background:var(--surface2);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.seg{position:absolute;top:0;bottom:0;display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:700;white-space:nowrap;overflow:hidden}
+.seg.pay{background:color-mix(in srgb,var(--cc) 22%,var(--surface));color:var(--ink)}
+.seg.free{background:repeating-linear-gradient(135deg,var(--good-soft) 0 6px,var(--surface) 6px 12px);color:var(--good);border-left:2px solid var(--good)}
+.win{position:absolute;top:-1px;bottom:-1px;border:2px solid var(--ink);border-radius:4px;pointer-events:none}
+.scale{position:relative;height:16px;font-size:11px;color:var(--muted)}
+.scale span{position:absolute;transform:translateX(-50%);font-variant-numeric:tabular-nums}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12.5px;color:var(--muted)}
+.legend i{display:inline-block;width:14px;height:10px;vertical-align:middle;margin-right:4px;border:1px solid var(--line)}
+
+ol.steps{list-style:none;margin:0;padding:0;display:grid;counter-reset:s}
+ol.steps li{counter-increment:s;display:grid;grid-template-columns:36px 1fr;gap:12px;padding-block:12px;border-bottom:1px solid var(--line)}
+ol.steps li::before{content:counter(s);font-family:var(--display);font-size:20px;color:var(--accent);line-height:1.2}
+ol.steps li:last-child{border-bottom:0}
+ol.steps b{display:block}
+ol.steps span{color:var(--muted);font-size:14px}
+
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:grid;gap:8px;align-content:start}
+
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;display:grid;gap:2px;align-content:start}
+.tile .l{font-size:12.5px;color:var(--muted);font-weight:700}
+.tile .v{font-family:var(--display);font-size:28px;line-height:1.25;font-variant-numeric:tabular-nums}
+.tile .v small{font-family:var(--body);font-size:14px;margin-left:2px}
+.tile p{font-size:13px;color:var(--muted)}
+
+/* BB map */
+.bbmap{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:14px}
+.bbcol{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:grid;align-content:start}
+.bbcol .hd{padding:12px 16px;display:flex;flex-wrap:wrap;gap:6px 12px;border-bottom:1px solid var(--line);background:var(--surface2)}
+.bbcol .it{padding:12px 16px;display:grid;gap:4px;border-bottom:1px dashed var(--line)}
+.bbcol .it:last-child{border-bottom:0}
+.bbcol .kind{font-size:11.5px;font-weight:700;letter-spacing:.08em;color:var(--muted)}
+.bbcol .nm{font-weight:700;font-size:16px}
+.bbcol .off{font-variant-numeric:tabular-nums;font-weight:700;color:var(--k-bb)}
+.bbcol .cond{font-size:13px;color:var(--muted)}
+.bbcol .cond strong{color:var(--ink)}
+
+.btn{appearance:none;border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);font:inherit;font-weight:700;border-radius:8px;padding:10px 16px;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--accent)}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+
+/* simulator */
+.sim{padding-block:24px;display:grid;gap:20px;grid-template-columns:minmax(0,1fr)}
+.sim>*,.simgrid>*,.panel>*{min-width:0}
+.seg-ctl{display:inline-flex;flex-wrap:wrap;border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:3px;gap:3px}
+.seg-ctl button{appearance:none;border:0;background:none;color:var(--muted);font:inherit;font-weight:700;font-size:14px;padding:7px 12px;border-radius:7px;cursor:pointer;white-space:nowrap}
+.seg-ctl button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.brandrow{display:flex;flex-wrap:wrap;gap:8px}
+.brandrow button{appearance:none;font:inherit;font-weight:700;font-size:14px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 14px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.brandrow button::before{content:"";width:10px;height:10px;border-radius:2px;background:var(--cc)}
+.brandrow button[aria-pressed="true"]{border-color:var(--cc);box-shadow:inset 0 0 0 1px var(--cc);background:color-mix(in srgb,var(--cc) 10%,var(--surface))}
+.simgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:18px;align-items:start}
+@media (max-width:760px){.simgrid{grid-template-columns:1fr}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;gap:16px}
+.ctl{display:grid;gap:6px}
+.ctl .lab{display:flex;justify-content:space-between;gap:10px;font-weight:700;font-size:14px;flex-wrap:wrap}
+.ctl .lab output{font-variant-numeric:tabular-nums;color:var(--accent)}
+.ctl .sub{font-size:12.5px;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--accent);height:28px}
+.ticks{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+.tog{display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px;cursor:pointer}
+.tog input{width:20px;height:20px;accent-color:var(--accent)}
+.out{display:grid;gap:14px}
+.big{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.big .v{font-family:var(--display);font-size:clamp(40px,9vw,56px);line-height:1;font-variant-numeric:tabular-nums}
+.big .u{font-size:15px;font-weight:700}
+.big .from{font-size:13px;color:var(--muted);width:100%}
+.stack{display:flex;height:40px;border-radius:8px;overflow:hidden;border:1px solid var(--line);background:var(--surface2)}
+.stack div{height:100%;display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:700;white-space:nowrap;overflow:hidden;min-width:0;transition:flex-basis .25s}
+.stack .paid{background:var(--paid);color:var(--surface)}
+.stack .d{background:repeating-linear-gradient(135deg,color-mix(in srgb,var(--kc) 55%,var(--surface)) 0 7px,color-mix(in srgb,var(--kc) 35%,var(--surface)) 7px 14px);color:var(--ink);border-left:2px solid var(--surface)}
+.dl{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.dl li{border:1px solid var(--line);border-radius:10px;padding:10px 12px;display:grid;grid-template-columns:1fr auto;gap:2px 10px;background:var(--surface)}
+.dl li.on{border-color:color-mix(in srgb,var(--kc) 60%,var(--line));background:color-mix(in srgb,var(--kc) 7%,var(--surface))}
+.dl .n{font-weight:700;font-size:14.5px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.dl .n::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--kc);flex:none}
+.dl .a{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.dl li:not(.on) .a{color:var(--muted);font-weight:500;font-size:13px}
+.dl .why,.dl .bn{grid-column:1/-1;font-size:12.8px;line-height:1.55}
+.dl .why{color:var(--muted)}
+.dl .bn{color:var(--good)}
+.dl li:not(.on) .bn{display:none}
+.st{font-size:11px;font-weight:700;border-radius:4px;padding:0 6px;border:1px solid currentColor}
+.st.ok{color:var(--good)} .st.ng{color:var(--muted)} .st.ex{color:var(--warn)}
+.planrow{display:flex;flex-wrap:wrap;gap:6px}
+.cmp{display:grid;gap:10px}
+.mini{display:none}
+@media (max-width:760px){.mini{display:flex;justify-content:space-between;align-items:baseline;gap:10px;position:sticky;bottom:calc(8px + env(safe-area-inset-bottom,0px));background:var(--paid);color:var(--surface);border-radius:10px;padding:10px 14px;font-weight:700;font-size:14px;box-shadow:0 4px 16px rgba(0,0,0,.18)}.mini b{font-family:var(--display);font-weight:400;font-size:22px;font-variant-numeric:tabular-nums}}
+.cmprow{display:grid;grid-template-columns:1fr auto;gap:4px 10px;align-items:end}
+.cmprow .cbar{grid-column:1/-1}
+.cmprow .pr{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap;text-align:right}
+.cmprow .pr b{font-family:var(--display);font-weight:400;font-size:20px}
+.cmprow .pr small{display:block;font-size:12px;color:var(--muted);font-weight:500}
+.cmprow .who2{display:flex;flex-wrap:wrap;align-items:baseline;gap:0 8px}
+.cmprow .who2 .tag{font-size:14px}
+.cmprow .who2 small{color:var(--muted);font-size:12.5px}
+.cbar{position:relative;height:22px;border-radius:6px;background:var(--surface2);border:1px solid var(--line);overflow:hidden}
+.cbar .base{position:absolute;left:0;top:0;bottom:0;background:repeating-linear-gradient(135deg,color-mix(in srgb,var(--cc) 18%,var(--surface)) 0 6px,var(--surface) 6px 12px);transition:width .25s}
+.cbar .fin{position:absolute;left:0;top:0;bottom:0;background:var(--cc);transition:width .25s}
+.cbar .lbl{position:absolute;top:0;bottom:0;display:flex;align-items:center;font-weight:700;font-size:13px;font-variant-numeric:tabular-nums;white-space:nowrap;padding-inline:8px;color:var(--ink)}
+.cbar.na{display:flex;align-items:center;padding-inline:10px;font-size:13px;color:var(--muted)}
+.cmp-legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px;color:var(--muted)}
+.cmp-legend i{display:inline-block;width:18px;height:10px;border-radius:2px;vertical-align:middle;margin-right:4px}
+
+/* quiz */
+.qwrap{padding-block:24px;display:grid;gap:18px}
+.setup{display:grid;gap:14px}
+.scope{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.scope button{appearance:none;text-align:left;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;border-radius:var(--r);padding:12px 14px;cursor:pointer;display:grid;gap:2px}
+.scope button[aria-pressed="true"]{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent);background:var(--accent-soft)}
+.scope b{font-size:15px}
+.scope small{color:var(--muted);font-size:12.5px}
+.qcard{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;display:grid;gap:16px}
+.qmeta{display:flex;justify-content:space-between;gap:10px;font-size:13px;color:var(--muted);flex-wrap:wrap}
+.progress{height:6px;background:var(--surface2);border-radius:99px;overflow:hidden}
+.progress i{display:block;height:100%;background:var(--accent);width:0;transition:width .25s}
+.qtext{font-size:18px;font-weight:700;line-height:1.6}
+.opts{display:grid;gap:10px}
+.opt{appearance:none;text-align:left;font:inherit;border:1px solid var(--line);background:var(--surface2);color:var(--ink);border-radius:10px;padding:12px 14px;cursor:pointer;display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:start}
+.opt .k{font-weight:700;color:var(--muted)}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt:disabled{cursor:default}
+.opt.ok{border-color:var(--good);background:var(--good-soft)}
+.opt.ng{border-color:var(--bad);background:var(--bad-soft)}
+.fb{border-radius:10px;padding:12px 14px;display:grid;gap:4px;font-size:14.5px}
+.fb.ok{background:var(--good-soft)} .fb.ng{background:var(--bad-soft)}
+.fb b{font-size:15px}
+.fb.ok b{color:var(--good)} .fb.ng b{color:var(--bad)}
+.result{display:grid;gap:14px}
+.score{font-family:var(--display);font-size:52px;line-height:1}
+.score small{font-family:var(--body);font-size:16px;color:var(--muted);margin-left:6px}
+.miss{display:grid;gap:10px}
+.miss div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:14px;display:grid;gap:4px}
+.miss .a{color:var(--good);font-weight:700}
+.best{font-size:13px;color:var(--muted)}
+
+.res{padding-block:24px;display:grid;gap:30px}
+.rlist{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.ritem{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;display:grid;gap:6px;align-content:start}
+.ritem a{font-weight:700;text-decoration:none}
+.ritem a:hover{text-decoration:underline}
+.ritem p{font-size:13.5px;color:var(--muted)}
+.ritem .for{font-size:12.5px;color:var(--ink);background:var(--surface2);border-radius:6px;padding:4px 8px}
+.links{columns:2 260px;column-gap:24px;font-size:14px;margin:0;padding-left:1.1em}
+.links li{break-inside:avoid;margin-bottom:6px}
+.foot{padding-block:28px 0;font-size:12.5px;color:var(--muted)}
+
+/* capacity */
+.mini b{white-space:nowrap}
+.mini span{min-width:0}
+.pbtn{display:grid!important;gap:0;line-height:1.25;text-align:center}
+.pbtn small{font-size:11px;font-weight:500;opacity:.85}
+.pbtn.over{box-shadow:inset 0 0 0 1.5px var(--bad)}
+.pbtn.over small::after{content:" 超過";color:var(--bad);font-weight:700}
+.pbtn.over[aria-pressed="true"] small::after{color:#fff}
+.capchip{display:inline-block;font-size:13px;font-weight:700;border-radius:999px;padding:2px 10px;background:var(--good-soft);color:var(--good);align-self:center}
+.capchip.ng{background:var(--bad-soft);color:var(--bad)}
+#sim-one.is-over .big .v{color:var(--bad)}
+.gauge{display:grid;gap:6px;background:var(--surface2);border-radius:10px;padding:10px 12px 12px}
+.gtop{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:13px}
+.gtop b{font-variant-numeric:tabular-nums}
+.gok{color:var(--good);font-weight:700}.gng{color:var(--bad);font-weight:700}
+.gtiers{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12px}
+.gtiers>span:first-child{color:var(--muted);font-weight:700;width:100%}
+.gtiers .tp{border:1px solid var(--line);border-radius:6px;padding:2px 8px;background:var(--surface);font-variant-numeric:tabular-nums}
+.gtiers .tp.now{border-color:var(--accent);background:var(--accent-soft);font-weight:700}
+.gbar{position:relative;height:18px;border-radius:5px;background:var(--surface);border:1px solid var(--line);margin-bottom:16px}
+.gfill{position:absolute;left:0;top:0;bottom:0;background:var(--good);border-radius:4px 0 0 4px;opacity:.85;transition:width .2s}
+.gzo{position:absolute;top:0;bottom:0;background:repeating-linear-gradient(90deg,var(--good) 0 4px,color-mix(in srgb,var(--good) 45%,var(--surface)) 4px 8px);opacity:.8}
+.gover{position:absolute;top:0;bottom:0;background:repeating-linear-gradient(135deg,var(--bad) 0 6px,var(--bad-soft) 6px 12px);transition:width .2s}
+.gcap,.gtick,.guse{position:absolute;top:-4px;bottom:-4px;width:0;border-left:2px solid var(--ink)}
+.gtick{border-left:1px dashed var(--muted)}
+.guse{border-left:2px solid var(--ink)}
+.gcap em,.gtick em{position:absolute;top:100%;transform:translateX(-50%);font-style:normal;font-size:10.5px;color:var(--muted);white-space:nowrap;margin-top:2px}
+.gcap em{color:var(--ink);font-weight:700}
+.gmsg{font-size:13px;line-height:1.6;margin:0}
+.gmsg.ok{color:var(--good)}
+.gmsg.ng{background:var(--bad-soft);color:var(--ink);border-radius:8px;padding:8px 10px}
+.gmsg.ng b{color:var(--bad)}
+.gsw{appearance:none;font:inherit;font-size:13px;font-weight:700;margin-top:6px;border:1px solid var(--accent);background:var(--surface);color:var(--accent);border-radius:8px;padding:6px 10px;cursor:pointer;text-align:left}
+/* qa & return */
+.qa{display:grid;gap:4px;padding-block:8px;border-top:1px dashed var(--line)}
+.qa .qq{font-weight:700}
+.qa .aa{background:var(--good-soft);border-radius:8px;padding:8px 10px}
+.qa .ng{font-size:13px;color:var(--bad)}
+.rt{display:grid;gap:10px}
+.rt input[type=month]{font:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);max-width:220px}
+.rtt td b{font-family:var(--display);font-weight:400;font-size:17px;color:var(--accent);white-space:nowrap}
+/* iphone compare */
+.ipc{display:grid;gap:12px}
+.mchips{display:flex;flex-wrap:wrap;gap:6px}
+.mchips button{appearance:none;font:inherit;font-weight:700;font-size:13.5px;border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:999px;padding:5px 12px;cursor:pointer}
+.mchips button[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.spec{table-layout:auto;min-width:0}
+.spec td:not(:first-child){min-width:112px}
+.spec thead th{position:sticky;top:0}
+.spec thead th:not(:first-child){font-size:13px;color:var(--ink);text-align:center;min-width:112px}
+.spec td .h{display:block;font-weight:500;font-size:11px;color:var(--muted);line-height:1.4;margin-top:2px}
+.spec td.best{background:var(--good-soft)}
+.spec td.best::after{content:" ★";color:var(--good);font-weight:700}
+.ipc-sum{background:var(--accent-soft);border-radius:10px;padding:12px 14px;display:grid;gap:6px;font-size:14px}
+.ipc-sum h3{font-size:15px}
+.ipc-sum ul{margin:0;padding-left:1.2em;display:grid;gap:2px}
+/* iphone spec */
+.spec th,.spec td{text-align:center;font-size:12.5px;line-height:1.45}
+.spec th:first-child,.spec td:first-child{text-align:left;position:sticky;left:0;background:var(--surface);z-index:1;min-width:104px;font-weight:700}
+.spec thead th:first-child{background:var(--surface2)}
+.spec td.o{color:var(--good);font-weight:700}
+.spec td.x{color:var(--muted)}
+.spec tr.grp td{background:var(--surface2);font-weight:700;font-size:11.5px;letter-spacing:.08em;color:var(--muted);text-align:left}
+.talk{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px}
+.tk{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;display:grid;gap:8px;align-content:start}
+.tk h4{margin:0;font-size:16px;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:baseline}
+.tk h4 small{font-weight:500;font-size:12px;color:var(--muted)}
+.tk .one{font-weight:700;color:var(--accent);font-size:14px}
+.tk ul{margin:0;padding-left:1.1em;font-size:13.5px;display:grid;gap:2px}
+.tk .say{background:var(--accent-soft);border-radius:8px;padding:10px 12px;font-size:14px;line-height:1.7}
+.tk .say b{display:block;font-size:11.5px;letter-spacing:.08em;color:var(--accent)}
+.tk .warn{font-size:12.5px;color:var(--warn)}
+/* hikari calc */
+.hk{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;gap:16px;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);align-items:start}
+.hk-head{grid-column:1/-1;display:grid;gap:4px}
+.hk-init{grid-column:1/-1;min-width:0}
+.hk>*{min-width:0}
+@media (max-width:760px){.hk{grid-template-columns:1fr}}
+.hk-ctl{display:grid;gap:14px}
+.hk-out{display:grid;gap:10px;background:var(--surface2);border-radius:10px;padding:14px}
+.hk-name{font-weight:700;font-size:16px}
+.hk-name small{display:block;font-weight:500;font-size:12.5px;color:var(--muted)}
+.hk-rows{display:grid;gap:4px}
+.hk-rows div{display:flex;justify-content:space-between;gap:10px;font-size:14px;padding-block:4px;border-bottom:1px dashed var(--line)}
+.hk-rows div b{font-variant-numeric:tabular-nums;white-space:nowrap}
+.hk-rows .m b{color:var(--k-bb)}
+.hk-bar{display:grid;gap:4px}
+.hk-bar .br{position:relative;height:18px;border-radius:5px;background:var(--surface);border:1px solid var(--line);overflow:hidden}
+.hk-bar .br i{position:absolute;top:0;bottom:0;left:0;transition:width .25s}
+.hk-bar .lb{font-size:11.5px;color:var(--muted)}
+.hk-total{display:flex;justify-content:space-between;align-items:baseline;gap:10px;border-top:2px solid var(--ink);padding-top:8px}
+.hk-total span{font-weight:700}
+.hk-total b{font-family:var(--display);font-weight:400;font-size:clamp(28px,7vw,38px);font-variant-numeric:tabular-nums}
+.hk-init table{min-width:560px}
+/* price sheet */
+:root{--sheet-grey:#E6E8E2;--sheet-dark:#1C1F1E;--sheet-dark-ink:#FFFFFF}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--sheet-grey:#232926;--sheet-dark:#0B0D0C;--sheet-dark-ink:#F2F4F1}}
+:root[data-theme="dark"]{--sheet-grey:#232926;--sheet-dark:#0B0D0C;--sheet-dark-ink:#F2F4F1}
+.sheet{padding-block:24px;display:grid;gap:20px}
+.sheetgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:14px;align-items:start}
+.sp{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:grid}
+.sp-hd{background:var(--cc);color:#fff;padding:10px 14px;display:flex;justify-content:space-between;align-items:baseline;gap:4px 10px;flex-wrap:wrap}
+.sp-hd h3{font-family:var(--display);font-weight:400;font-size:24px;color:#fff;letter-spacing:.02em}
+.sp-hd span{font-size:12.5px;font-weight:700;opacity:.92}
+.sp-body{padding:12px;display:grid;gap:12px}
+.pl{border-radius:8px;overflow:hidden;border:1px solid var(--line)}
+.pl-name{background:var(--sheet-dark);color:var(--sheet-dark-ink);font-weight:700;font-size:16px;padding:8px 10px;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:baseline}
+.pl-name small{font-weight:500;font-size:12px;opacity:.85}
+table.pt{width:100%;min-width:0;border-collapse:collapse;font-size:13px;table-layout:fixed}
+.pt th,.pt td{padding:6px 6px;border-bottom:1px solid var(--surface);vertical-align:middle}
+.pt th[scope=row]{background:color-mix(in srgb,var(--cc) 82%,#000);color:#fff;font-size:11.5px;font-weight:700;width:30%;text-align:left;line-height:1.35;letter-spacing:0}
+.pt thead td{background:var(--sheet-dark);color:var(--sheet-dark-ink);text-align:center;font-size:12px;font-weight:700;line-height:1.3}
+.pt .base td{background:var(--surface);text-align:center;font-family:var(--display);font-size:19px;color:var(--cc);font-variant-numeric:tabular-nums;line-height:1.2}
+.pt .base td small,.pt .after td small{font-family:var(--body);font-size:11px;margin-left:1px}
+.pt .dc td{background:var(--sheet-grey);text-align:center;font-size:12.5px;line-height:1.45}
+.pt .dc td.na{color:var(--muted)}
+.pt .after th[scope=row]{background:var(--sheet-dark)}
+.pt .after td{background:var(--pop);color:var(--pop-ink);text-align:center;font-family:var(--display);font-size:20px;font-variant-numeric:tabular-nums;line-height:1.2}
+.pt .base td,.pt .after td{white-space:nowrap;padding-inline:3px}
+.pt.t2 .base td{font-size:18px}.pt.t2 .after td{font-size:19px}
+.pt.t3 th[scope=row]{width:25%}
+.pt.t3 .base td{font-size:14px}.pt.t3 .after td{font-size:15px}
+.pt.t3 .base td small,.pt.t3 .after td small{font-size:10px}
+@media (min-width:700px){.pt.t3 .base td{font-size:17px}.pt.t3 .after td{font-size:18px}}
+.pt thead td{white-space:normal}
+.pt .cond td{background:var(--surface);color:var(--muted);font-size:11.5px;line-height:1.5;text-align:left;padding-block:4px 8px}
+.feat{list-style:none;margin:0;padding:0;display:grid;gap:4px;font-size:13.5px}
+.feat li{display:grid;grid-template-columns:14px 1fr;gap:6px;line-height:1.55}
+.feat li>span{min-width:0}
+.feat li::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--cc);margin-top:7px}
+.callrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:6px}
+.callrow div{background:var(--sheet-grey);border-radius:6px;padding:6px 8px;display:grid;gap:0}
+.callrow span{font-size:11.5px;color:var(--muted);line-height:1.4}
+.callrow b{font-family:var(--display);font-weight:400;font-size:17px;font-variant-numeric:tabular-nums}
+.callrow b small{font-family:var(--body);font-size:11px}
+.sec-l{font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--muted)}
+.upg{border:2px solid var(--cc);border-radius:8px;padding:10px 12px;display:grid;gap:4px;background:color-mix(in srgb,var(--cc) 6%,var(--surface))}
+.upg .t{font-weight:700;font-size:14px}
+.upg .v{font-family:var(--display);font-size:20px;color:var(--cc);font-variant-numeric:tabular-nums}
+.upg p{font-size:12.5px;color:var(--muted);line-height:1.5}
+.upg .ex{font-size:13px;color:var(--ink)}
+.ipr{display:flex;flex-wrap:wrap;gap:5px}
+.ipr span{font-size:12px;font-weight:700;border:1px solid var(--line);background:var(--surface2);border-radius:5px;padding:1px 7px;white-space:nowrap}
+.ipr span.new{border-color:var(--cc);color:var(--ink)}
+.ipr span.soon{border-style:dashed;color:var(--muted)}
+.spnote{font-size:12px;color:var(--muted);line-height:1.5}
+.ipm td,.ipm th{text-align:center}
+.ipm td:first-child,.ipm th:first-child{text-align:left;white-space:nowrap}
+.ipm .y{font-weight:700;color:var(--good)}
+.ipm .s{font-weight:700;color:var(--warn)}
+.ipm .n{color:var(--muted)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="eyebrow">家電量販店 通信コーナー／新人スタッフ向け</div>
+    <h1>通信カウンター新人ドリル</h1>
+    <p class="lede">スマホの料金プランと割引の条件、手数料、2年返却プログラム、BB（光・ホームルーター）と工事を、読んで・動かして・クイズで覚える自習ページです。対象はドコモ（ahamo）・au・UQ mobile・ソフトバンク・ワイモバイル。</p>
+    <div class="stamp"><b>2026年9月24日時点</b><span>金額はすべて税込。料金やキャンペーンはよく変わるので、接客前に必ず公式サイトと社内資料で最新を確認してください。</span></div>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="ページ切り替え">
+    <button class="tab" role="tab" id="t-learn" aria-controls="p-learn" aria-selected="true">学ぶ</button>
+    <button class="tab" role="tab" id="t-sheet" aria-controls="p-sheet" aria-selected="false">料金表</button>
+    <button class="tab" role="tab" id="t-iphone" aria-controls="p-iphone" aria-selected="false">iPhone比較</button>
+    <button class="tab" role="tab" id="t-sim" aria-controls="p-sim" aria-selected="false">料金シミュレーター</button>
+    <button class="tab" role="tab" id="t-quiz" aria-controls="p-quiz" aria-selected="false">クイズ</button>
+    <button class="tab" role="tab" id="t-res" aria-controls="p-res" aria-selected="false">学習リソース</button>
+  </nav>
+
+  <!-- ================= LEARN ================= -->
+  <main id="p-learn" role="tabpanel" aria-labelledby="t-learn">
+    <div class="chips">
+      <a class="chip" href="#c1">1 用語</a>
+      <a class="chip" href="#c2">2 キャリアと料金</a>
+      <a class="chip" href="#c3">3 割引の条件</a>
+      <a class="chip" href="#c4">4 手数料と契約の条件</a>
+      <a class="chip" href="#c5">5 2年返却</a>
+      <a class="chip" href="#c6">6 BB（光・ホームルーター）</a>
+      <a class="chip" href="#c7">7 開通工事</a>
+    </div>
+
+    <!-- ch1 -->
+    <section class="ch" id="c1">
+      <div class="ch-head">
+        <div class="ch-no">CHAPTER 1</div>
+        <h2>用語をそろえる</h2>
+        <p class="ch-lead">まずは買場で飛び交う言葉から。店内の略語はお客様には通じないので、右側の「お客様への言い方」に言いかえて話します。</p>
+      </div>
+
+      <h3>買場でよく使う言葉</h3>
+      <div class="jargon">
+        <div class="jg"><div class="w">BB<small>ビービー</small></div><p class="m">ブロードバンドの略。<strong>家のインターネット全般</strong>（光回線・ホームルーター）のこと。「BB獲得」＝家のネットの契約をいただくこと。</p><p class="say">お客様へ：<b>「ご自宅のインターネット」</b></p></div>
+        <div class="jg"><div class="w">機変<small>きへん</small></div><p class="m">機種変更。<strong>同じ会社のまま端末だけ</strong>替えること。</p><p class="say">お客様へ：<b>「機種変更」</b></p></div>
+        <div class="jg"><div class="w">MNP<small>のりかえ</small></div><p class="m">番号ポータビリティ。<strong>電話番号そのまま他社へ</strong>移ること。</p><p class="say">お客様へ：<b>「お乗り換え」</b></p></div>
+        <div class="jg"><div class="w">新規<small>しんき</small></div><p class="m"><strong>新しい電話番号</strong>で契約すること。お子様の初スマホなど。</p><p class="say">お客様へ：<b>「新しくご契約」</b></p></div>
+        <div class="jg"><div class="w">予番<small>よばん</small></div><p class="m"><strong>MNP予約番号</strong>。今の会社で発行してもらう乗り換え用の番号で、有効期限は発行日を含めて15日。<strong>MNPでは必須</strong>（不要なのはアップグレード＝au⇄UQ、ソフトバンク⇄ワイモバイルの番号移行のときだけ）。</p><p class="say">お客様へ：<b>「お乗り換え用の予約番号」</b></p></div>
+        <div class="jg"><div class="w">S4<small>エスフォー</small></div><p class="m"><strong>補償サービス</strong>（故障・紛失に備えるオプション）のこと。2年返却で壊れたまま返すときの費用も変わる。</p><p class="say">お客様へ：<b>「端末の補償サービス」</b></p></div>
+        <div class="jg"><div class="w">SIM単<small>シムたん</small></div><p class="m"><strong>SIMだけの乗り換え</strong>（端末は買わず、回線だけMNPする）。施策の条件は端末購入と同じで、<strong>乗り換え元の契約が181日以上</strong>必要（足りなくても手続き自体はできる）。</p><p class="say">お客様へ：<b>「SIMだけのお乗り換え」</b></p></div>
+        <div class="jg"><div class="w">施策<small>しさく</small></div><p class="m">乗り換えや購入のときに付くポイント・値引きなどの特典。乗り換え施策は<strong>SIM単でも端末購入でも、乗り換え元の契約が181日以上</strong>ないと使えない（手続きはできる）。キャリア契約と分リセでも条件が違う（第5章）。</p><p class="say">お客様へ：<b>「特典」「キャンペーン」</b></p></div>
+        <div class="jg"><div class="w">分リセ<small>ぶんりせ</small></div><p class="m"><strong>分割リセットプログラム</strong>の略。端末を分割で買い、24か月目に返却すると残りの支払いがリセットされる店舗のプログラム。キャリア契約と違い、乗り換え施策に<strong>今の端末の買取が必須ではない</strong>。</p><p class="say">お客様へ：<b>「分割リセットプログラム」</b></p></div>
+        <div class="jg"><div class="w">移植<small>いしょく</small></div><p class="m"><strong>データ移行</strong>。写真・連絡先・LINEなどを新しい端末へ移す作業。</p><p class="say">お客様へ：<b>「データのお引っ越し」</b></p></div>
+      </div>
+
+      <h3>料金まわりの基本用語</h3>
+      <dl class="gloss">
+        <div><dt>番号移行</dt><dd>同じグループ内で番号ごと移ること（ソフトバンク⇄ワイモバイル、au⇄UQ）。MNPとは手数料や特典の扱いが違うことがあります。</dd></div>
+        <div><dt>メイン／サブブランド</dt><dd>メイン＝ドコモ・au・ソフトバンク。サブ＝UQ mobile（KDDI）、ワイモバイル（ソフトバンク）。ahamoはドコモの料金プランの1つ（手続きはオンライン中心）。</dd></div>
+        <div><dt>割引前／割引後</dt><dd>広告の最安値は、家族割・光セット割・カード払い割などが全部そろった場合の金額。お客様に当てはまる割引だけで計算し直すのが基本。</dd></div>
+        <div><dt>段階制</dt><dd>使ったデータ量で月額が変わる仕組み。ドコモ MAXは〜1GB／〜3GB／無制限の3段階。</dd></div>
+        <div><dt>残価／残債</dt><dd>残価＝2年後の引き取り額としてキャリアが先に決めた額。残債＝分割払いでまだ払っていない残り。</dd></div>
+        <div><dt>実質負担額</dt><dd>端末を返却する前提で、お客様が実際に払う額。端末は手元に残りません。</dd></div>
+        <div><dt>光コラボ</dt><dd>NTTの光回線を借りて各社が自社サービスとして売る仕組み（ドコモ光・ニフティ光・ソフトバンク光など）。</dd></div>
+        <div><dt>指定オプション</dt><dd>セット割の条件になっている有料オプション。ソフトバンク光なら光BBユニット等（月550円〜）、ニフティ光なら光電話。</dd></div>
+      </dl>
+    </section>
+
+    <!-- ch2 -->
+    <section class="ch" id="c2">
+      <div class="ch-head">
+        <div class="ch-no">CHAPTER 2</div>
+        <h2>キャリアと料金プラン</h2>
+        <p class="ch-lead">黄色の数字は「全部の割引がそろった場合の目安」。お客様ごとの金額は「料金シミュレーター」タブで割引を1つずつ動かして確認できます。</p>
+      </div>
+
+      <div class="tbl">
+        <table>
+          <thead><tr><th>ブランド</th><th>代表プラン</th><th>データ</th><th class="r">割引前</th><th class="r">全割引後の目安</th><th>お客様の一番のメリット</th></tr></thead>
+          <tbody>
+            <tr><td><span class="tag" style="--cc:var(--c-docomo)">ドコモ</span></td><td>ドコモ MAX</td><td>無制限</td><td class="r">8,448円</td><td class="r"><span class="pop">5,148円</span></td><td>動画サービス2つが追加料金なし</td></tr>
+            <tr><td><span class="tag" style="--cc:var(--c-ahamo)">ahamo</span></td><td>ahamo</td><td>30GB（増量中40GB）</td><td class="r">2,970円</td><td class="r"><span class="pop">2,970円</span></td><td>割引条件なしでこの値段</td></tr>
+            <tr><td><span class="tag" style="--cc:var(--c-au)">au</span></td><td>auバリューリンクプラン</td><td>使い放題</td><td class="r">8,008円</td><td class="r"><span class="pop">5,478円</span></td><td>Pontaパス込み、衛星通信も使える</td></tr>
+            <tr><td><span class="tag" style="--cc:var(--c-uq)">UQ mobile</span></td><td>トクトクプラン2</td><td>〜30GB</td><td class="r">4,048円</td><td class="r"><span class="pop">1,628円〜</span></td><td>使わない月は自動で安くなる</td></tr>
+            <tr><td><span class="tag" style="--cc:var(--c-sb)">ソフトバンク</span></td><td>テイガク無制限</td><td>無制限</td><td class="r">8,008円</td><td class="r"><span class="pop">5,148円</span></td><td>ギガを気にせず使える</td></tr>
+            <tr><td><span class="tag" style="--cc:var(--c-ym)">ワイモバイル</span></td><td>シンプル3 M</td><td>30GB</td><td class="r">4,378円</td><td class="r"><span class="pop">1,958円</span></td><td>光セットで毎月1,650円引き</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="carriers">
+        <article class="card" style="--cc:var(--c-docomo)">
+          <div><span class="tag" style="--cc:var(--c-docomo)">ドコモ</span> <span class="grp">／メインブランド</span></div>
+          <p class="one">無制限にエンタメ特典2つ＋海外データ30GB。光・家族・dカードをそろえるほど安くなる。</p>
+          <ul class="plist">
+            <li><span>ドコモ MAX（〜1GB／〜3GB／無制限）</span><span class="price">5,698／6,798／8,448円</span><small>全割引で2,398／3,498／5,148円。どの段階でも割引は全部効く。Lemino・dアニメストア・DAZN・NBA docomoから毎月2つを選べる。</small></li>
+            <li><span>ドコモ ポイ活 MAX（無制限）</span><span class="price">11,748円</span><small>d払い・dカードの利用でポイント上乗せ。ポイ活好きのお客様向け。</small></li>
+            <li><span>ドコモ mini（4GB／10GB）</span><span class="price">2,750／3,850円</span><small>全割引で880／1,980円。家族割（みんなドコモ割）と長期利用割は対象外。</small></li>
+          </ul>
+          <div class="merit"><b>お客様のメリット</b>動画サービスを別に払っている人は、その分がまるごと浮く。海外旅行でも追加料金なしでデータが使える。</div>
+          <div class="who"><b>こんなお客様に</b>家族でドコモ／dカード・dポイントを使う／動画サービスを契約している</div>
+        </article>
+
+        <article class="card" style="--cc:var(--c-ahamo)">
+          <div><span class="tag" style="--cc:var(--c-ahamo)">ahamo</span> <span class="grp">／ドコモの料金プランの1つ</span></div>
+          <p class="one">割引条件なしで2,970円。30GB（今は40GB）と5分かけ放題、海外データまで込み。</p>
+          <ul class="plist">
+            <li><span>ahamo（30GB・増量中40GB）</span><span class="price">2,970円</span><small>5分かけ放題込み。かけ放題は+1,100円。増量キャンペーンの終了日は未発表。</small></li>
+            <li><span>大盛りオプション</span><span class="price">+1,980円</span><small>合計4,950円で110GB（増量中120GB）。</small></li>
+          </ul>
+          <div class="merit"><b>お客様のメリット</b>ドコモの料金プランの1つなので、通信費は安いまま、iPhone 17や18 Proなどの最新機種もドコモと同じように買える。家族割や光をそろえなくても最初から安い。1人暮らしでもお得感が変わらない。</div>
+          <div class="who"><b>こんなお客様に</b>手続きを自分でできる／割引条件をそろえたくない／20〜30GBくらい使う。<br>※家族割・光セット割は対象外（家族の回線数には数えられる）。契約は18歳以上。</div>
+        </article>
+
+        <article class="card" style="--cc:var(--c-au)">
+          <div><span class="tag" style="--cc:var(--c-au)">au</span> <span class="grp">／メインブランド（KDDI）</span></div>
+          <p class="one">使い放題にPontaパス・衛星通信・海外データが付く。</p>
+          <ul class="plist">
+            <li><span>auバリューリンクプラン（使い放題）</span><span class="price">8,008円</span><small>全割引で5,478円。Pontaパス込み、au Starlink Direct、海外データの無料枠つき。</small></li>
+            <li><span>使い放題MAX＋ 5G/4G</span><span class="price">7,788円</span><small>全割引で5,258円。Pontaパスは付かない。</small></li>
+            <li><span>1GB以下の月</span><span class="price">−1,650円</span><small>両プランとも、ほとんど使わなかった月は自動で割引。</small></li>
+          </ul>
+          <div class="merit"><b>お客様のメリット</b>山や海など電波が届きにくい場所でも衛星で連絡が取れる安心感。Pontaパスの特典も使える。</div>
+          <div class="who"><b>こんなお客様に</b>Ponta・au PAYを使う／使い放題＋サブスクがほしい／アウトドアが多い</div>
+        </article>
+
+        <article class="card" style="--cc:var(--c-uq)">
+          <div><span class="tag" style="--cc:var(--c-uq)">UQ mobile</span> <span class="grp">／auのサブブランド</span></div>
+          <p class="one">35GB＋10分かけ放題込みで3,168円〜。少量派は自宅セット割で1,628円〜。</p>
+          <ul class="plist">
+            <li><span>コミコミプランバリュー（35GB）</span><span class="price">3,828円</span><small>10分かけ放題・Pontaパス込み。使える割引はコミコミおトク割（−660円・加入から13か月）だけ。</small></li>
+            <li><span>トクトクプラン2（〜30GB）</span><span class="price">4,048円</span><small>5GB以下の月は自動で−1,100円。自宅セット割＋au PAYカード払いで1,628円（5GB以下）／2,728円。</small></li>
+          </ul>
+          <div class="merit"><b>お客様のメリット</b>auと同じ電波で安く使える。auでんきだけでも自宅セット割が付くので、光を替えなくても割引できる。</div>
+          <p class="disc"><strong>データくりこし</strong>：トクトクプラン2・コミコミプランバリューとも、余ったデータは翌月にくりこせる。<strong>増量オプションⅡ</strong>（月550円）で+5GB（初加入7か月無料）。</p>
+          <div class="who"><b>こんなお客様に</b>家のネット・でんきをセットにできる → トクトクプラン2／割引条件なしで通話もしたい → コミコミプランバリュー</div>
+        </article>
+
+        <article class="card" style="--cc:var(--c-sb)">
+          <div><span class="tag" style="--cc:var(--c-sb)">ソフトバンク</span> <span class="grp">／メインブランド</span></div>
+          <p class="one">PayPayをよく使う人はペイトク2で還元、ポイント不要ならテイガク無制限。</p>
+          <ul class="plist">
+            <li><span>ペイトク2（無制限）</span><span class="price">10,538円</span><small>全割引で7,678円。PayPayポイント+5%（上限3,000円/月）、PayPayカード ゴールド連携で+10%（上限4,000円/月）。</small></li>
+            <li><span>テイガク無制限</span><span class="price">8,008円</span><small>全割引で5,148円。ポイント還元なしのシンプルな無制限。</small></li>
+            <li><span>ミニフィット2（〜2GB／〜5GB）</span><span class="price">5,258／6,358円</span><small>全割引で3,058／4,158円。家族割はミニフィット2だけ最大−550円。</small></li>
+          </ul>
+          <div class="merit"><b>お客様のメリット</b>PayPayでの買い物が多いほど実質の負担が減る。家族は住所が別でも家族割に入れる。</div>
+          <div class="who"><b>こんなお客様に</b>PayPayで買い物が多い → ペイトク2／ポイントより月額重視 → テイガク無制限</div>
+        </article>
+
+        <article class="card" style="--cc:var(--c-ym)">
+          <div><span class="tag" style="--cc:var(--c-ym)">ワイモバイル</span> <span class="grp">／ソフトバンクのサブブランド</span></div>
+          <p class="one">光セット割が1,650円と大きく、Sなら858円〜。Lは10分かけ放題込み。</p>
+          <ul class="plist">
+            <li><span>シンプル3 S（5GB）</span><span class="price">3,278円</span><small>全割引で858円。</small></li>
+            <li><span>シンプル3 M（30GB）</span><span class="price">4,378円</span><small>全割引で1,958円。</small></li>
+            <li><span>シンプル3 L（35GB）</span><span class="price">5,478円</span><small>全割引で3,058円。10分かけ放題込み（S・Mは+880円）。</small></li>
+          </ul>
+          <div class="merit"><b>お客様のメリット</b>店舗でサポートを受けながら格安SIM並みの料金にできる。SoftBank Airでも光と同じ1,650円引き。</div>
+          <p class="disc"><strong>データくりこし</strong>：シンプル3（S・M・L）とも、余ったデータは翌月にくりこせる。<strong>データ増量オプション</strong>（月550円）でS +2GB／M・L +5GB（初加入6か月無料）。</p>
+          <div class="who"><b>こんなお客様に</b>家がソフトバンク光・SoftBank Air／店舗で相談したい節約派</div>
+        </article>
+      </div>
+
+      <div class="callout warn">
+        <h3>接客で最初に聞く5つ</h3>
+        <ul class="tight">
+          <li>毎月どのくらいデータを使うか（設定画面で一緒に確認すると確実）</li>
+          <li>家のネットは何か（BBの会社・ホームルーター・なし）と、電気の契約先</li>
+          <li>家族が同じ会社を使っているか、何回線か</li>
+          <li>よく使う決済・ポイント（dカード／au PAY／PayPay）</li>
+          <li>電話をよくかけるか（かけ放題が必要か）</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ch3 -->
+    <section class="ch" id="c3">
+      <div class="ch-head">
+        <div class="ch-no">CHAPTER 3</div>
+        <h2>割引の条件を一覧で見る</h2>
+        <p class="ch-lead">割引は大きく「家族」「BB（光・ホームルーター）」「でんき」「カード払い」「その他」の5種類。色がそろっているので、横に見ればブランドごとの違いが分かります。</p>
+      </div>
+
+      <div class="tbl">
+        <table class="mx">
+          <thead><tr><th>割引の種類</th><th><span class="tag" style="--cc:var(--c-docomo)">ドコモ</span></th><th><span class="tag" style="--cc:var(--c-ahamo)">ahamo</span></th><th><span class="tag" style="--cc:var(--c-au)">au</span></th><th><span class="tag" style="--cc:var(--c-uq)">UQ</span></th><th><span class="tag" style="--cc:var(--c-sb)">ソフトバンク</span></th><th><span class="tag" style="--cc:var(--c-ym)">ワイモバイル</span></th></tr></thead>
+          <tbody>
+            <tr style="--kc:var(--k-family)">
+              <td><span class="kchip">家族</span></td>
+              <td><b>最大 −1,210円</b>みんなドコモ割。2回線−550／3回線〜−1,210（miniは対象外）</td>
+              <td class="no">なし<br>（回線数には数える）</td>
+              <td><b>最大 −1,210円</b>家族割プラス。2人−660／3人〜−1,210</td>
+              <td><b>−550円/人</b>家族セット割（トクトク2のみ）。自宅セット割があればそちらが優先</td>
+              <td><b>最大 −1,210円</b>新みんな家族割。2人−660／3人〜−1,210</td>
+              <td><b>−1,100円</b>家族割引サービス。<strong>2回線目以降だけ</strong><span class="ex">1つだけ</span></td>
+            </tr>
+            <tr style="--kc:var(--k-bb)">
+              <td><span class="kchip">光回線</span></td>
+              <td><b>−1,210円</b>ドコモ光セット割</td>
+              <td class="no">なし</td>
+              <td><b>−1,100円</b>auスマートバリュー。ニフティ光など＋<strong>光電話</strong>が条件</td>
+              <td><b>−1,100円</b>自宅セット割（ネットコース）。条件はauと同じ</td>
+              <td><b>−1,100円</b>おうち割 光セット。ソフトバンク光は<strong>指定オプション</strong>（月550円〜）が必要</td>
+              <td><b>−1,650円</b>おうち割 光セット(A)。条件はソフトバンクと同じ<span class="ex">1つだけ</span></td>
+            </tr>
+            <tr style="--kc:var(--k-hr)">
+              <td><span class="kchip">ホームルーター</span></td>
+              <td><b>−1,210円</b>home 5G セット割（光セット割とは重複なし）</td>
+              <td class="no">なし</td>
+              <td><b>−1,100円</b>au ホームルーター 5Gもスマートバリュー対象</td>
+              <td><b>−1,100円</b>自宅セット割の対象</td>
+              <td><b>−1,100円</b>SoftBank Airは<strong>オプション不要</strong></td>
+              <td><b>−1,650円</b>SoftBank Airでも光と同額<span class="ex">1つだけ</span></td>
+            </tr>
+            <tr style="--kc:var(--k-denki)">
+              <td><span class="kchip">でんき</span></td>
+              <td><b>−110円</b>ドコモでんきセット割</td>
+              <td class="no">なし</td>
+              <td class="no">スマホ代は割引なし<br>（auでんきはPontaポイント還元）</td>
+              <td><b>−1,100円</b>自宅セット割（でんきコース）＝<strong>auでんき</strong>でOK。ネットコースとは重複なし</td>
+              <td class="no">おうちでんきのセット割あり（ペイトク2等が対象かは要確認）</td>
+              <td><b>−1,100円</b>でんきセット(E)。<strong>M・Lのみ・24か月</strong><span class="ex">1つだけ</span></td>
+            </tr>
+            <tr style="--kc:var(--k-card)">
+              <td><span class="kchip">カード払い</span></td>
+              <td><b>−220／−550円</b>dカード／dカード GOLD以上</td>
+              <td class="no">なし</td>
+              <td><b>−220円</b>au PAYカード（ゴールドも同額）</td>
+              <td><b>−220円</b>au PAYカード（トクトク2のみ）</td>
+              <td><b>−330／−550円</b>PayPayカード／ゴールド</td>
+              <td><b>−330／−770円</b>PayPayカード／ゴールド。<strong>他の割引と併用OK</strong></td>
+            </tr>
+            <tr style="--kc:var(--k-low)">
+              <td><span class="kchip">その他</span></td>
+              <td><b>−110／−220円</b>長期利用割（10年／20年〜、MAXのみ）</td>
+              <td class="no">—</td>
+              <td><b>−1,650円</b>1GB以下の月は自動割引</td>
+              <td><b>−1,100円</b>5GB以下の月は自動割引（トクトク2）。コミコミは おトク割−660円（13か月）</td>
+              <td class="no">—</td>
+              <td><b>−1,100円</b>超！おトク割（M・L・12か月の期間限定）<span class="ex">1つだけ</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="two">
+        <div class="callout warn">
+          <h3>「重ならない」ルールに注意</h3>
+          <ul class="tight">
+            <li><strong>ワイモバイル</strong>：家族割・光セット(A)・でんきセット(E)・超！おトク割は<strong>どれか1つだけ</strong>（大きい方が適用）。カード割だけは併用できる。</li>
+            <li><strong>UQ</strong>：自宅セット割と家族セット割は重複なし（自宅が優先）。ネットコースとでんきコースも重複なし。<strong>コミコミプランバリューは自宅・家族・カード割すべて対象外</strong>。</li>
+            <li><strong>ドコモ</strong>：ドコモ光セット割とhome 5G セット割は重複なし。<strong>ahamoは家族割・光セット割とも対象外</strong>。</li>
+          </ul>
+        </div>
+        <div class="callout">
+          <h3>お店のBBで付く割引</h3>
+          <ul class="tight">
+            <li>ドコモのお客様 → <strong>ドコモ光</strong>（−1,210円）／home 5G</li>
+            <li>au・UQのお客様 → <strong>ニフティ光＋光電話</strong>（−1,100円）／au ホームルーター 5G</li>
+            <li>ソフトバンク・ワイモバイルのお客様 → <strong>ソフトバンク光＋指定オプション</strong>（−1,100／−1,650円）／SoftBank Air</li>
+          </ul>
+          <p class="note">詳しくは第6章。</p>
+        </div>
+      </div>
+
+      <div class="box">
+        <h3>割引ごとのお客様メリット（そのままトークに使える）</h3>
+        <ul class="tight">
+          <li><span class="kchip" style="--kc:var(--k-family)">家族</span> ご家族がまとめて同じ会社になると、<strong>1人あたり毎月最大1,210円</strong>安くなります（ドコモ・au・ソフトバンク）。離れて暮らすご家族も対象です。</li>
+          <li><span class="kchip" style="--kc:var(--k-bb)">BB</span> おうちのネットをそろえるだけで、<strong>ご家族全員のスマホ代がずっと</strong>安くなります（最大10回線など）。</li>
+          <li><span class="kchip" style="--kc:var(--k-denki)">でんき</span> 電気の契約先を変えるだけでスマホ代が下がります。<strong>UQ・ワイモバイルは月1,100円</strong>と大きめ。</li>
+          <li><span class="kchip" style="--kc:var(--k-card)">カード</span> 支払い方法を変えるだけで毎月安くなります。ゴールドは割引が大きい一方、<strong>年会費がかかる</strong>ので使い方と合わせて。</li>
+          <li><span class="kchip" style="--kc:var(--k-low)">その他</span> あまり使わなかった月は<strong>自動で</strong>安くなります（au 1GB以下・UQ 5GB以下）。期間限定割は<strong>終わった後の金額</strong>も必ず伝えます。</li>
+        </ul>
+      </div>
+      <div class="row"><button class="btn" type="button" data-goto="sim">シミュレーターで割引を動かしてみる</button></div>
+    </section>
+
+    <!-- ch4 -->
+    <section class="ch" id="c4">
+      <div class="ch-head">
+        <div class="ch-no">CHAPTER 4</div>
+        <h2>手数料と契約の条件</h2>
+        <p class="ch-lead">「月額以外にかかるお金」と「契約に必要なもの」。説明もれがあるとトラブルになりやすいところです。</p>
+      </div>
+
+      <div class="tiles">
+        <div class="tile"><span class="l">店頭の契約事務手数料</span><span class="v">4,950<small>円</small></span><p>ドコモ・au・UQ・ソフトバンク・ワイモバイル共通。新規・MNP・機変・SIM発行とも。</p></div>
+        <div class="tile"><span class="l">MNPの転出手数料</span><span class="v">0<small>円</small></span><p>今の会社から出ていくときの手数料はどこも無料。</p></div>
+        <div class="tile"><span class="l">1年以内に解約すると</span><span class="v">最大1,100<small>円</small></span><p>全ブランドで短期解約の契約解除料あり。2年縛りの解約金はない。</p></div>
+        <div class="tile"><span class="l">端末値引きの上限</span><span class="v">4万<small>円（税抜）</small></span><p>回線契約とセットの値引きの原則上限。安い端末はさらに低い上限あり。</p></div>
+      </div>
+
+      <div class="tbl">
+        <table>
+          <thead><tr><th>ブランド</th><th class="r">店頭の事務手数料</th><th>メモ</th></tr></thead>
+          <tbody>
+            <tr><td><span class="tag" style="--cc:var(--c-docomo)">ドコモ</span></td><td class="r">4,950円</td><td>2025年9月に店頭を値上げ</td></tr>
+            <tr><td><span class="tag" style="--cc:var(--c-ahamo)">ahamo</span></td><td class="r">4,950円</td><td>量販店などの「ahamo乗り換え・新規契約フェア」での店頭契約（継続中かは要確認）</td></tr>
+            <tr><td><span class="tag" style="--cc:var(--c-au)">au</span></td><td class="r">4,950円</td><td>2026年8月から。端末なしの番号移行も有料化</td></tr>
+            <tr><td><span class="tag" style="--cc:var(--c-uq)">UQ mobile</span></td><td class="r">4,950円</td><td>2026年8月から</td></tr>
+            <tr><td><span class="tag" style="--cc:var(--c-sb)">ソフトバンク</span></td><td class="r">4,950円</td><td>番号移行・SIM再発行も店頭4,950円</td></tr>
+            <tr><td><span class="tag" style="--cc:var(--c-ym)">ワイモバイル</span></td><td class="r">4,950円</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="two">
+        <div class="box">
+          <h3>契約に必要なもの</h3>
+          <ul class="tight">
+            <li><strong>本人確認書類の原本</strong>：運転免許証、マイナンバーカードなど。<strong>健康保険証は2025年12月2日から使えない</strong>。</li>
+            <li>書類の住所が今の住所と違うときは補助書類（3か月以内の住民票・公共料金の領収書など）。</li>
+            <li><strong>支払い方法</strong>：本人名義のクレジットカード、またはキャッシュカード（口座振替）。</li>
+            <li><strong>MNPなら予番（MNP予約番号）が必須</strong>。アップグレード（au⇄UQ、ソフトバンク⇄ワイモバイルの番号移行）のときだけ不要。</li>
+            <li><strong>18歳未満</strong>：親権者の同意書と親権者の本人確認書類（同伴が必要な会社も）。<strong>ahamoは18歳以上のみ</strong>。</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>端末を買うときの条件</h3>
+          <ul class="tight">
+            <li><strong>分割払いは審査あり</strong>（信用情報の照会）。通らないと分割や返却プログラムは使えない。</li>
+            <li>頭金の有無は販売店ごとに違う。<strong>自店のルールを確認</strong>。</li>
+            <li>値引き上限：端末価格が8万円以上なら4万円（税抜）、4万〜8万円なら価格の半分、4万円以下なら2万円まで。</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>解約・キャンセル</h3>
+          <ul class="tight">
+            <li>契約から8日以内なら「8日間キャンセル（初期契約解除）」ができる場合がある。</li>
+            <li>1年以内の解約は契約解除料（最大1,100円）。同じグループ内の番号移行は対象外。</li>
+            <li>解約しても<strong>端末の分割の残りは払い続ける</strong>。</li>
+          </ul>
+        </div>
+        <div class="box" style="grid-column:1/-1">
+          <h3>注意事項：答え方に気をつける質問</h3>
+          <div class="qa">
+            <p class="qq">お客様「ブラックリストはありますか？」</p>
+            <p class="aa">「ブラックリストというものはありません。ただ、分割払いには契約の審査があり、審査の結果によってはご希望に添えないことがあります。」</p>
+            <p class="ng">NG：「ありますよ」「○○さんなら大丈夫です」「たぶん通ります」など、あるかないか・通るかどうかを言い切る。</p>
+          </div>
+          <div class="qa">
+            <p class="qq">お客様「審査に落ちた理由を教えてください」</p>
+            <p class="aa">「審査はキャリア（信販会社）が行っているため、理由や基準は私どもでもお答えできないんです。」</p>
+            <p class="ng">NG：理由を推測で話す。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ch5 -->
+    <section class="ch" id="c5">
+      <div class="ch-head">
+        <div class="ch-no">CHAPTER 5</div>
+        <h2>2年返却プログラム</h2>
+        <p class="ch-lead">「端末を分割で買い、決められた時期に返すと残りの支払いがなくなる」仕組み。2026年春から3社とも返却時に<strong>最大22,000円の利用料</strong>がかかるようになりました。<strong>同じ会社で次の機種を買えば0円</strong>です。</p>
+      </div>
+
+      <div class="tl" aria-label="返却プログラムの支払いと返却時期の図">
+        <div class="legend"><span><i style="background:color-mix(in srgb,var(--c-docomo) 22%,var(--surface))"></i>払う期間</span><span><i style="background:var(--good-soft)"></i>返却すれば払わなくてよい</span><span><i style="border:2px solid var(--ink)"></i>返却できる時期</span></div>
+        <div class="tl-row">
+          <div class="tl-label">ドコモ いつでもカエドキプログラム <span>24回払い（24回目＝残価）</span></div>
+          <div class="bar">
+            <div class="seg pay" style="--cc:var(--c-docomo);left:0;width:47.9%">1〜23回目を払う</div>
+            <div class="seg free" style="left:47.9%;width:2.1%"></div>
+            <div class="win" style="left:45.8%;width:4.2%"></div>
+          </div>
+          <p class="note">23か月目に返却 → 24回目（残価）が不要。返さなければ残価を24回に分けて払う（一括も可）。</p>
+        </div>
+        <div class="tl-row">
+          <div class="tl-label">au スマホトクするプログラム＋ <span>24回払い（23回＋最終回）</span></div>
+          <div class="bar">
+            <div class="seg pay" style="--cc:var(--c-au);left:0;width:47.9%">1〜23回目を払う</div>
+            <div class="seg free" style="left:47.9%;width:2.1%"></div>
+            <div class="win" style="left:25%;width:27.1%"></div>
+          </div>
+          <p class="note">13〜25か月目に返却 → 最終回分が不要。返さなければ最終回分を審査のうえ24回に分けて払う。</p>
+        </div>
+        <div class="tl-row">
+          <div class="tl-label">ソフトバンク 新トクするサポート＋ <span>48回払い</span></div>
+          <div class="bar">
+            <div class="seg pay" style="--cc:var(--c-sb);left:0;width:50%">1〜24回目を払う</div>
+            <div class="seg free" style="left:50%;width:50%">最大24回分が不要</div>
+            <div class="win" style="left:50%;width:50%"></div>
+          </div>
+          <p class="note">25か月目以降に返却 → 残り最大24回分が不要。13〜24か月目の早期返却は早期利用料と補償加入が必要。</p>
+        </div>
+        <div class="scale" aria-hidden="true"><span style="left:0;transform:none">1か月</span><span style="left:25%">12</span><span style="left:50%">24</span><span style="left:75%">36</span><span style="right:0;left:auto;transform:none">48か月</span></div>
+      </div>
+
+      <div class="tbl">
+        <table>
+          <thead><tr><th>項目</th><th><span class="tag" style="--cc:var(--c-docomo)">ドコモ</span></th><th><span class="tag" style="--cc:var(--c-au)">au</span></th><th><span class="tag" style="--cc:var(--c-sb)">ソフトバンク</span></th></tr></thead>
+          <tbody>
+            <tr><td>名前</td><td>いつでもカエドキプログラム</td><td>スマホトクするプログラム＋</td><td>新トクするサポート＋</td></tr>
+            <tr><td>分割回数</td><td>24回（残価設定型）</td><td>24回</td><td>48回</td></tr>
+            <tr><td>返却時期</td><td>23か月目（22か月目までの早期返却は特典あり）</td><td>13〜25か月目</td><td>25か月目以降（13〜24か月目は条件付き）</td></tr>
+            <tr><td>返却時の利用料</td><td>最大22,000円</td><td>最大22,000円</td><td>機種ごとに上限あり</td></tr>
+            <tr><td>利用料が0円になる条件</td><td>ドコモで機種を買い替え</td><td>auで機変 or 機種のみ購入</td><td>機変 or 機種のみ購入</td></tr>
+            <tr><td>回線契約なしで加入</td><td>できる</td><td><strong>加入時は回線が必要</strong></td><td>できる</td></tr>
+            <tr><td>壊れたまま返却</td><td>22,000円（S4加入なら2,200円）</td><td>22,000円（S4加入で0〜2,200円）</td><td>最大44,000円（あんしん保証パック継続なら0円）</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="two">
+        <div class="box">
+          <h3>お客様のメリット</h3>
+          <ul class="tight">
+            <li>最新機種を<strong>毎月の負担を抑えて</strong>使える</li>
+            <li>2年ごとに新しい機種へ替えやすい</li>
+            <li>下取りの査定額を気にしなくてよい</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>必ず伝えること</h3>
+          <ul class="tight">
+            <li>端末は<strong>自分のものにならない</strong>（返す前提の価格）</li>
+            <li>返却時に利用料がかかる場合がある。同じ会社で買い替えれば0円</li>
+            <li>画面割れなどは追加費用 → <strong>S4（補償）とセットで</strong>考える</li>
+            <li>分割払いには審査がある。紛失すると返せず、残りを払うことになる</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>返却前のチェック</h3>
+          <ul class="tight">
+            <li>移植（データ移行）・バックアップ</li>
+            <li>「iPhoneを探す」などのロックを解除</li>
+            <li>初期化、SIMカードを抜く</li>
+            <li>期限内に届くように送る・持ち込む</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>返却時期の早見表</h3>
+      <p class="ch-lead">購入した月を入れると、返却の目安月が出ます。<strong>購入した月の翌月を1か月目</strong>として数えています（正確な日付は契約書類・社内資料で確認）。</p>
+      <div class="rt">
+        <div class="ctl"><label class="lab" for="rt-buy">端末を購入した月</label><input type="month" id="rt-buy" value="2024-10"></div>
+        <div class="tbl"><table class="rtt"><thead><tr><th>プログラム</th><th>返却できる時期</th><th>おすすめの返却月</th><th>早すぎると／過ぎると</th></tr></thead><tbody id="rt-body"></tbody></table></div>
+        <p class="note">センターの査定が終わるまで端末代の請求は止まりません。<strong>月末近くの返却は査定が間に合わず、翌月分の端末代がかかる可能性</strong>があるので、目安月の<strong>前半</strong>に返却するよう案内します。</p>
+      </div>
+
+      <div class="two">
+        <div class="callout warn">
+          <h3>返却時の傷・故障の説明（査定はセンター）</h3>
+          <ul class="tight">
+            <li>傷や故障の査定は<strong>店舗スタッフではなくセンター</strong>が行う。</li>
+            <li>店頭で<strong>「傷なしなので大丈夫です」「これは傷ありです」と言い切らない</strong>。</li>
+            <li>査定で故障・破損と判断されると、<strong>キャリアは22,000円、分リセは33,000円</strong>かかる可能性があると伝える（ソフトバンクの2026年8月19日以降の加入は査定ランクにより最大44,000円）。</li>
+            <li>センターの査定が終わると請求が止まる。月末に返すと翌月分の端末代がかかる可能性がある。</li>
+          </ul>
+        </div>
+        <div class="callout">
+          <h3>補償（S4）加入者には先に金額を伝える</h3>
+          <ul class="tight">
+            <li><strong>ドコモ</strong>：ケータイ補償サービス／smartあんしん補償に加入していれば故障時 <strong>2,200円</strong>。</li>
+            <li><strong>au</strong>：故障紛失サポート加入で <strong>0〜2,200円</strong>（AppleCare付きで2025年9月以降発売のiPhoneは0円、Androidは2,200円）。</li>
+            <li><strong>ソフトバンク</strong>：あんしん保証パックに入り続けていれば <strong>0円</strong>。</li>
+            <li>「補償に入っていても、この金額がかかる可能性があります」と契約時に伝えておく。</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>キャリア契約と分割リセットプログラムの違い</h3>
+      <p class="ch-lead">端末の買い方は大きく2つ。一番の違いは<strong>乗り換え施策を使うための条件</strong>です。</p>
+      <div class="tiles">
+        <div class="tile" style="border-top:4px solid var(--bad)"><span class="l">キャリア契約（一括・通常分割・返却プログラム）で施策を使う</span><span class="v">買取 必須</span><p>今使っている端末を買取に出すことが条件。</p></div>
+        <div class="tile" style="border-top:4px solid var(--good)"><span class="l">分割リセットプログラムで施策を使う</span><span class="v">買取 不要</span><p>今の端末を手元に残したまま施策を使える。</p></div>
+        <div class="tile" style="border-top:4px solid var(--warn)"><span class="l">乗り換え施策を使う（SIM単・端末購入とも）</span><span class="v">181日<small>以上</small></span><p>乗り換え元の契約期間。足りなくても手続きはできるが施策なし。</p></div>
+      </div>
+      <div class="tbl">
+        <table>
+          <thead><tr><th>項目</th><th>キャリア契約<br><span class="note">一括・通常分割・返却プログラム</span></th><th>分割リセットプログラム</th></tr></thead>
+          <tbody>
+            <tr><td>端末代の契約先</td><td>キャリア（割賦契約）</td><td>店舗で案内する分割購入（信販会社経由）</td></tr>
+            <tr><td>返却して残りを払わない仕組み</td><td>返却プログラムを使った場合のみ（利用料最大22,000円・同じキャリアで買い替えなら0円）</td><td>24か月目に返却すると残りの支払いがリセット（詳しい条件は社内資料で確認）</td></tr>
+            <tr><td><strong>乗り換え施策の条件</strong></td><td><strong>今使っている端末の買取が必須</strong>（一括・通常分割でも同じ）</td><td><strong>買取は必須ではない</strong></td></tr>
+            <tr><td>壊れたまま返却</td><td>最大22,000円（補償加入なら減額・0円あり）</td><td>最大33,000円</td></tr>
+            <tr><td>審査</td><td>キャリアの割賦審査</td><td>信販会社の審査</td></tr>
+            <tr><td>向いているお客様</td><td>キャリアの補償やサポートをまとめたい／今の端末を手放してもよい</td><td>今の端末を手元に残したい・売りたくない（子どもに渡す、予備にする等）</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="two">
+        <div class="callout">
+          <h3>施策を使えるかのチェック</h3>
+          <ul class="tight">
+            <li>キャリア契約で施策を使う → <strong>今の端末を買取に出せるか</strong>を最初に確認</li>
+            <li>買取に出したくない → <strong>分割リセット</strong>を案内</li>
+            <li>乗り換え施策を使う（SIM単・端末購入とも） → <strong>乗り換え元の契約が181日以上</strong>か確認（足りなくても手続きはできるが施策なし）</li>
+          </ul>
+        </div>
+        <div class="callout warn">
+          <h3>社内資料で確認すること</h3>
+          <ul class="tight">
+            <li>分リセの分割回数・返却の手続き方法</li>
+            <li>対象の端末と、組み合わせられる回線契約</li>
+            <li>その月の施策の金額と条件（毎月変わることが多い）</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ch6 -->
+    <section class="ch" id="c6">
+      <div class="ch-head">
+        <div class="ch-no">CHAPTER 6</div>
+        <h2>BB（光回線・ホームルーター）</h2>
+        <p class="ch-lead">BBは「お客様のスマホの会社」から考えるのが基本。スマホと同じグループのBBにすると、家族全員のスマホ代が毎月下がります。</p>
+      </div>
+
+      <div class="hk">
+        <div class="hk-head">
+          <h3>光回線の料金を「実質」で見る</h3>
+          <p class="note">光の月額だけを見ると高く感じますが、家族のスマホが安くなる分を引くと実際の負担はかなり下がります。お客様への説明にそのまま使えます。</p>
+        </div>
+        <div class="hk-ctl">
+          <div class="ctl"><span class="lab">住まい</span>
+            <div class="seg-ctl" role="group" aria-label="住まい" id="h-home">
+              <button type="button" data-v="house" aria-pressed="true">戸建て（ラックなし）</button>
+              <button type="button" data-v="mansion" aria-pressed="false">マンション（ラックあり）</button>
+            </div></div>
+          <div class="ctl"><span class="lab">家族のスマホの会社</span>
+            <div class="seg-ctl" role="group" aria-label="スマホの会社" id="h-car">
+              <button type="button" data-v="docomo" aria-pressed="true">ドコモ</button>
+              <button type="button" data-v="au" aria-pressed="false">au・UQ</button>
+              <button type="button" data-v="sb" aria-pressed="false">ソフトバンク</button>
+              <button type="button" data-v="ym" aria-pressed="false">ワイモバイル</button>
+            </div></div>
+          <div class="ctl"><label class="lab" for="h-n">割引が付くスマホの台数 <output id="h-n-v"></output></label>
+            <input type="range" id="h-n" min="1" max="5" step="1" value="3">
+            <div class="ticks"><span>1台</span><span>5台</span></div></div>
+        </div>
+        <div class="hk-out" aria-live="polite">
+          <div class="hk-name" id="h-name"></div>
+          <div class="hk-rows" id="h-rows"></div>
+          <div class="hk-bar" id="h-bar" aria-hidden="true"></div>
+          <div class="hk-total"><span>実質の負担</span><b id="h-total"></b></div>
+          <p class="note" id="h-note"></p>
+        </div>
+        <div class="hk-init" id="h-init"></div>
+      </div>
+
+      <div class="bbmap">
+        <div class="bbcol">
+          <div class="hd"><span class="tag" style="--cc:var(--c-docomo)">ドコモ</span></div>
+          <div class="it"><span class="kind">光回線</span><span class="nm">ドコモ光</span><span class="off">スマホ −1,210円/回線</span><span class="cond">ドコモ光セット割。オプション条件なし。<strong>ahamoは対象外</strong>。</span></div>
+          <div class="it"><span class="kind">ホームルーター</span><span class="nm">home 5G</span><span class="off">スマホ −1,210円/回線</span><span class="cond">home 5G セット割（ドコモ光と両方は付かない）。</span></div>
+        </div>
+        <div class="bbcol">
+          <div class="hd"><span class="tag" style="--cc:var(--c-au)">au</span><span class="tag" style="--cc:var(--c-uq)">UQ mobile</span></div>
+          <div class="it"><span class="kind">光回線</span><span class="nm">ニフティ光（@nifty光）</span><span class="off">スマホ −1,100円/回線</span><span class="cond">auスマートバリュー／UQ自宅セット割。<strong>@nifty光電話の契約が必須</strong>。KDDIへの情報連携の同意も必要。</span></div>
+          <div class="it"><span class="kind">ホームルーター</span><span class="nm">au ホームルーター 5G</span><span class="off">スマホ −1,100円/回線</span><span class="cond">auスマートバリュー・UQ自宅セット割とも対象。</span></div>
+        </div>
+        <div class="bbcol">
+          <div class="hd"><span class="tag" style="--cc:var(--c-sb)">ソフトバンク</span><span class="tag" style="--cc:var(--c-ym)">ワイモバイル</span></div>
+          <div class="it"><span class="kind">光回線</span><span class="nm">ソフトバンク光</span><span class="off">SB −1,100円／Y!mobile −1,650円</span><span class="cond">おうち割 光セット。<strong>指定オプション（光BBユニット等・月550円〜）が必須</strong>。</span></div>
+          <div class="it"><span class="kind">ホームルーター</span><span class="nm">SoftBank Air</span><span class="off">SB −1,100円／Y!mobile −1,650円</span><span class="cond">おうち割 光セット。<strong>オプション不要</strong>。</span></div>
+        </div>
+      </div>
+
+      <div class="tbl">
+        <table>
+          <thead><tr><th>光回線</th><th class="r">戸建て</th><th class="r">マンション</th><th class="r">事務手数料</th><th>工事費</th><th>契約期間・解約金</th></tr></thead>
+          <tbody>
+            <tr><td><strong>ドコモ光 1ギガ</strong><br><span class="note">タイプA・2年定期／光コラボ</span></td><td class="r">5,720円</td><td class="r">4,400円</td><td class="r">4,950円</td><td>屋内配線あり28,600円 → dポイント進呈で実質0円（開通7か月後から24回）</td><td>2年定期。戸建て5,500円／マンション4,180円</td></tr>
+            <tr><td><strong>ニフティ光 1ギガ</strong><br><span class="note">3年・2年プラン(N)／光コラボ</span></td><td class="r">5,720円<br><span class="note">2〜21か月目 4,620円</span></td><td class="r">4,378円<br><span class="note">2〜21か月目 3,278円</span></td><td class="r">3,300円</td><td>22,000円（1,100円×20回）。新規申込で1年以内に開通すれば実質無料</td><td>戸建て4,840円／マンション3,630円</td></tr>
+            <tr><td><strong>ソフトバンク光 1ギガ</strong><br><span class="note">2年自動更新／光コラボ</span></td><td class="r">5,720円<br><span class="note">12月〜6,050円</span></td><td class="r">4,180円<br><span class="note">12月〜4,510円</span></td><td class="r">4,950円</td><td>立ち会いあり47,520円 → 1,980円×24か月の割引で実質無料</td><td>2年自動更新。月額相当額</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">ニフティ光は開通月0円。ソフトバンク光は2026年12月利用分から月額330円値上げ・名称が「SoftBank 光＋」に変わります（11月30日までの解約は解除料なし）。解約金は更新月とその後2か月は0円。参考：auひかりは独自回線で、auスマートバリューの対象（ネット＋電話）。</p>
+
+      <div class="tbl">
+        <table>
+          <thead><tr><th>ホームルーター</th><th class="r">月額</th><th>本体と実質0円の条件</th><th class="r">事務手数料</th><th>スマホのセット割</th></tr></thead>
+          <tbody>
+            <tr><td><strong>home 5G</strong>（HR02）</td><td class="r">5,280円</td><td>73,260円。月々サポートで48か月使えば実質0円。途中でやめると残りを請求</td><td class="r">店頭4,950円</td><td>ドコモ −1,210円</td></tr>
+            <tr><td><strong>au ホームルーター 5G</strong></td><td class="r">5,500円<br><span class="note">13か月間4,950円</span></td><td>36回分割・毎月割で実質0円。プラン変更・解約で毎月割は終了</td><td class="r">要確認</td><td>au・UQ −1,100円</td></tr>
+            <tr><td><strong>SoftBank Air</strong>（Airターミナル6）</td><td class="r">5,368円<br><span class="note">12/1〜5,698円</span></td><td>95,040円。月月割1,980円×48か月。レンタル（月539円）も選べる</td><td class="r">4,950円</td><td>SB −1,100円／Y!mobile −1,650円</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="two">
+        <div class="box">
+          <h3>お客様のメリット：光回線</h3>
+          <ul class="tight">
+            <li>速度が安定していて、家族みんなで動画やゲームをしても止まりにくい</li>
+            <li>スマホとセットで<strong>家族全員のスマホ代が毎月下がる</strong></li>
+            <li>工事費は条件を満たせば実質無料</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>お客様のメリット：ホームルーター</h3>
+          <ul class="tight">
+            <li><strong>工事なし</strong>、届いたその日にコンセントに挿すだけ</li>
+            <li>工事ができない賃貸や、光の開通待ちのつなぎにも</li>
+            <li>光と同じようにスマホのセット割が付く</li>
+            <li>注意：<strong>登録住所でしか使えない</strong>。時間帯や場所で速度が変わる</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout warn">
+        <h3>光コラボ×マンションは「ラック検索」を忘れずに</h3>
+        <ul class="tight">
+          <li><strong>マンションの定義</strong>：階数や戸数ではなく、<strong>建物の共用部にNTTの設備（ラック＝集合装置）があれば「マンション」</strong>、なければ「戸建て」扱い。2階建てアパートでもラックがあればマンション料金、大きな建物でもラックがなければ戸建て料金で個別に引き込む（オーナー承諾が必要）。</li>
+          <li><strong>ラック検索</strong>：NTTのエリア検索で建物を選び、共用部の設備があるか・配線方式は何かを確認すること。マンション料金か戸建て料金かで見積もりが変わる（例：ドコモ光 4,400円／5,720円）。</li>
+          <li>見方（NTT東日本）：「光クロス」「マンション・ギガラインタイプ」＝光配線方式あり／「光ネクスト マンションタイプ」＝VDSL・LAN配線のみ／「詳しい状況確認が必要です」＝設備なし。</li>
+          <li>共用部（MDF室）にカギがかかっている建物は、工事日前に管理会社へ開錠の手配。</li>
+        </ul>
+      </div>
+
+      <h3>各社BBの注意点</h3>
+      <div class="bbmap">
+        <div class="bbcol">
+          <div class="hd"><span class="tag" style="--cc:var(--c-docomo)">ドコモ光</span></div>
+          <div class="it"><span class="kind">手数料</span><span class="cond">契約事務手数料 <strong>4,950円</strong>（新規・転用・事業者変更とも）。</span></div>
+          <div class="it"><span class="kind">ルーター・プロバイダ</span><span class="cond">タイプAのOCN・GMOとくとくBB・@nifty・BIGLOBEなどは<strong>Wi-Fiルーター無料レンタル</strong>あり。無料レンタルがないプロバイダもあるので確認。IPv6（IPoE）はプロバイダの方式に対応したルーターが必要。</span></div>
+          <div class="it"><span class="kind">工事料</span><span class="cond">実質0円は<strong>dポイント24回</strong>（開通7か月後から）。途中解約で進呈が止まり、残りの工事料を一括請求。</span></div>
+          <div class="it"><span class="kind">解約</span><span class="cond">解約月は日割りなし。解約金 戸建て5,500円／マンション4,180円。プロバイダが自動で解約されない場合あり。</span></div>
+        </div>
+        <div class="bbcol">
+          <div class="hd"><span class="tag" style="--cc:var(--c-au)">ニフティ光</span></div>
+          <div class="it"><span class="kind">手数料</span><span class="cond">回線契約料 <strong>3,300円</strong>（転用・事業者変更も3,300円）。</span></div>
+          <div class="it"><span class="kind">セット割の条件</span><span class="cond"><strong>@nifty光電話（月550円）が必須</strong>。無線なしのホームゲートウェイは無料、無線付きは東日本330円／西日本110円。</span></div>
+          <div class="it"><span class="kind">ルーター</span><span class="cond">v6プラス対応Wi-Fiルーターは<strong>最大12か月無料→13か月目から月550円</strong>。レンタルは2年契約で、期間内の解除は5,000円。</span></div>
+          <div class="it"><span class="kind">工事費・解約</span><span class="cond">工事費22,000円は月額1,100円引き×20回で相殺 → 途中解約で残りを一括請求。解除月は満額、解除時は撤去工事あり。メールは月275円で継続可。</span></div>
+        </div>
+        <div class="bbcol">
+          <div class="hd"><span class="tag" style="--cc:var(--c-sb)">ソフトバンク光</span></div>
+          <div class="it"><span class="kind">手数料</span><span class="cond">契約事務手数料 <strong>4,950円</strong>（指定窓口などで1,100円引き）。</span></div>
+          <div class="it"><span class="kind">ルーターは事実上必須</span><span class="cond">おうち割の指定オプションは<strong>光BBユニット＋Wi-Fiマルチパック＋電話</strong>のセット（月550円〜）。IPv6高速ハイブリッドも光BBユニットが必要なので、<strong>光BBユニット（ルーター）のレンタルが実質必須</strong>。</span></div>
+          <div class="it"><span class="kind">機器の返却</span><span class="cond">解約時は利用停止月の<strong>翌月20日まで</strong>に返却。返さないと違約金（光BBユニットで5,000〜12,000円、古い契約は18,000円）。</span></div>
+          <div class="it"><span class="kind">工事費・解約</span><span class="cond">実質無料は1,980円×24か月の割引で、31か月目までの利用が条件。解約時は撤去工事の立ち会いあり。@ybb.ne.jpメールは解約で使えなくなる。12月から月額+330円。</span></div>
+        </div>
+      </div>
+      <p class="note">共通：転用・事業者変更の承諾番号は発行日を含めて15日有効。10ギガは事業者変更で他社へ出られない（1ギガへ変更するか解約・新規）。今の回線は新しい回線の開通後に解約。</p>
+
+      <div class="two">
+        <div class="box">
+          <h3>乗り換えの3パターン</h3>
+          <ul class="tight">
+            <li><strong>転用</strong>：フレッツ光 → 光コラボ。工事不要。NTTから「転用承諾番号」をもらう。</li>
+            <li><strong>事業者変更</strong>：光コラボ → 別の光コラボ（例：ソフトバンク光 → ドコモ光）。原則工事不要。今の会社から「事業者変更承諾番号」をもらう。</li>
+            <li><strong>独自回線へ</strong>：光コラボ → auひかり・NURO光などは<strong>新規工事</strong>。</li>
+          </ul>
+          <p class="note">プロバイダのメールアドレスが使えなくなる場合や、今の会社の解約金がかかる場合があります。</p>
+        </div>
+        <div class="box">
+          <h3>機器と通信方式</h3>
+          <ul class="tight">
+            <li><strong>ONU</strong>：光コンセントにつなぎ、光信号を変換する機器。</li>
+            <li><strong>ルーター</strong>：ONUの先でWi-Fiや複数の端末をつなぐ。</li>
+            <li>接続の順番：光コンセント → ONU → ルーター → スマホ・PC</li>
+            <li><strong>IPv6（IPoE）</strong>：混雑しやすい区間を通らないので夜も速度が落ちにくい。<strong>PPPoE</strong>はID・パスワードでつなぐ従来方式。</li>
+            <li><strong>10ギガ</strong>は対応ルーター・カテゴリ6a以上のLANケーブル・10G対応PCがそろって初めて速くなる。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ch7 -->
+    <section class="ch" id="c7">
+      <div class="ch-head">
+        <div class="ch-no">CHAPTER 7</div>
+        <h2>開通工事の流れ</h2>
+        <p class="ch-lead">「いつから使えますか？」「家に穴をあけますか？」はよく聞かれる質問です。</p>
+      </div>
+
+      <div class="two">
+        <div class="box"><h3>派遣工事（立ち会い必要）</h3><p>家に光コンセントがない場合。作業員が電柱から光ケーブルを引き込み、光コンセントを付け、ONUをつなぎます。所要1〜2時間ほど。</p></div>
+        <div class="box"><h3>無派遣工事（立ち会い不要）</h3><p>光コンセントがすでにある場合や、転用・事業者変更の場合。局内の切り替えだけで、お客様が自分で機器をつなぎます。</p></div>
+      </div>
+
+      <ol class="steps">
+        <li><div><b>申込</b><span>住所で提供エリアを確認し、本人確認。賃貸なら大家さん・管理会社の承諾を先にもらう。</span></div></li>
+        <li><div><b>事前調査</b><span>設備を会社側で調べる（立ち会い不要）。</span></div></li>
+        <li><div><b>工事日の決定</b><span>SMSや電話で日程を調整。土日祝の工事は+3,300円かかることが多い。</span></div></li>
+        <li><div><b>工事当日</b><span>引き込みはエアコンダクトや電話の配管を使うのが基本。使えない場合は壁に約10mmの穴をあけることがある。</span></div></li>
+        <li><div><b>開通・設定</b><span>ルーターをつないでWi-Fiを設定。今使っている回線は、新しい回線が開通してから解約する。</span></div></li>
+      </ol>
+
+      <div class="tbl">
+        <table>
+          <thead><tr><th>申込から開通までの目安</th><th>期間</th></tr></thead>
+          <tbody>
+            <tr><td>NTT系（ドコモ光・ニフティ光・ソフトバンク光）の新規</td><td>2週間〜1か月</td></tr>
+            <tr><td>3〜4月の引っ越しシーズン</td><td><strong>1か月以上</strong>かかることも</td></tr>
+            <tr><td>auひかり ホーム／NURO光 戸建て（独自回線）</td><td>1〜2か月（NURO光は宅内・屋外の<strong>2回</strong>工事）</td></tr>
+            <tr><td>転用・事業者変更</td><td>工事なしで切り替え日を決めるだけ</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="two">
+        <div class="box">
+          <h3>マンションの配線方式</h3>
+          <ul class="tight">
+            <li><strong>光配線方式</strong>：部屋まで光ファイバー。最も速い。</li>
+            <li><strong>VDSL方式</strong>：共用部から部屋までは電話線。最大100Mbps程度になりやすい。</li>
+            <li><strong>LAN配線方式</strong>：共用部から部屋までLANケーブル。</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>開通までのつなぎ</h3>
+          <ul class="tight">
+            <li>ドコモ光：派遣工事が必要な新規申込で、開通前Wi-Fiルーターを無料レンタル（最長180日）</li>
+            <li>ソフトバンク光：開通前にAirターミナルかPocket WiFiを無料レンタル</li>
+            <li>工事ができない賃貸はホームルーターが代わりに。<strong>登録住所でしか使えない</strong>点を必ず説明</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <div class="row" style="padding-block:28px 0">
+      <button class="btn" type="button" data-goto="sim">料金シミュレーターへ</button>
+      <button class="btn ghost" type="button" data-goto="quiz">クイズで確認する</button>
+    </div>
+  </main>
+
+  <!-- ================= SHEET ================= -->
+  <section id="p-sheet" role="tabpanel" aria-labelledby="t-sheet" hidden>
+    <div class="sheet">
+      <div class="ch-head">
+        <h2>キャリア別 料金表</h2>
+        <p class="ch-lead">店頭の料金表と同じ並び（基本料金 → 割引 → 値引適用後）で、2026年9月24日時点の料金に直したものです。各ブランドの下に「プランの特徴」「通話オプション」「アップグレード割」「取り扱いiPhone」をまとめています。</p>
+      </div>
+      <div class="callout warn">
+        <h3>去年の料金表から変わった主なところ</h3>
+        <ul class="tight">
+          <li><strong>ソフトバンク</strong>：メリハリ無制限＋・ミニフィットプラン＋は2026年6月1日で受付終了。今は<strong>テイガク無制限・ペイトク2・ミニフィット2</strong>。</li>
+          <li><strong>ワイモバイル</strong>：シンプル3が各220円値上げ（S 3,278／M 4,378／L 5,478）。<strong>Lは10分かけ放題込み</strong>に。</li>
+          <li><strong>YM→SBのアップグレード</strong>：「のりかえ特典＋」は6月2日以降の申込で<strong>▲2,420×12か月</strong>（以前は▲2,750）。</li>
+          <li><strong>ドコモ mini・ahamo</strong>：料金はそのままで、増量キャンペーン中（mini 6GB／12GB、ahamo 40GB、大盛り120GB）。</li>
+          <li><strong>UQ</strong>：コミコミプランバリューに「コミコミおトク割（▲660×最大13か月）」が追加。</li>
+        </ul>
+      </div>
+      <div class="sheetgrid" id="sheetgrid"></div>
+
+      <div class="ch-head">
+        <h2>取り扱いiPhone早見表</h2>
+        <p class="ch-lead">「UQやワイモバイルでiPhone 17は買える？」はよく聞かれます。<strong>UQ・ワイモバイルの新品iPhoneで一番新しいのはiPhone 17e</strong>です。</p>
+      </div>
+      <div class="tbl">
+        <table class="ipm">
+          <thead><tr><th>機種</th><th><span class="tag" style="--cc:var(--c-docomo)">ドコモ</span></th><th><span class="tag" style="--cc:var(--c-ahamo)">ahamo</span></th><th><span class="tag" style="--cc:var(--c-au)">au</span></th><th><span class="tag" style="--cc:var(--c-uq)">UQ</span></th><th><span class="tag" style="--cc:var(--c-sb)">SB</span></th><th><span class="tag" style="--cc:var(--c-ym)">Y!mobile</span></th></tr></thead>
+          <tbody>
+            <tr><td>iPhone 18 Pro／18 Pro Max<br><span class="note">2026年9月18日発売</span></td><td class="y">○</td><td class="y">○</td><td class="y">○</td><td class="n">—</td><td class="y">○</td><td class="n">—</td></tr>
+            <tr><td>iPhone Duo（折りたたみ）<br><span class="note">10月16日予約・10月23日発売</span></td><td class="s">予定</td><td class="s">予定</td><td class="s">予定</td><td class="n">—</td><td class="s">予定</td><td class="n">—</td></tr>
+            <tr><td>iPhone 17 Pro／17 Pro Max</td><td class="y">○</td><td class="y">○</td><td class="y">○</td><td class="n">—</td><td class="y">○</td><td class="n">—</td></tr>
+            <tr><td>iPhone Air</td><td class="y">○</td><td class="y">○</td><td class="y">○</td><td class="n">—</td><td class="y">○</td><td class="n">—</td></tr>
+            <tr><td>iPhone 17</td><td class="y">○</td><td class="y">○</td><td class="y">○</td><td class="n">—</td><td class="y">○</td><td class="n">—</td></tr>
+            <tr><td><strong>iPhone 17e</strong></td><td class="y">○</td><td class="y">○</td><td class="y">○</td><td class="y">○</td><td class="y">○</td><td class="y">○</td></tr>
+            <tr><td>iPhone 16e</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="y">○</td><td class="y">○</td></tr>
+            <tr><td>iPhone 16</td><td class="y">○</td><td class="y">○</td><td class="n">—</td><td class="y">○</td><td class="y">○</td><td class="y">○</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note" id="ip-note">○＝新品販売中（旧機種は在庫限りのことあり）。ソフトバンクは16 Plus／16 Pro系や15系の在庫が残っている場合があります。18 Pro・Duo・17シリーズ・Air・17eは<strong>eSIMのみ</strong>（SIMカードは使えない）。</p>
+
+
+      <div class="two">
+        <div class="box">
+          <h3>「UQ（ワイモバイル）でiPhone 17が欲しい」と言われたら</h3>
+          <ol class="steps">
+            <li><div><b>iPhone 17eを案内</b><span>UQ・ワイモバイルで買える一番新しいiPhone（256GB／512GB）。</span></div></li>
+            <li><div><b>SIM単＋SIMフリー端末で実質値引き</b><span>回線はSIM単（SIMだけ）でUQ・ワイモバイルへ乗り換えてポイントを付け、そのポイントでSIMフリーのiPhone 17などを実質値引きして案内する（18 Pro・17シリーズはeSIMで動作確認済み）。施策は乗り換え元の契約が181日以上のときだけ（端末購入の施策も同じ）。</span></div></li>
+            <li><div><b>au・ソフトバンクへアップグレード</b><span>UQ→auは移行プログラム（▲2,640×12か月）、ワイモバイル→SBはのりかえ特典＋（▲2,420×12か月）で、最新iPhoneもセットで。</span></div></li>
+          </ol>
+          <p class="note">※基本はキャリア端末（UQ・ワイモバイルなら17e、最新機種ならau・ソフトバンク）を案内します。SIM単＋SIMフリーは、どうしても17などが欲しいお客様向けの選択肢です。</p>
+        </div>
+        <div class="box">
+          <h3>価格の見せ方の注意</h3>
+          <ul class="tight">
+            <li>キャリアの本体価格はApple Storeより高め（例：18 Pro 256GBはApple 219,800円、キャリアは26万円台）。</li>
+            <li>店頭では2年返却プログラム前提の<strong>実質負担額</strong>で見せることが多い → 返却前提・利用料の説明を忘れずに（学ぶ 第5章）。</li>
+            <li>旧機種は在庫がなくなり次第終了。展示・在庫を必ず確認。</li>
+          </ul>
+        </div>
+      </div>
+      <p class="note">金額は税込・2026年9月24日時点。店頭の料金表や社内資料が最新の場合はそちらを優先してください。</p>
+    </div>
+  </section>
+
+  <!-- ================= IPHONE ================= -->
+  <section id="p-iphone" role="tabpanel" aria-labelledby="t-iphone" hidden>
+    <div class="sheet">
+      <div class="ch-head">
+        <h2>iPhone機能差表</h2>
+        <p class="ch-lead">Apple公式の仕様（2026年9月24日時点）をもとに、10機種を比べられます。比べたい機種を選ぶと、その機種だけが並びます。<strong>★</strong>は選んだ中でいちばん良い値、項目名の下の小さな文字は「お客様にどう説明するか」のヒントです。2機種だけ選ぶと「違いのまとめ」も出ます。16e・17 Pro・17 Pro Maxは終売ですが、前モデルとの違いを説明するために残しています。</p>
+      </div>
+      <div class="ipc">
+        <div class="ctl"><span class="lab">よく使う組み合わせ</span><div class="seg-ctl" id="ipc-pre" role="group" aria-label="組み合わせ"></div></div>
+        <div class="ctl"><span class="lab">比べる機種（タップで追加・解除）</span><div class="mchips" id="ipc-m"></div></div>
+        <div class="row"><label class="tog"><input type="checkbox" id="ipc-diff"><span>違いがある項目だけ表示</span></label></div>
+        <div class="ipc-sum" id="ipc-sum" hidden></div>
+        <div class="tbl"><table class="spec" id="ipc-t"></table></div>
+        <p class="note">価格はApple Store（2026年9月10日の価格改定後）の参考値で、キャリア・店頭の価格とは違います。17 Pro／Pro Max・16eはApple Storeでの販売が終了しています。iPhone 16のMagSafeはApple比較ページの値（22W）。全機種共通：IP68防水防塵、FeliCa（おサイフケータイ）、衛星経由の緊急SOS、Apple Intelligence対応、5G。</p>
+      </div>
+
+      <div class="ch-head">
+        <h2>進化ポイントとトーク例</h2>
+        <p class="ch-lead">スマホに詳しくないお客様には、数字より「どう便利になるか」で伝えます。そのまま使えるトーク例です。</p>
+      </div>
+      <div class="talk">
+        <div class="tk"><h4>iPhone 16<small>ドコモ・ahamo・UQ・SB・Y!mobile</small></h4><span class="one">カメラ2つのスタンダード</span><ul><li>カメラコントロール（撮影ボタン）を搭載</li><li>超広角カメラで広い景色や集合写真も</li><li>マクロ撮影に対応</li></ul><p class="say"><b>トーク例</b>「カメラが2つあるので、広い景色や大人数の写真もきれいに撮れます。横のボタンを押すだけですぐ撮影できます。」</p><p class="warn">注意：120Hz・常時表示はなし。</p></div>
+        <div class="tk"><h4>iPhone 17e<small>全ブランド・16eの後継</small></h4><span class="one">16eから何が変わった？</span><ul><li><strong>MagSafe対応</strong>：16eは置くだけ充電（Qi 7.5W）のみ → 磁石でピタッと付く充電・アクセサリーに対応（最大15W）</li><li><strong>容量が2倍スタート</strong>：16eは128GBから → 17eは256GBから</li><li><strong>画面のガラスが傷に3倍強い</strong>：Ceramic Shield → Ceramic Shield 2</li><li><strong>チップと通信</strong>：A18 → A19、モデムはC1 → C1X（最大2倍速い）</li><li>そのまま：6.1インチ画面、背面カメラ1つ、ビデオ再生最大26時間、Face ID</li></ul><p class="say"><b>トーク例</b>「16eの後継モデルで、MagSafeに対応したので、充電器やカードケースが磁石でピタッと付くようになりました。保存容量も256GBからなので写真や動画をたくさん残せますし、画面のガラスも傷に3倍強くなっています。」</p><p class="warn">注意：<strong>eSIMのみ</strong>（16eはSIMカードも使えた）。120Hz・超広角カメラはなし。UQ・ワイモバイルで買える一番新しいiPhone。</p></div>
+        <div class="tk"><h4>iPhone 17<small>ドコモ・ahamo・au・SB</small></h4><span class="one">いちばんバランスがいい</span><ul><li>無印で初めて<strong>120Hz・常時表示</strong>（16 Proと同じなめらかさ）</li><li>画面が6.3インチに大きく、ベゼル（黒い縁）が細く</li><li>前面18MPのセンターフレームカメラ、電池は16より最大8時間長く</li></ul><p class="say"><b>トーク例</b>「iPhone 17はiPhone 16 Proと同じなめらかなディスプレイなので、スクロールがとても滑らかで、外でも明るく見やすいです。ベゼルと言われる黒い縁もとても細くなりました。自撮りは縦に持ったまま横長の集合写真が撮れます。」</p></div>
+        <div class="tk"><h4>iPhone Air<small>ドコモ・ahamo・au・SB</small></h4><span class="one">いちばん薄くて軽い</span><ul><li>厚さ5.64mm・165gのiPhone史上最薄</li><li>6.5インチの大きな画面なのに軽い</li><li>チタンの丈夫なフレーム</li></ul><p class="say"><b>トーク例</b>「iPhoneでいちばん薄くて軽いモデルです。画面は大きいのに軽いので、長く持っていても手が疲れにくいです。」</p><p class="warn">注意：背面カメラは1つ。電池は17より短め（27時間）。</p></div>
+        <div class="tk"><h4>iPhone 18 Pro／Pro Max<small>ドコモ・ahamo・au・SB・17 Proの後継</small></h4><span class="one">17 Proから何が変わった？</span><ul><li><strong>iPhone初の可変絞り</strong>：暗い場所の写真がきれいに（Apple発表で約50%向上）。背景のボケ具合も調整できる</li><li><strong>動画が進化</strong>：シネマティックモードが30fps → 60fps、撮影後にボケ効果を付けられる、暗い場所の動画も改良、被写体を自動で追うフォーカス</li><li><strong>電池と充電</strong>：Proは33 → 36時間、Pro Maxは39 → 45時間（iPhone史上最長）。急速充電は20分 → 約15分で50%</li><li><strong>性能</strong>：A19 Pro → A20 Pro（GPU 6 → 7コア、AI処理はデュアル16コア）、冷却も大型化</li><li>そのほか：Dynamic Islandが刷新、絞り・シャッタースピードなどを操作できるプロ向けカメラ機能、フォトグラフスタイル3</li></ul><p class="say"><b>トーク例</b>「17 Proからのいちばんの違いはカメラで、iPhoneで初めてレンズの絞りが変えられるようになりました。夜景やお店の中など暗い場所でも、明るくきれいに撮れます。電池もPro Maxなら最大45時間と6時間長くなって、充電も15分ほどで半分まで貯まります。」</p><p class="warn">注意：少し重くなった（Pro 206 → 211g、Pro Max 233 → 249g）。画面サイズ・望遠（8倍）は17 Proと同じ。</p></div>
+        <div class="tk"><h4>iPhone Duo<small>10月23日発売予定</small></h4><span class="one">初めての折りたたみiPhone</span><ul><li>開くと7.6インチ、閉じると5.4インチ</li><li>画面を2つに分けてアプリを並べられる、Apple Pencil対応</li><li>自立するので置いたままビデオ通話</li></ul><p class="say"><b>トーク例</b>「閉じればポケットに入るサイズで、開くとタブレットのような大画面になります。地図を見ながらメッセージを打つなど、2つのアプリを並べて使えます。」</p><p class="warn">注意：顔認証ではなく<strong>指紋認証（Touch ID）</strong>。望遠カメラ・アクションボタンなし。364,800円〜と高価。</p></div>
+      </div>
+      <div class="box">
+        <h3>迷っているお客様への選び方</h3>
+        <ul class="tight">
+          <li>価格を抑えたい → <strong>17e</strong>（UQ・ワイモバイルでも買える）</li>
+          <li>画面のなめらかさ・電池・カメラのバランス → <strong>17</strong></li>
+          <li>とにかく薄く軽く → <strong>Air</strong></li>
+          <li>遠くを撮りたい・暗い場所でもきれいに撮りたい・ゲームをよくする → <strong>18 Pro</strong></li>
+          <li>電池の持ちを最優先 → <strong>18 Pro Max</strong></li>
+          <li>大画面で作業・動画 → <strong>18 Pro Max／Duo</strong></li>
+        </ul>
+      </div>
+      <p class="note">どのブランドでどの機種を扱っているかは「料金表」タブの取り扱いiPhone早見表を見てください。</p>
+    </div>
+  </section>
+
+  <!-- ================= SIMULATOR ================= -->
+  <section id="p-sim" role="tabpanel" aria-labelledby="t-sim" hidden>
+    <div class="sim">
+      <div class="ch-head">
+        <h2>料金シミュレーター</h2>
+        <p class="ch-lead">スライダーとボタンで条件を変えると、月額がその場で変わります。「1社ずつ」は割引の積み上がり方を、「全社くらべ」は同じ条件でどこが安いかを見られます。</p>
+      </div>
+      <div class="seg-ctl" role="group" aria-label="表示の切り替え">
+        <button type="button" id="mode-one" aria-pressed="true">1社ずつ（割引の内訳）</button>
+        <button type="button" id="mode-all" aria-pressed="false">全社くらべ</button>
+      </div>
+
+      <!-- one -->
+      <div id="sim-one" class="simgrid">
+        <div class="panel">
+          <div class="ctl"><span class="lab">ブランド</span><div class="brandrow" id="brandrow"></div></div>
+          <div class="ctl"><span class="lab">プラン</span><div class="planrow seg-ctl" id="planrow" role="group" aria-label="プラン"></div></div>
+          <label class="tog" id="o-zoryo-wrap" hidden><input type="checkbox" id="o-zoryo"><span id="o-zoryo-l">増量オプションを付ける</span></label>
+          <label class="tog" id="o-oomori-wrap" hidden><input type="checkbox" id="o-oomori"><span>大盛りオプションを付ける（+1,980円で+80GB）</span></label>
+          <div class="ctl">
+            <label class="lab" for="o-data">毎月のデータ量 <output id="o-data-v"></output></label>
+            <input type="range" id="o-data" min="0" max="15" step="1" value="9">
+            <div class="ticks"><span>1GB以下</span><span>無制限</span></div>
+          </div>
+          <div class="ctl">
+            <label class="lab" for="o-fam">同じ会社の家族（自分を含む） <output id="o-fam-v"></output></label>
+            <input type="range" id="o-fam" min="1" max="5" step="1" value="3">
+            <div class="ticks"><span>1人</span><span>2</span><span>3</span><span>4</span><span>5人〜</span></div>
+          </div>
+          <div class="ctl">
+            <span class="lab">家のネット（BB）</span>
+            <div class="seg-ctl" role="group" aria-label="家のネット" id="o-net">
+              <button type="button" data-v="none" aria-pressed="false">なし・他社</button>
+              <button type="button" data-v="hikari" aria-pressed="true" id="o-net-h">光回線</button>
+              <button type="button" data-v="hr" aria-pressed="false" id="o-net-r">ホームルーター</button>
+            </div>
+            <span class="sub" id="o-net-sub"></span>
+          </div>
+          <label class="tog"><input type="checkbox" id="o-denki"><span id="o-denki-l">でんきもセット</span></label>
+          <div class="ctl">
+            <span class="lab">支払いカード</span>
+            <div class="seg-ctl" role="group" aria-label="支払いカード" id="o-card">
+              <button type="button" data-v="none" aria-pressed="false">使わない</button>
+              <button type="button" data-v="std" aria-pressed="true" id="o-card-s">通常カード</button>
+              <button type="button" data-v="gold" aria-pressed="false" id="o-card-g">ゴールド</button>
+            </div>
+          </div>
+          <div class="ctl" id="o-long-wrap">
+            <span class="lab">ドコモの利用年数</span>
+            <div class="seg-ctl" role="group" aria-label="利用年数" id="o-long">
+              <button type="button" data-v="0" aria-pressed="true">10年未満</button>
+              <button type="button" data-v="10" aria-pressed="false">10年〜</button>
+              <button type="button" data-v="20" aria-pressed="false">20年〜</button>
+            </div>
+          </div>
+          <label class="tog"><input type="checkbox" id="o-promo"><span>期間限定の割引も入れる</span></label>
+          <div class="mini" id="o-mini" aria-hidden="true"></div>
+        </div>
+
+        <div class="panel out" aria-live="polite">
+          <div class="big"><span class="v" id="r-price">—</span><span class="u">円/月</span><span class="capchip" id="r-cap"></span><span class="from" id="r-from"></span></div>
+          <div class="gauge" id="r-gauge"></div>
+          <div class="stack" id="r-stack" aria-hidden="true"></div>
+          <p class="note" id="r-note"></p>
+          <ul class="dl" id="r-list"></ul>
+        </div>
+      </div>
+
+      <!-- all -->
+      <div id="sim-all" class="simgrid" hidden>
+        <div class="panel">
+          <div class="ctl">
+            <label class="lab" for="a-data">毎月のデータ量 <output id="a-data-v"></output></label>
+            <input type="range" id="a-data" min="0" max="15" step="1" value="8">
+            <div class="ticks"><span>1GB以下</span><span>無制限</span></div>
+          </div>
+          <div class="ctl">
+            <label class="lab" for="a-fam">同じ会社にする家族（自分を含む） <output id="a-fam-v"></output></label>
+            <input type="range" id="a-fam" min="1" max="5" step="1" value="1">
+            <div class="ticks"><span>1人</span><span>2</span><span>3</span><span>4</span><span>5人〜</span></div>
+          </div>
+          <div class="ctl">
+            <span class="lab">家のネットをスマホと同じグループにする</span>
+            <div class="seg-ctl" role="group" aria-label="家のネット" id="a-net">
+              <button type="button" data-v="none" aria-pressed="false">しない</button>
+              <button type="button" data-v="hikari" aria-pressed="true">光回線</button>
+              <button type="button" data-v="hr" aria-pressed="false">ホームルーター</button>
+            </div>
+          </div>
+          <label class="tog"><input type="checkbox" id="a-denki"><span>でんきも同じグループにする</span></label>
+          <label class="tog"><input type="checkbox" id="a-zoryo"><span>UQ・ワイモバイルは増量オプションも使う（+550円）</span></label>
+          <div class="ctl">
+            <span class="lab">各社のカードで払う</span>
+            <div class="seg-ctl" role="group" aria-label="支払いカード" id="a-card">
+              <button type="button" data-v="none" aria-pressed="true">使わない</button>
+              <button type="button" data-v="std" aria-pressed="false">通常カード</button>
+              <button type="button" data-v="gold" aria-pressed="false">ゴールド</button>
+            </div>
+          </div>
+          <label class="tog"><input type="checkbox" id="a-promo"><span>期間限定の割引も入れる</span></label>
+          <p class="note">各ブランドで、データ量が足りるプランのうち一番安いものを自動で選びます。ワイモバイルの家族割は2回線目以降の人の金額です。</p>
+          <div class="mini" id="a-mini" aria-hidden="true"></div>
+        </div>
+        <div class="panel out" aria-live="polite">
+          <div class="cmp-legend"><span><i style="background:var(--c-au)"></i>割引後の月額</span><span><i style="background:repeating-linear-gradient(135deg,color-mix(in srgb,var(--c-au) 25%,var(--surface)) 0 4px,var(--surface) 4px 8px);border:1px solid var(--line)"></i>割引で下がった分</span></div>
+          <div class="cmp" id="cmp"></div>
+          <p class="note" id="cmp-note"></p>
+        </div>
+      </div>
+      <p class="note">計算はこのページの2026年9月時点の料金表にもとづく目安です。通話オプション・端末代・ユニバーサルサービス料などは含みません。ソフトバンクの「おうちでんき」セット割は対象プランが確認できないため計算に入れていません。</p>
+    </div>
+  </section>
+
+  <!-- ================= QUIZ ================= -->
+  <section id="p-quiz" role="tabpanel" aria-labelledby="t-quiz" hidden>
+    <div class="qwrap">
+      <div class="setup" id="setup">
+        <div class="ch-head">
+          <h2>確認クイズ</h2>
+          <p class="ch-lead">範囲を選んでスタート。1回10問をランダムに出題します。答えるとすぐに解説が出ます。</p>
+        </div>
+        <div class="scope" id="scope"></div>
+        <div class="row">
+          <button class="btn" type="button" id="start">スタート</button>
+          <span class="best" id="bestline"></span>
+        </div>
+      </div>
+      <div class="qcard" id="qcard" hidden>
+        <div class="qmeta"><span id="qpos"></span><span id="qch"></span></div>
+        <div class="progress"><i id="qbar"></i></div>
+        <p class="qtext" id="qtext"></p>
+        <div class="opts" id="opts"></div>
+        <div class="fb" id="fb" hidden></div>
+        <div class="row"><button class="btn" type="button" id="next" hidden>次へ</button><button class="btn ghost" type="button" id="quit">やめる</button></div>
+      </div>
+      <div class="result" id="result" hidden>
+        <p class="score" id="score"></p>
+        <p id="comment"></p>
+        <div class="row">
+          <button class="btn" type="button" id="retryMiss">間違えた問題だけ解き直す</button>
+          <button class="btn ghost" type="button" id="again">範囲を選び直す</button>
+        </div>
+        <div class="miss" id="miss"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= RESOURCES ================= -->
+  <section id="p-res" role="tabpanel" aria-labelledby="t-res" hidden>
+    <div class="res">
+      <div class="ch-head">
+        <h2>自宅で使える学習リソース</h2>
+        <p class="ch-lead">スマサポチャンネル以外で、2026年9月に更新が確認できたもの。YouTubeは代理店やアフィリエイト目的の発信もあるので、数字は必ず公式で裏取りを。</p>
+      </div>
+
+      <div class="ch-head"><h3>YouTube（携帯）</h3></div>
+      <div class="rlist">
+        <div class="ritem"><a href="https://www.youtube.com/@まさもばチャンネル" target="_blank" rel="noopener">まさもばチャンネル</a><p>元家電量販店・携帯ショップ店長の目線で、返却プログラム、iPhoneの各社価格比較、MNPの事情を解説。</p><span class="for">量販店スタッフに一番近い目線</span></div>
+        <div class="ritem"><a href="https://www.youtube.com/@iskw226" target="_blank" rel="noopener">石川 温のスマホ業界ニュース</a><p>ケータイジャーナリストによる業界解説。キャリアの戦略や規制の背景が分かる。</p><span class="for">「なぜこの料金になったか」を知りたい</span></div>
+        <div class="ritem"><a href="https://www.youtube.com/playlist?list=PLIFLhBYW6aCmXoic2TcPhmvsTLgAJnLZn" target="_blank" rel="noopener">法林岳之のケータイしようぜ!!（Impress Watch）</a><p>毎週、新機種・発表会・キャリア会見を解説する長寿番組。</p><span class="for">新機種の知識と接客の話題づくり</span></div>
+        <div class="ritem"><a href="https://www.youtube.com/@netkaisen" target="_blank" rel="noopener">ネット回線ベスト</a><p>iPhoneをどこで買うと得か（Apple・各キャリア・ahamo）などの比較。</p><span class="for">サブブランドやオンラインプランとの比較</span></div>
+        <div class="ritem"><a href="https://www.youtube.com/@KakuyasuSimZukan" target="_blank" rel="noopener">格安SIM図鑑</a><p>格安SIMのキャンペーンと注意点。</p><span class="for">格安SIMを検討中のお客様への説明準備</span></div>
+      </div>
+
+      <div class="ch-head"><h3>YouTube（BB）</h3></div>
+      <div class="rlist">
+        <div class="ritem"><a href="https://www.youtube.com/@wifibywimax4994" target="_blank" rel="noopener">WiFi大学 by WiMAX比較ドットコム</a><p>戸建て向け光回線の選び方、工事の内容、10ギガ。</p><span class="for">工事や回線の種類の基礎</span></div>
+        <div class="ritem"><a href="https://www.youtube.com/@oretokunet" target="_blank" rel="noopener">俺得ネット回線</a><p>光回線のキャッシュバック比較、電気・ガスのセット割、ホームルーターの実測。</p><span class="for">ネット申込の競合条件を知る</span></div>
+        <div class="ritem"><a href="https://www.youtube.com/@wifinomori" target="_blank" rel="noopener">Wi-Fiの森チャンネル</a><p>ドコモ光の特典、値上げ後の乗り換え先、ホームルーターの設定。</p><span class="for">最新キャンペーンの把握</span></div>
+      </div>
+
+      <div class="ch-head"><h3>ニュースサイト</h3></div>
+      <ul class="links">
+        <li><a href="https://k-tai.watch.impress.co.jp/" target="_blank" rel="noopener">ケータイWatch</a>（料金改定・総務省の会合が詳しい）</li>
+        <li><a href="https://www.itmedia.co.jp/mobile/" target="_blank" rel="noopener">ITmedia Mobile</a></li>
+        <li><a href="https://news.mynavi.jp/top/digital/mobile/" target="_blank" rel="noopener">マイナビニュース モバイル</a></li>
+        <li><a href="https://internet.watch.impress.co.jp/" target="_blank" rel="noopener">INTERNET Watch</a>（光回線・固定回線）</li>
+        <li><a href="https://www.bcnretail.com/" target="_blank" rel="noopener">BCN+R</a>（量販店の売れ筋ランキング）</li>
+      </ul>
+
+      <div class="ch-head"><h3>各キャリアの特徴を知る方法</h3></div>
+      <ol class="steps">
+        <li><div><b>料金シミュレーターを触る</b><span>このページのシミュレーターに加え、公式でも家族構成や使い方を変えて試す。<a href="https://www.docomo.ne.jp/charge/simulation/" target="_blank" rel="noopener">ドコモ</a>・<a href="https://www.au.com/mobile/simulation/" target="_blank" rel="noopener">au</a>・<a href="https://www.uqwimax.jp/mobile/simulation/" target="_blank" rel="noopener">UQ</a>・<a href="https://www.softbank.jp/mobile/simulator/" target="_blank" rel="noopener">ソフトバンク</a>・<a href="https://www.ymobile.jp/sp/simulation/" target="_blank" rel="noopener">ワイモバイル</a></span></div></li>
+        <li><div><b>プレスリリースを週1回見る</b><span>新プランや値上げは最初にここに出る。<a href="https://www.docomo.ne.jp/info/news_release/" target="_blank" rel="noopener">ドコモ</a>・<a href="https://newsroom.kddi.com/" target="_blank" rel="noopener">KDDI</a>・<a href="https://www.softbank.jp/corp/news/press/sbkk/2026/" target="_blank" rel="noopener">ソフトバンク</a>。ケータイWatchやITmedia MobileのXをフォローすると速報で届く。</span></div></li>
+        <li><div><b>自分で表にまとめる</b><span>第3章の割引一覧を、新しい発表が出たら自分で更新する。書き換えると記憶に残る。</span></div></li>
+        <li><div><b>決算説明資料で「狙い」を読む</b><span>どの層を狙っているか、光回線とのセット率などが分かる。<a href="https://www.docomo.ne.jp/corporate/ir/library/" target="_blank" rel="noopener">ドコモ</a>・<a href="https://www.kddi.com/corporate/ir/" target="_blank" rel="noopener">KDDI</a>・<a href="https://www.softbank.jp/corp/ir/" target="_blank" rel="noopener">ソフトバンク</a></span></div></li>
+        <li><div><b>ルールの変更を押さえる</b><span><a href="https://www.soumu.go.jp/joho_tsusin/eidsystem/competition13_01.html" target="_blank" rel="noopener">端末値引きのガイドライン</a>、<a href="https://www.soumu.go.jp/tokushusagi/id-check/" target="_blank" rel="noopener">携帯電話の本人確認ルール</a>（総務省）</span></div></li>
+      </ol>
+
+      <div class="ch-head"><h3>資格で力試し</h3></div>
+      <div class="rlist">
+        <div class="ritem"><a href="https://www.mcpc-jp.org/kentei/kentei_keitai/" target="_blank" rel="noopener">スマートフォン・モバイル実務検定</a><p>販売員を対象に明記。CBT方式・60問60分・受験料11,550円。第39回は2026/10/23〜2027/2/22（申込は10/16から）。</p><span class="for">通信スタッフに一番おすすめ</span></div>
+        <div class="ritem"><a href="https://www.aeha.or.jp/nintei-center/adviser/" target="_blank" rel="noopener">家電製品アドバイザー</a><p>量販店スタッフ向け。CBTで年2回。</p><span class="for">通信以外の買場も担当するなら</span></div>
+        <div class="ritem"><a href="https://www.dekyo.or.jp/shiken/charge/" target="_blank" rel="noopener">工事担任者（国家資格）</a><p>回線の接続工事を扱える資格。光回線の仕組みを深く理解できる。</p><span class="for">BBに強くなりたい人</span></div>
+      </div>
+
+      <div class="ch-head"><h3>このページの出典（公式）</h3></div>
+      <ul class="links">
+        <li><a href="https://www.docomo.ne.jp/charge/docomo_max/" target="_blank" rel="noopener">ドコモ MAX</a></li>
+        <li><a href="https://www.docomo.ne.jp/charge/minna_docomo/" target="_blank" rel="noopener">みんなドコモ割</a></li>
+        <li><a href="https://www.docomo.ne.jp/charge/hikari_set/" target="_blank" rel="noopener">ドコモ光セット割</a></li>
+        <li><a href="https://www.docomo.ne.jp/charge/dcard_oshiharai/" target="_blank" rel="noopener">dカードお支払割</a></li>
+        <li><a href="https://www.docomo.ne.jp/campaign_event/kaedoki_program/" target="_blank" rel="noopener">いつでもカエドキプログラム</a></li>
+        <li><a href="https://www.docomo.ne.jp/hikari/charge/" target="_blank" rel="noopener">ドコモ光 料金</a></li>
+        <li><a href="https://www.docomo.ne.jp/home_5g/" target="_blank" rel="noopener">home 5G</a></li>
+        <li><a href="https://www.au.com/mobile/charge/charge-discount/smartvalue/" target="_blank" rel="noopener">auスマートバリュー</a></li>
+        <li><a href="https://www.au.com/mobile/charge/charge-discount/kazoku-wari-plus/" target="_blank" rel="noopener">家族割プラス</a></li>
+        <li><a href="https://www.au.com/mobile/tokusuru-program-plus/" target="_blank" rel="noopener">スマホトクするプログラム＋</a></li>
+        <li><a href="https://www.uqwimax.jp/mobile/newplan/setwari/" target="_blank" rel="noopener">UQ 自宅セット割</a></li>
+        <li><a href="https://www.uqwimax.jp/mobile/plan/tokutoku2/" target="_blank" rel="noopener">UQ トクトクプラン2</a></li>
+        <li><a href="https://www.softbank.jp/mobile/campaigns/list/ouchiwari-hikari/" target="_blank" rel="noopener">おうち割 光セット</a></li>
+        <li><a href="https://www.softbank.jp/mobile/products/new-tokusuru-support-plus/" target="_blank" rel="noopener">新トクするサポート＋</a></li>
+        <li><a href="https://www.softbank.jp/internet/sbhikari/price/" target="_blank" rel="noopener">ソフトバンク光 料金</a></li>
+        <li><a href="https://www.softbank.jp/internet/air/price/" target="_blank" rel="noopener">SoftBank Air 料金</a></li>
+        <li><a href="https://www.ymobile.jp/plan/discount/ouchiwari/" target="_blank" rel="noopener">ワイモバイル おうち割</a></li>
+        <li><a href="https://setsuzoku.nifty.com/niftyhikari/price/" target="_blank" rel="noopener">@nifty光 料金</a></li>
+        <li><a href="https://setsuzoku.nifty.com/niftyhikari/service/smartvalue/" target="_blank" rel="noopener">@nifty光×auスマートバリュー</a></li>
+        <li><a href="https://www.soumu.go.jp/tokushusagi/id-check/" target="_blank" rel="noopener">総務省 本人確認ルール</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <p class="foot">このページは自習用のまとめです。料金・条件は2026年9月24日時点で各社公式サイト等を確認したもので、店頭の案内は必ず最新の公式情報・社内資料に従ってください。</p>
+</div>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  function yen(n){return n.toLocaleString("ja-JP")}
+
+  // ---------- tabs ----------
+  var tabs=[["learn","t-learn","p-learn"],["sheet","t-sheet","p-sheet"],["iphone","t-iphone","p-iphone"],["sim","t-sim","p-sim"],["quiz","t-quiz","p-quiz"],["res","t-res","p-res"]];
+  function show(key,scroll){
+    tabs.forEach(function(t){var on=t[0]===key;$(t[1]).setAttribute("aria-selected",on?"true":"false");$(t[2]).hidden=!on});
+    if(scroll)window.scrollTo({top:0});
+  }
+  tabs.forEach(function(t){$(t[1]).addEventListener("click",function(){show(t[0],true)})});
+  document.querySelectorAll("[data-goto]").forEach(function(b){b.addEventListener("click",function(){show(b.getAttribute("data-goto"),true)})});
+  var h=(location.hash||"").replace("#","");
+  if(h==="iphone"||h==="sheet"||h==="sim"||h==="quiz"||h==="res")show(h);
+
+  // segmented helper
+  function seg(id,cb){
+    var el=$(id);
+    el.querySelectorAll("button").forEach(function(b){
+      b.addEventListener("click",function(){
+        el.querySelectorAll("button").forEach(function(x){x.setAttribute("aria-pressed","false")});
+        b.setAttribute("aria-pressed","true");cb&&cb();
+      });
+    });
+    return function(){var p=el.querySelector('[aria-pressed="true"]');return p?p.getAttribute("data-v"):null};
+  }
+
+  // ---------- price sheet ----------
+  var SHEET=[
+    {n:"docomo",sub:"ドコモ／メインブランド",cc:"var(--c-docomo)",plans:[
+      {n:"ドコモ MAX",tag:"段階制・無制限",tiers:[["1GBまで",5698],["3GBまで",6798],["無制限",8448]],
+       dc:[["dカード支払割","GOLD以上 ▲550／dカード ▲220"],["ドコモ光セット割","▲1,210（home 5Gでも同額）"],["みんなドコモ割","2回線 ▲550／3回線以上 ▲1,210"],["長期利用割","20年以上 ▲220／10年以上 ▲110"],["ドコモでんきセット割","▲110"]],
+       after:[2398,3498,5148],cond:"※家族3回線以上・ドコモ光・dカードGOLD・20年以上・でんきの場合",
+       feat:["Lemino・dアニメストア・DAZN・NBA docomoから毎月2つが追加料金なし","海外データ最大30GB（15日まで）が追加料金なし","どの段階でも割引は全部効く"]},
+      {n:"ドコモ mini",tag:"少量向け",tiers:[["4GBまで<br>（増量中6GB）",2750],["10GBまで<br>（増量中12GB）",3850]],
+       dc:[["dカード支払割","GOLD以上 ▲550／dカード ▲220"],["ドコモ光セット割","▲1,210"],["ドコモでんきセット割","▲110"],["みんなドコモ割・長期利用割","対象外（回線数には数える）",1]],
+       after:[880,1980],cond:"※ドコモ光・dカードGOLD・でんきの場合。増量はキャンペーン中（終了日未定）",
+       feat:["ほとんど使わない人・家族のサブ回線向け","家のネットがドコモ光なら880円〜"]}
+     ],
+     call:[["国内24時間かけ放題","1,980"],["1回5分以内","880"]],
+     iphone:{n:["18 Pro","18 Pro Max","17 Pro","17 Pro Max","Air","17","17e","16"],s:["Duo（10/23〜）"],c:""}},
+
+    {n:"au",sub:"au／メインブランド",cc:"var(--c-au)",plans:[
+      {n:"auバリューリンクプラン",tag:"使い放題",tiers:[["1GBまで",6358],["無制限",8008]],
+       dc:[["au PAYカード支払割","▲220（ゴールドも同額）"],["auスマートバリュー","▲1,100"],["家族割プラス","2人 ▲660／3人以上 ▲1,210"]],
+       after:[3828,5478],cond:"※家族3人以上・スマートバリュー・au PAYカードの場合。1GBまでの料金は1GB以下割（▲1,650）込み",
+       feat:["Pontaパス込み","au Starlink Direct（圏外でも衛星とつながる）","au海外放題の無料枠・au 5G Fast Lane"]},
+      {n:"スマホミニプラン＋",tag:"少量向け",tiers:[["1GBまで",4928],["3GBまで",6578],["5GBまで",8228]],
+       dc:[["au PAYカード支払割","▲220"],["auスマートバリュー","▲1,100"],["家族割プラス","2人 ▲660／3人以上 ▲1,210"]],
+       after:[2398,4048,5698],cond:"※家族3人以上・スマートバリュー・au PAYカードの場合",
+       feat:["3GBを超えそうならバリューリンクを案内（5GBまでの8,228円は無制限の8,008円より高い）"]}
+     ],
+     call:[["国内24時間かけ放題","1,980"],["1回5分以内","880"]],
+     upg:{t:"UQ mobile→au 移行プログラム",v:"▲2,640 × 12か月",p:"UQの利用開始月から6か月経過・同じ番号でauへ。バリューリンク・使い放題MAX＋などが対象（スマホミニプラン＋は対象外）。期間中は1GB以下割なし。",ex:"バリューリンク全割引 5,478円 → <b>2,838円</b>（12か月間）"},
+     iphone:{n:["18 Pro","18 Pro Max","17 Pro","17 Pro Max","Air","17","17e"],s:["Duo（10/23〜）"],c:""}},
+
+    {n:"SoftBank",sub:"ソフトバンク／メインブランド",cc:"var(--c-sb)",plans:[
+      {n:"テイガク無制限",tag:"シンプル無制限",tiers:[["無制限",8008]],
+       dc:[["PayPayカード割","ゴールド ▲550／通常 ▲330"],["おうち割 光セット","▲1,100"],["新みんな家族割","2人 ▲660／3人以上 ▲1,210"]],
+       after:[5148],cond:"※家族3人以上・おうち割・PayPayカード ゴールドの場合",
+       feat:["ポイントより月額を重視する人の無制限","月300GBを超えると速度制限"]},
+      {n:"ペイトク2",tag:"PayPay還元",tiers:[["無制限",10538]],
+       dc:[["PayPayカード割","ゴールド ▲550／通常 ▲330"],["おうち割 光セット","▲1,100"],["新みんな家族割","2人 ▲660／3人以上 ▲1,210"]],
+       after:[7678],cond:"※家族3人以上・おうち割・PayPayカード ゴールドの場合",
+       feat:["PayPayポイント+5%（上限3,000円/月）、ゴールドカード連携で+10%（上限4,000円/月）","PayPayでよく買い物する人ほど実質の負担が下がる"]},
+      {n:"ミニフィット2",tag:"少量向け",tiers:[["2GBまで",5258],["5GBまで",6358]],
+       dc:[["PayPayカード割","ゴールド ▲550／通常 ▲330"],["おうち割 光セット","▲1,100"],["新みんな家族割","2人 ▲220／3人以上 ▲550"]],
+       after:[3058,4158],cond:"※家族3人以上・おうち割・PayPayカード ゴールドの場合",
+       feat:["2段階・最大5GB（1GBの段階はなし）"]}
+     ],
+     call:[["国内24時間かけ放題","1,980"],["1回5分以内","880"]],
+     upg:{t:"ワイモバイル→ソフトバンク のりかえ特典＋",v:"▲2,420 × 12か月",p:"ワイモバイルの契約日から1年経過・解約せず番号移行。ペイトク2・テイガク無制限が対象（ミニフィット2は対象外）。個人名義のみ。",ex:"テイガク無制限 全割引 5,148円 → <b>2,728円</b>（12か月間・目安）"},
+     note:"旧プラン（メリハリ無制限＋・ミニフィットプラン＋）は2026年6月1日で受付終了。利用中の人は7月から値上げ（メリハリ無制限＋は無制限7,975円）。",
+     iphone:{n:["18 Pro","18 Pro Max","17 Pro","17 Pro Max","Air","17","17e","16e","16"],s:["Duo（10/23〜）"],c:""}},
+
+    {n:"ahamo",sub:"ドコモの料金プランの1つ",cc:"var(--c-ahamo)",plans:[
+      {n:"ahamo／ahamo大盛り",tag:"割引条件なし",tiers:[["30GB<br>（増量中40GB）",2970],["大盛り110GB<br>（増量中120GB）",4950]],
+       dc:[["家族割・光セット割・カード割","なし（最初からこの値段）",1]],
+       after:[2970,4950],cond:"※5分以内の国内通話無料込み。増量はキャンペーン中（終了日未定）",
+       feat:["ahamoはドコモの料金プランの1つ。通信費を安く抑えながら、iPhone 17や18 Proなどドコモと同じ最新機種を買える","割引条件をそろえなくても安い","海外でも30GBまで追加料金なし（対象国は公式で確認）","契約は18歳以上。ドコモの家族の回線数には数えられる"]}
+     ],
+     call:[["国内24時間かけ放題","+1,100"],["1回5分以内","無料（込み）"]],
+     iphone:{n:["18 Pro","18 Pro Max","17 Pro","17 Pro Max","Air","17","17e","16"],s:["Duo（10/23〜）"],c:""}},
+
+    {n:"UQ mobile",sub:"auのサブブランド",cc:"var(--c-uq)",plans:[
+      {n:"トクトクプラン2",tag:"〜30GB",tiers:[["5GBまで",2948],["30GBまで",4048]],
+       dc:[["自宅セット割","▲1,100（光・ホームルーター・auでんき）"],["家族セット割","▲550（自宅セット割とどちらか）"],["au PAYカード支払割","▲220"]],
+       after:[1628,2728],cond:"※自宅セット割・au PAYカードの場合。5GBまでの料金は5GB以下割（▲1,100）込み",
+       feat:["<strong>データくりこし</strong>：余ったデータは翌月にくりこせる","<strong>増量オプションⅡ</strong>（月550円）：30GB → 35GB。初めての加入で7か月無料","auでんきだけでも自宅セット割が付く","60歳以上は24時間かけ放題が880円"]},
+      {n:"コミコミプランバリュー",tag:"通話込み",tiers:[["35GBまで",3828]],
+       dc:[["UQコミコミおトク割","▲660（最大13か月）"],["自宅・家族・カード割","対象外",1]],
+       after:[3168],cond:"※14か月目以降は3,828円（au PAY ゴールドカード会員は割引が続く）",
+       feat:["<strong>データくりこし</strong>：余ったデータは翌月にくりこせる","<strong>増量オプションⅡ</strong>（月550円）：35GB → 40GB。初めての加入で7か月無料","1回10分以内の国内通話かけ放題込み","Pontaパス・au Starlink Direct込み","割引条件なしで分かりやすい"]}
+     ],
+     call:[["24時間かけ放題","1,980"],["1回10分以内","880"],["月60分まで","660"],["60歳以上 24時間","880"]],
+     callNote:"コミコミプランバリューから24時間かけ放題にする場合は+1,100円。",
+     upg:{t:"auへのアップグレード",v:"▲2,640 × 12か月",p:"UQ mobile→au 移行プログラム。UQ利用6か月経過で、同じ番号のままauへ。最新iPhoneが欲しいお客様に。",ex:""},
+     iphone:{n:["17e（256GB／512GB）","16"],s:[],c:"",x:"17・17 Pro・Air・18 Proは販売なし（SIM単＋SIMフリー端末なら使える）"}},
+
+    {n:"Y!mobile",sub:"ソフトバンクのサブブランド",cc:"var(--c-ym)",plans:[
+      {n:"シンプル3",tag:"S／M／L",tiers:[["S 5GB",3278],["M 30GB",4378],["L 35GB",5478]],
+       dc:[["おうち割 光セット(A)","▲1,650"],["家族割引サービス","▲1,100（2回線目以降）※おうち割とどちらか"],["PayPayカード割","通常 ▲330／ゴールド ▲770"]],
+       after:[858,1958,3058],cond:"※おうち割 光セット・PayPayカード ゴールドの場合",
+       feat:["<strong>データくりこし</strong>：余ったデータは翌月にくりこせる（S・M・Lとも）","<strong>データ増量オプション</strong>（月550円）：S 5→7GB／M 30→35GB／L 35→40GB。初めての加入で6か月無料","Lは1回10分以内の国内通話かけ放題込み","LYPプレミアムが追加料金なし","超！おトク割（M・L ▲1,100×12か月、期間限定）はおうち割・家族割とどれか1つ","2026年6月1日までの契約者は12月31日まで旧料金"]}
+     ],
+     call:[["1回10分以内（S・M）","880"],["24時間（S・M）","1,980"],["24時間（L）","1,100"],["60歳以上 24時間","S・M 880／L 0"]],
+     upg:{t:"ソフトバンクへのアップグレード",v:"▲2,420 × 12か月",p:"のりかえ特典＋。ワイモバイル契約日から1年経過で番号移行。ペイトク2・テイガク無制限が対象。",ex:""},
+     iphone:{n:["17e（256GB／512GB）","16e","16"],s:[],c:"",x:"17・17 Pro・Air・18 Proは販売なし（SIM単＋SIMフリー端末なら使える）"}}
+  ];
+  function buildSheet(){
+    var g=$("sheetgrid");if(!g)return;var H="";
+    SHEET.forEach(function(B){
+      H+='<article class="sp" style="--cc:'+B.cc+'"><div class="sp-hd"><h3>'+B.n+'</h3><span>'+B.sub+'</span></div><div class="sp-body">';
+      B.plans.forEach(function(P){
+        var n=P.tiers.length;
+        H+='<div class="pl"><div class="pl-name">'+P.n+'<small>'+P.tag+'</small></div><table class="pt t'+n+'"><thead><tr><th scope="row" style="background:var(--sheet-dark)"></th>';
+        P.tiers.forEach(function(t){H+='<td>'+t[0]+'</td>'});
+        H+='</tr></thead><tbody><tr class="base"><th scope="row">基本料金</th>';
+        P.tiers.forEach(function(t){H+='<td>'+yen(t[1])+'<small>円</small></td>'});
+        H+='</tr>';
+        P.dc.forEach(function(d){H+='<tr class="dc"><th scope="row">'+d[0]+'</th><td colspan="'+n+'"'+(d[2]?' class="na"':'')+'>'+d[1]+'</td></tr>'});
+        H+='<tr class="after"><th scope="row">値引適用後</th>';
+        P.after.forEach(function(a){H+='<td>'+yen(a)+'<small>円</small></td>'});
+        H+='</tr><tr class="cond"><td colspan="'+(n+1)+'">'+P.cond+'</td></tr></tbody></table></div>';
+        H+='<ul class="feat">';P.feat.forEach(function(f){H+='<li><span>'+f+'</span></li>'});H+='</ul>';
+      });
+      H+='<span class="sec-l">通話オプション（月額）</span><div class="callrow">';
+      B.call.forEach(function(c){H+='<div><span>'+c[0]+'</span><b>'+c[1]+(/\d$/.test(c[1])?'<small>円</small>':'')+'</b></div>'});
+      H+='</div>';
+      if(B.callNote)H+='<p class="spnote">'+B.callNote+'</p>';
+      if(B.upg)H+='<div class="upg"><span class="t">'+B.upg.t+'</span><span class="v">'+B.upg.v+'</span><p>'+B.upg.p+'</p>'+(B.upg.ex?'<span class="ex">'+B.upg.ex+'</span>':'')+'</div>';
+      if(B.note)H+='<p class="spnote">'+B.note+'</p>';
+      H+='<span class="sec-l">取り扱いiPhone（新品）</span><div class="ipr">';
+      B.iphone.n.forEach(function(x){H+='<span class="new">'+x+'</span>'});
+      B.iphone.s.forEach(function(x){H+='<span class="soon">'+x+'</span>'});
+      H+='</div>';
+      if(B.iphone.x)H+='<p class="spnote"><strong>'+B.iphone.x+'</strong></p>';
+      H+='</div></article>';
+    });
+    g.innerHTML=H;
+  }
+  buildSheet();
+
+  // ---------- iPhone compare ----------
+  var IM=["16e","16","17e","17","Air","17P","17PM","18P","18PM","Duo"];
+  var IN={"16e":"iPhone 16e","16":"iPhone 16","17e":"iPhone 17e","17":"iPhone 17","Air":"iPhone Air","17P":"iPhone 17 Pro","17PM":"iPhone 17 Pro Max","18P":"iPhone 18 Pro","18PM":"iPhone 18 Pro Max","Duo":"iPhone Duo"};
+  function A(v){return IM.map(function(){return v})}
+  var O="○",X="×";
+  var CAR4="ドコモ・ahamo・au・SB";
+  var IR=[
+    ["基本","発売",null,["2025年2月","2024年9月","2026年3月","2025年9月","2025年9月","2025年9月","2025年9月","2026年9月","2026年9月","2026年10月23日予定"]],
+    ["基本","取り扱いブランド","新品で買えるところ",["SB・Y!mobile","ドコモ・ahamo・UQ・SB・Y!mobile","全ブランド",CAR4,CAR4,CAR4,CAR4,CAR4,CAR4,CAR4+"（予約10/16〜）"]],
+    ["基本","Apple Store価格","参考。店頭価格とは違う",["販売終了","139,800円〜","124,800円〜","159,800円〜","189,800円〜","販売終了","販売終了","219,800円〜","239,800円〜","364,800円〜"],"min"],
+    ["基本","容量",null,["128GB／256GB／512GB","128GB／256GB／512GB","256GB／512GB","256GB／512GB","256GB／512GB／1TB","256GB／512GB／1TB","256GB〜2TB","256GB〜2TB","256GB〜2TB","256GB〜2TB"]],
+    ["基本","カラー",null,["ホワイト・ブラック","ウルトラマリン・ティール・ピンク・ホワイト・ブラック","ソフトピンク・ホワイト・ブラック","ラベンダー・セージ・ミストブルー・ホワイト・ブラック","スカイブルー・ライトゴールド・クラウドホワイト・スペースブラック","コズミックオレンジ・ディープブルー・シルバー","コズミックオレンジ・ディープブルー・シルバー","バーガンディ・グレイシャー・シルバー・ブラック","バーガンディ・グレイシャー・シルバー・ブラック","スターホワイト・ナイトスカイ"]],
+    ["画面","サイズ",null,["6.1インチ","6.1インチ","6.1インチ","6.3インチ","6.5インチ","6.3インチ","6.9インチ","6.3インチ","6.9インチ","開7.6／閉5.4インチ"]],
+    ["画面","解像度",null,["2,532×1,170","2,556×1,179","2,532×1,170","2,622×1,206","2,736×1,260","2,622×1,206","2,868×1,320","2,622×1,206","2,868×1,320","内 1,878×2,670／外 1,398×2,034"]],
+    ["画面","なめらか表示（120Hz）","スクロールや動きがなめらか",[X,X,X,O,O,O,O,O,O,O]],
+    ["画面","常時表示","ロック中も時計・通知が見える",[X,X,X,O,O,O,O,O,O,O]],
+    ["画面","画面上部","Dynamic Island＝通知やタイマーが出る部分",["ノッチ","Dynamic Island","ノッチ","Dynamic Island","Dynamic Island","Dynamic Island","Dynamic Island","Dynamic Island（刷新）","Dynamic Island（刷新）","Dynamic Island"]],
+    ["画面","明るさ（標準）",null,["800ニト","1,000ニト","800ニト","1,000ニト","1,000ニト","1,000ニト","1,000ニト","1,000ニト","1,000ニト","1,000ニト"],"max"],
+    ["画面","屋外の明るさ（最大）","晴れた日の外での見やすさ",["—","2,000ニト","—","3,000ニト","3,000ニト","3,000ニト","3,000ニト","3,000ニト","3,000ニト","3,000ニト"],"max"],
+    ["画面","最小輝度1ニト","暗い寝室でもまぶしくない",[X,O,X,O,O,O,O,O,O,O]],
+    ["画面","Apple Pencil対応",null,[X,X,X,X,X,X,X,X,X,O]],
+    ["デザイン","素材",null,["アルミ","アルミ","アルミ","アルミ","チタン","アルミUnibody","アルミUnibody","アルミUnibody","アルミUnibody","チタン"]],
+    ["デザイン","前面ガラス","Ceramic Shield 2は傷に3倍強い",["Ceramic Shield","Ceramic Shield","Ceramic Shield 2","Ceramic Shield 2","Ceramic Shield 2","Ceramic Shield 2","Ceramic Shield 2","Ceramic Shield 2","Ceramic Shield 2","Ceramic Shield 2"]],
+    ["デザイン","背面もCeramic Shield","背面ガラスも割れにくい",[X,X,X,X,O,O,O,O,O,O]],
+    ["デザイン","厚さ",null,["7.80mm","7.80mm","7.80mm","7.95mm","5.64mm","8.75mm","8.75mm","8.75mm","8.75mm","閉11.3／開5.2mm"]],
+    ["デザイン","重さ",null,["167g","170g","169g","177g","165g","206g","233g","211g","249g","254g"],"min"],
+    ["デザイン","アクションボタン","マナーモードや好きな機能を割り当てるボタン",[O,O,O,O,O,O,O,O,O,X]],
+    ["デザイン","カメラコントロール","側面の撮影ボタン。押すだけですぐ撮れる",[X,O,X,O,O,O,O,O,O,O]],
+    ["性能","チップ",null,["A18","A18","A19","A19","A19 Pro","A19 Pro","A19 Pro","A20 Pro","A20 Pro","A20 Pro"]],
+    ["性能","GPU（グラフィック）","ゲームや動画編集の快適さ",["4コア","5コア","4コア","5コア","5コア","6コア","6コア","7コア","7コア","7コア"],"max"],
+    ["性能","Neural Engine（AI処理）",null,["16コア","16コア","16コア","16コア","16コア","16コア","16コア","デュアル16コア","デュアル16コア","デュアル16コア"]],
+    ["性能","冷却（ベイパーチャンバー）","長時間ゲームをしても熱くなりにくい",[X,X,X,X,X,O,O,"○（大型化）","○（大型化）","記載なし"]],
+    ["カメラ","背面カメラ",null,["48MP 1つ","48MP＋超広角12MP","48MP 1つ","48MP＋超広角48MP","48MP 1つ","48MP×3（広角・超広角・望遠）","48MP×3（広角・超広角・望遠）","48MP×3（可変絞り）","48MP×3（可変絞り）","48MP＋超広角48MP"]],
+    ["カメラ","ズーム（光学品質）",null,["1・2倍","0.5〜2倍","1・2倍","0.5〜2倍","1・2倍","0.5〜8倍","0.5〜8倍","0.5〜8倍","0.5〜8倍","0.5〜2倍"]],
+    ["カメラ","超広角（0.5倍）","広い景色・室内・集合写真",[X,O,X,O,X,O,O,O,O,O]],
+    ["カメラ","望遠（4倍・8倍）","運動会やライブで遠くを撮る",[X,X,X,X,X,O,O,O,O,X]],
+    ["カメラ","可変絞り","暗い場所に強い。背景のボケも調整",[X,X,X,X,X,X,X,O,O,X]],
+    ["カメラ","マクロ撮影","花や料理に近づいて撮る",[X,O,X,O,X,O,O,O,O,O]],
+    ["カメラ","前面カメラ",null,["12MP","12MP","12MP","18MP","18MP","18MP","18MP","18MP","18MP","12MP＋画面下カメラ"]],
+    ["カメラ","センターフレーム","縦持ちのまま横長の自撮り。人数に合わせて自動で広がる",[X,X,X,O,O,O,O,O,O,O]],
+    ["カメラ","デュアルキャプチャ","前と後ろのカメラで同時に撮影",[X,X,X,O,O,O,O,O,O,O]],
+    ["カメラ","4K 120fps動画","なめらかなスローも高画質",[X,X,X,X,X,O,O,O,O,O]],
+    ["カメラ","シネマティックモード","動画で背景をぼかす",[X,"○（30fps）",X,"○（30fps）",X,"○（30fps）","○（30fps）","○（60fps）","○（60fps）","○（60fps）"]],
+    ["カメラ","アクションモード","走りながらでもブレにくい動画",[X,O,X,O,O,O,O,O,O,O]],
+    ["カメラ","空間ビデオ","Apple Vision Proで立体的に見られる動画",[X,O,X,O,X,O,O,O,O,X]],
+    ["カメラ","ProRes・Apple Log 2","プロ向けの動画撮影",[X,X,X,X,X,O,O,O,O,X]],
+    ["カメラ","LiDARスキャナ","暗い場所でのピント合わせが速い",[X,X,X,X,X,O,O,O,O,X]],
+    ["電池","ビデオ再生（最大）",null,["26時間","22時間","26時間","30時間","27時間","33時間","39時間","36時間","45時間","内31／外44時間"],"max"],
+    ["電池","動画ストリーミング（最大）","YouTubeなどを見続けた場合",["21時間","18時間","21時間","27時間","22時間","30時間","35時間","33時間","40時間","内26／外37時間"],"max"],
+    ["電池","急速充電（50%まで）","別売りの対応アダプタを使った場合",["約30分","約30分","約30分","約20分","約30分","約20分","約20分","約15分","約15分","約20分"],"min"],
+    ["電池","ワイヤレス充電","MagSafe＝磁石でピタッと付く",["Qi 7.5W（MagSafe非対応）","MagSafe 22W","MagSafe 15W","MagSafe 25W","MagSafe 20W","MagSafe 25W","MagSafe 25W","MagSafe 25W","MagSafe 25W","MagSafe 25W"]],
+    ["通信・その他","ロック解除",null,["Face ID","Face ID","Face ID","Face ID","Face ID","Face ID","Face ID","Face ID","Face ID","Touch ID（指紋）"]],
+    ["通信・その他","SIM","eSIMのみ＝SIMカードは使えない",["SIMカード＋eSIM","SIMカード＋eSIM","eSIMのみ","eSIMのみ","eSIMのみ","eSIMのみ","eSIMのみ","eSIMのみ","eSIMのみ","eSIMのみ"]],
+    ["通信・その他","USB-C","パソコンへの転送。USB 3は最大20倍速い",["USB 2","USB 2","USB 2","USB 2","USB 2","USB 3","USB 3","USB 3","USB 3","USB 3"]],
+    ["通信・その他","Wi-Fi","Wi-Fi 7は対応ルーターでより速い",["Wi-Fi 6","Wi-Fi 7","Wi-Fi 6","Wi-Fi 7","Wi-Fi 7","Wi-Fi 7","Wi-Fi 7","Wi-Fi 7","Wi-Fi 7","Wi-Fi 7"]],
+    ["通信・その他","Bluetooth",null,["5.3","5.3","5.3","6","6","6","6","6","6","6"]],
+    ["通信・その他","超広帯域（UWB）","AirTagの場所を矢印で案内できる",[X,O,X,O,O,O,O,O,O,O]]
+  ];
+  var ISel=["17e","17","18P","18PM"];
+  var IPRE=[["UQ・Y!mobileで買える",["16","17e"]],["スタンダード",["16","17e","17","Air"]],["Pro",["18P","18PM"]],["最新",["17","18P","18PM","Duo"]],["前モデルとの比較",["16e","17e","17P","18P"]],["すべて",IM.slice()]];
+  function numOf(t){var m=String(t).replace(/,/g,"").match(/\d+(\.\d+)?/);return m?parseFloat(m[0]):null}
+  function renderIPC(){
+    var mc=$("ipc-m");mc.innerHTML="";
+    IM.forEach(function(k){var b=document.createElement("button");b.type="button";b.textContent=IN[k].replace("iPhone ","")+(["16e","17P","17PM"].indexOf(k)>=0?"（終売）":"");b.setAttribute("aria-pressed",ISel.indexOf(k)>=0?"true":"false");
+      b.addEventListener("click",function(){var i=ISel.indexOf(k);if(i>=0){if(ISel.length>1)ISel.splice(i,1)}else ISel.push(k);ISel.sort(function(a,b){return IM.indexOf(a)-IM.indexOf(b)});renderIPC()});mc.appendChild(b)});
+    var idx=ISel.map(function(k){return IM.indexOf(k)}),diff=$("ipc-diff").checked;
+    var H='<thead><tr><th>項目</th>';idx.forEach(function(i){H+='<th>'+IN[IM[i]]+'</th>'});H+='</tr></thead><tbody>';
+    var lastG="";
+    IR.forEach(function(r){
+      var vals=idx.map(function(i){return r[3][i]});
+      if(diff&&vals.every(function(v){return v===vals[0]}))return;
+      if(r[0]!==lastG){H+='<tr class="grp"><td colspan="'+(idx.length+1)+'">'+r[0]+'</td></tr>';lastG=r[0]}
+      var best=null;
+      if(r[4]&&idx.length>1){var ns=vals.map(numOf).filter(function(n){return n!==null});if(ns.length>1){var b=r[4]==="max"?Math.max.apply(null,ns):Math.min.apply(null,ns);if(!ns.every(function(n){return n===b}))best=b}}
+      H+='<tr><td>'+r[1]+(r[2]?'<span class="h">'+r[2]+'</span>':'')+'</td>';
+      vals.forEach(function(v){var c=v===O||/^○/.test(v)?"o":v===X?"x":"";if(best!==null&&numOf(v)===best)c+=" best";H+='<td class="'+c+'">'+v+'</td>'});
+      H+='</tr>';
+    });
+    $("ipc-t").innerHTML=H+'</tbody>';
+    var sm=$("ipc-sum");
+    if(ISel.length===2){
+      var a=IM.indexOf(ISel[0]),b=IM.indexOf(ISel[1]),la=[],lb=[];
+      IR.forEach(function(r){var va=r[3][a],vb=r[3][b];var oa=/^○/.test(va),ob=/^○/.test(vb);if(oa&&vb===X)la.push(r[1]);if(ob&&va===X)lb.push(r[1])});
+      var t='<h3>2機種の違いのまとめ</h3>';
+      t+='<p><strong>'+IN[ISel[1]]+'だけにあるもの</strong>：'+(lb.length?lb.join("、"):"なし")+'</p>';
+      t+='<p><strong>'+IN[ISel[0]]+'だけにあるもの</strong>：'+(la.length?la.join("、"):"なし")+'</p>';
+      sm.innerHTML=t;sm.hidden=false;
+    }else{sm.hidden=true}
+  }
+  (function(){
+    var pr=$("ipc-pre");
+    IPRE.forEach(function(p){var b=document.createElement("button");b.type="button";b.textContent=p[0];b.setAttribute("aria-pressed","false");b.addEventListener("click",function(){ISel=p[1].slice();pr.querySelectorAll("button").forEach(function(x){x.setAttribute("aria-pressed",x===b?"true":"false")});renderIPC()});pr.appendChild(b)});
+    $("ipc-diff").addEventListener("change",renderIPC);
+    renderIPC();
+  })();
+
+  // ---------- return quick table ----------
+  function addM(y,m,n){var t=y*12+(m-1)+n;return {y:Math.floor(t/12),m:t%12+1}}
+  function fm(o){return o.y+"年"+o.m+"月"}
+  function renderRT(){
+    var v=$("rt-buy").value||"2024-10",pp=v.split("-"),y=+pp[0],m=+pp[1];
+    var R=[
+      ["ドコモ<br>いつでもカエドキ","23か月目（"+fm(addM(y,m,23))+"）",fm(addM(y,m,23)),"22か月目まで：早期利用特典あり（機種による）／24か月目以降：残価の分割払いが始まる（返せば残りは不要）"],
+      ["au<br>スマホトクする＋","13〜25か月目（"+fm(addM(y,m,13))+"〜"+fm(addM(y,m,25))+"）","機種変更したい月（期限 "+fm(addM(y,m,25))+"）","12か月目まで：返却不可／26か月目以降：最終回分の分割払いが始まる。早く返しても残りの分割は払い続ける"],
+      ["ソフトバンク<br>新トクする＋","25か月目以降（"+fm(addM(y,m,25))+"〜）",fm(addM(y,m,25)),"24か月目まで：早期利用料と補償加入が必要／遅くなるほど支払った額が増える"],
+      ["分リセ","24か月目（"+fm(addM(y,m,24))+"）",fm(addM(y,m,24)),"手続きの方法・期限は社内資料で確認"]
+    ];
+    var h="";R.forEach(function(r){h+='<tr><td><strong>'+r[0]+'</strong></td><td>'+r[1]+'</td><td><b>'+r[2]+'</b><br><span class="note">月の前半に返却</span></td><td class="note">'+r[3]+'</td></tr>'});
+    $("rt-body").innerHTML=h;
+  }
+  $("rt-buy").addEventListener("input",renderRT);$("rt-buy").addEventListener("change",renderRT);
+  renderRT();
+
+  // ---------- hikari calc ----------
+  var HK={
+    docomo:{svc:"ドコモ光 1ギガ（タイプA）",house:5720,mansion:4400,op:0,opn:"",per:1210,dn:"ドコモ光セット割",car:"ドコモ",note:"ahamoは割引の対象外。home 5G セット割も同額（どちらか一方）。"},
+    au:{svc:"ニフティ光 1ギガ",house:5720,mansion:4378,op:550,opn:"@nifty光電話（必須）",per:1100,dn:"auスマートバリュー／UQ自宅セット割",car:"au・UQ",note:"UQはトクトクプラン2が対象（コミコミプランバリューは対象外）。ニフティ光は開通月0円、2〜21か月目は月額が1,100円安く、その間は工事費の分割1,100円がかかる。"},
+    sb:{svc:"ソフトバンク光 1ギガ",house:5720,mansion:4180,op:550,opn:"指定オプション（月550円〜）",per:1100,dn:"おうち割 光セット",car:"ソフトバンク",note:"2026年12月から光の月額が330円上がる（戸建て6,050円／マンション4,510円）。SoftBank Airならオプション不要。"},
+    ym:{svc:"ソフトバンク光 1ギガ",house:5720,mansion:4180,op:550,opn:"指定オプション（月550円〜）",per:1650,dn:"おうち割 光セット(A)",car:"ワイモバイル",note:"ワイモバイルは家族割引サービスとどちらか一方。2026年12月から光の月額が330円上がる。"}
+  };
+  var HKI=[
+    ["ドコモ光","4,950円","屋内配線あり28,600円 → dポイント進呈で実質0円（開通7か月後から24回）","2年定期：戸建て5,500円／マンション4,180円"],
+    ["ニフティ光","3,300円","22,000円（1,100円×20回）→ 新規申込で1年以内に開通すれば実質無料","戸建て4,840円／マンション3,630円"],
+    ["ソフトバンク光","4,950円","立ち会いあり47,520円 → 1,980円×24か月の割引で実質無料","2年自動更新：月額相当額（更新月とその後2か月は0円）"]
+  ];
+  var getHome=seg("h-home",renderHK),getCar=seg("h-car",renderHK);
+  $("h-n").addEventListener("input",renderHK);
+  function renderHK(){
+    var c=HK[getCar()],home=getHome(),n=+$("h-n").value;
+    $("h-n-v").textContent=n+"台";
+    var fee=c[home],gross=fee+c.op,disc=c.per*n,net=gross-disc;
+    $("h-name").innerHTML="";var nm=document.createElement("span");nm.textContent=c.svc;var sm=document.createElement("small");sm.textContent=(home==="house"?"戸建て":"マンション")+"・"+c.car+"のスマホ"+n+"台";$("h-name").appendChild(nm);$("h-name").appendChild(sm);
+    var R=[["光の月額","+"+yen(fee)+"円",""]];
+    if(c.op)R.push([c.opn,"+"+yen(c.op)+"円",""]);
+    R.push([c.dn+"（"+yen(c.per)+"円×"+n+"台）","−"+yen(disc)+"円","m"]);
+    var rw=$("h-rows");rw.innerHTML="";
+    R.forEach(function(r){var d=document.createElement("div");if(r[2])d.className=r[2];var a=document.createElement("span");a.textContent=r[0];var b=document.createElement("b");b.textContent=r[1];d.appendChild(a);d.appendChild(b);rw.appendChild(d)});
+    var mx=Math.max(gross,disc),bar=$("h-bar");bar.innerHTML="";
+    [["光＋オプションで払う額",gross,"var(--paid)"],["家族のスマホが安くなる額",disc,"var(--k-bb)"]].forEach(function(x){
+      var l=document.createElement("span");l.className="lb";l.textContent=x[0]+" "+yen(x[1])+"円";
+      var br=document.createElement("div");br.className="br";var i=document.createElement("i");i.style.width=(x[1]/mx*100)+"%";i.style.background=x[2];br.appendChild(i);
+      bar.appendChild(l);bar.appendChild(br);
+    });
+    $("h-total").textContent=(net<0?"−":"")+yen(Math.abs(net))+"円/月";
+    $("h-note").textContent=(net<=0?"スマホの割引が光の料金を上回るので、光を入れた方が家計全体では安くなります。":"光の月額 "+yen(fee)+"円が、実質 "+yen(net)+"円で使える計算です。")+" "+c.note;
+  }
+  (function(){
+    var t='<div class="tbl"><table><thead><tr><th>光回線</th><th class="r">事務手数料</th><th>工事費と実質無料の条件</th><th>解約金</th></tr></thead><tbody>';
+    HKI.forEach(function(r){t+='<tr><td><strong>'+r[0]+'</strong></td><td class="r">'+r[1]+'</td><td>'+r[2]+'</td><td>'+r[3]+'</td></tr>'});
+    t+='</tbody></table></div><p class="note">初期費用は別途。ニフティ光電話を新しく付ける場合は光電話の工事費がかかることがあります（社内資料で確認）。</p>';
+    $("h-init").innerHTML=t;
+  })();
+  renderHK();
+
+  // ---------- pricing engine ----------
+  var DATA=[1,2,3,4,5,7,10,15,20,30,35,40,50,60,100,999];
+  function dataLabel(d){return d>=999?"100GB超（使い放題）":d<=1?"1GB以下":d+"GB"}
+
+  var BRANDS={
+    docomo:{n:"ドコモ",cc:"var(--c-docomo)",plans:["docomo_max","docomo_mini"],net:["ドコモ光","home 5G"],denki:"ドコモでんき",card:"dカード"},
+    ahamo:{n:"ahamo",cc:"var(--c-ahamo)",plans:["ahamo","ahamo_l"],net:["—","—"],denki:"—",card:"—"},
+    au:{n:"au",cc:"var(--c-au)",plans:["au_vl"],net:["ニフティ光など＋光電話","au ホームルーター 5G"],denki:"auでんき",card:"au PAYカード"},
+    uq:{n:"UQ mobile",cc:"var(--c-uq)",plans:["uq_toku","uq_komi"],net:["ニフティ光など＋光電話","au ホームルーター 5G"],denki:"auでんき",card:"au PAYカード"},
+    sb:{n:"ソフトバンク",cc:"var(--c-sb)",plans:["sb_tei","sb_pay","sb_mini"],net:["ソフトバンク光＋指定OP","SoftBank Air"],denki:"おうちでんき",card:"PayPayカード"},
+    ym:{n:"ワイモバイル",cc:"var(--c-ym)",plans:["ym_s","ym_m","ym_l"],net:["ソフトバンク光＋指定OP","SoftBank Air"],denki:"おうちでんき",card:"PayPayカード"}
+  };
+  var PLANS={
+    docomo_max:{b:"docomo",n:"ドコモ MAX",base:function(d){return d<=1?5698:d<=3?6798:8448},cap:9999},
+    docomo_mini:{b:"docomo",n:"ドコモ mini",base:function(d){return d<=4?2750:3850},cap:10,capNote:"4GB／10GB"},
+    ahamo:{b:"ahamo",n:"ahamo",base:function(){return 2970},cap:40,capNote:"30GB（増量中40GB）"},
+    ahamo_l:{b:"ahamo",n:"ahamo＋大盛り",base:function(){return 4950},cap:120,capNote:"110GB（増量中120GB）"},
+    au_vl:{b:"au",n:"バリューリンク",base:function(){return 8008},cap:9999},
+    au_max:{b:"au",n:"使い放題MAX＋",base:function(){return 7788},cap:9999},
+    uq_toku:{b:"uq",n:"トクトクプラン2",base:function(){return 4048},cap:30},
+    uq_komi:{b:"uq",n:"コミコミバリュー",base:function(){return 3828},cap:35},
+    sb_tei:{b:"sb",n:"テイガク無制限",base:function(){return 8008},cap:9999},
+    sb_pay:{b:"sb",n:"ペイトク2",base:function(){return 10538},cap:9999},
+    sb_mini:{b:"sb",n:"ミニフィット2",base:function(d){return d<=2?5258:6358},cap:5,capNote:"2GB／5GB"},
+    ym_s:{b:"ym",n:"シンプル3 S",base:function(){return 3278},cap:5},
+    ym_m:{b:"ym",n:"シンプル3 M",base:function(){return 4378},cap:30},
+    ym_l:{b:"ym",n:"シンプル3 L",base:function(){return 5478},cap:35}
+  };
+  var CAPM={
+    docomo_max:{s:"無制限",t:[1,3],tl:function(d){return d<=1?"〜1GB":d<=3?"〜3GB":"無制限"}},
+    docomo_mini:{s:"4GB／10GB",t:[4],tl:function(d){return d<=4?"4GB（増量中6GB）":"10GB（増量中12GB）"}},
+    ahamo:{s:"30GB（増量中40GB）",t:[],tl:function(){return "30GB（増量中40GB）"}},
+    ahamo_l:{s:"110GB（増量中120GB）",t:[],tl:function(){return "110GB（増量中120GB）"}},
+    au_vl:{s:"無制限",t:[1],tl:function(d){return d<=1?"1GB以下（割引あり）":"無制限"}},
+    au_max:{s:"無制限",t:[1],tl:function(d){return d<=1?"1GB以下（割引あり）":"無制限"}},
+    uq_toku:{s:"30GB",t:[5],tl:function(d){return d<=5?"5GB以下（割引あり）":"30GB"}},
+    uq_komi:{s:"35GB",t:[],tl:function(){return "35GB"}},
+    sb_tei:{s:"無制限",t:[],tl:function(){return "無制限"}},
+    sb_pay:{s:"無制限",t:[],tl:function(){return "無制限"}},
+    sb_mini:{s:"2GB／5GB",t:[2],tl:function(d){return d<=2?"〜2GB":"〜5GB"}},
+    ym_s:{s:"5GB",t:[],tl:function(){return "5GB"}},
+    ym_m:{s:"30GB",t:[],tl:function(){return "30GB"}},
+    ym_l:{s:"35GB",t:[],tl:function(){return "35GB"}}
+  };
+  var TIERP={
+    docomo_max:[["〜1GB",1,5698],["〜3GB",3,6798],["無制限",9999,8448]],
+    docomo_mini:[["4GB（増量中6GB）",4,2750],["10GB（増量中12GB）",10,3850]],
+    ahamo:[["ahamo 30GB（増量中40GB）",40,2970],["＋大盛りオプション 110GB（増量中120GB）",120,4950]],
+    ahamo_l:[["ahamo 30GB（増量中40GB）",40,2970],["＋大盛りオプション 110GB（増量中120GB）",120,4950]],
+    au_vl:[["1GB以下",1,6358],["無制限",9999,8008]],
+    au_max:[["1GB以下",1,6138],["無制限",9999,7788]],
+    uq_toku:[["5GB以下",5,2948],["30GBまで",30,4048]],
+    uq_komi:[["35GBまで",35,3828]],
+    sb_tei:[["無制限",9999,8008]],
+    sb_pay:[["無制限",9999,10538]],
+    sb_mini:[["〜2GB",2,5258],["〜5GB",5,6358]],
+    ym_s:[["5GBまで",5,3278]],ym_m:[["30GBまで",30,4378]],ym_l:[["35GBまで",35,5478]]
+  };
+  var ZO={uq_toku:{gb:5,free:"7か月",n:"増量オプションⅡ"},uq_komi:{gb:5,free:"7か月",n:"増量オプションⅡ"},ym_s:{gb:2,free:"6か月",n:"データ増量オプション"},ym_m:{gb:5,free:"6か月",n:"データ増量オプション"},ym_l:{gb:5,free:"6か月",n:"データ増量オプション"}};
+  function capTxt(pid,zo){return zo&&ZO[pid]?(PLANS[pid].cap+ZO[pid].gb)+"GB（"+PLANS[pid].cap+"GB＋増量"+ZO[pid].gb+"GB）":CAPM[pid].s}
+  function unl(pid){return PLANS[pid].cap>=9999}
+  function drawGauge(pid,d,r){
+    var P=PLANS[pid],M=CAPM[pid],g=$("r-gauge"),H="";
+    var dd=d>=999?100:d;
+    if(unl(pid)){
+      H+='<div class="gtop"><span>使う量 <b>'+dataLabel(d)+'</b></span><span class="gok">使い放題（無制限）</span></div>';
+      H+='<div class="gbar"><i class="gfill" style="width:100%"></i>';
+      H+='</div>';
+      H+='<p class="gmsg ok">どれだけ使っても容量オーバーはありません。'+(TIERP[pid].length>1?'使った量で料金の段階が変わります。':'')+'</p>';
+    }else{
+      var cap=r.cap,S=Math.max(cap,dd)*1.12,over=d>cap;
+      H+='<div class="gtop"><span>使う量 <b>'+dataLabel(d)+'</b></span><span class="'+(over?'gng':'gok')+'">プランの容量 '+capTxt(pid,r.zo)+'</span></div>';
+      H+='<div class="gbar"><i class="gfill" style="width:'+(Math.min(dd,cap)/S*100)+'%"></i>';
+      if(r.zo)H+='<i class="gzo" style="left:'+(P.cap/S*100)+'%;width:'+(ZO[pid].gb/S*100)+'%"></i>';
+      if(over)H+='<i class="gover" style="left:'+(cap/S*100)+'%;width:'+((dd-cap)/S*100)+'%"></i>';
+      H+='<span class="gcap" style="left:'+(cap/S*100)+'%"><em>上限 '+cap+'GB</em></span>';
+      M.t.forEach(function(t){if(t<cap)H+='<span class="gtick" style="left:'+(t/S*100)+'%"><em>'+t+'GB</em></span>'});
+      H+='</div>';
+      if(over){
+        H+='<div class="gmsg ng"><b>容量オーバー</b>：'+P.n+'は'+cap+'GBまで。'+dataLabel(d)+'使うと、月の途中から速度制限がかかって遅くなります。';
+        var alt=null;BRANDS[P.b].plans.forEach(function(q){if(q!==pid&&d<=PLANS[q].cap){var pr=PLANS[q].base(d);if(!alt||pr<alt.p)alt={q:q,p:pr}}});
+        if(ZO[pid]&&!r.zo&&d<=P.cap+ZO[pid].gb)H+='<br><button type="button" class="gsw" data-zoryo="1">'+ZO[pid].n+'（+550円で+'+ZO[pid].gb+'GB、初回'+ZO[pid].free+'無料）を付ける</button>';
+        if(alt&&alt.q==="ahamo_l")H+='<br><button type="button" class="gsw" data-plan="ahamo_l">大盛りオプション（+1,980円）を付ける</button>';
+        else if(alt)H+='<br><button type="button" class="gsw" data-plan="'+alt.q+'">同じブランドなら「'+PLANS[alt.q].n+'（'+CAPM[alt.q].s+'）」に切り替える</button>';
+        else H+='<br><button type="button" class="gsw" data-mode="all">このブランドには合うプランがないので、全社くらべで探す</button>';
+        H+='</div>';
+      }else{
+        H+='<p class="gmsg ok">容量内です（あと約'+(cap-dd)+'GBの余裕）。'+((P.b==="uq"||P.b==="ym")?'余ったデータは翌月にくりこせます。':'')+(TIERP[pid].length>1?'使った量で料金の段階が変わります。':'')+'</p>';
+      }
+    }
+    var cur=null;if(pid==="ahamo")cur=0;else if(pid==="ahamo_l")cur=1;else TIERP[pid].forEach(function(t,i){if(cur===null&&d<=t[1])cur=i});
+    if(cur===null&&r.zo&&d<=r.cap)cur=TIERP[pid].length-1;
+    H+='<div class="gtiers"><span>容量ごとの料金（割引前）</span>';
+    TIERP[pid].forEach(function(t,i){H+='<span class="tp'+(i===cur?' now':'')+'">'+t[0]+'　'+yen(t[2])+'円</span>'});
+    if(ZO[pid])H+='<span class="tp'+(r.zo?' now':'')+'">＋'+ZO[pid].n+'（+'+ZO[pid].gb+'GB）　550円</span>';
+    H+='</div>';
+    g.innerHTML=H;
+    g.querySelectorAll(".gsw").forEach(function(b){b.addEventListener("click",function(){
+      if(b.getAttribute("data-zoryo")){$("o-zoryo").checked=true;renderOne();return}
+      if(b.getAttribute("data-mode")){setMode("all");$("a-data").value=$("o-data").value;renderAll();return}
+      plan=b.getAttribute("data-plan");$("o-oomori").checked=(plan==="ahamo_l");buildPlans();renderOne();
+    })});
+  }
+  // item: {k:category, n:name, a:amount, s:'ok'|'ng'|'ex'|'na', w:why, bn:benefit}
+  function it(k,n,a,s,w,bn){return {k:k,n:n,a:a,s:s,w:w,bn:bn||""}}
+  function calc(pid,o){
+    var P=PLANS[pid],d=o.data,f=o.fam,net=o.net,card=o.card,L=[];
+    var base=P.base(d);
+    var zo=o.zoryo&&ZO[pid]?ZO[pid]:null,cap=P.cap+(zo?zo.gb:0);
+    if(zo){base+=550;L.push(o.promo?it("promo",zo.n+"の無料期間",550,"ok","初めての加入で"+zo.free+"無料（+550円が0円に）","最初の"+zo.free+"は追加料金なしで容量アップ"):it("promo",zo.n+"の無料期間",0,"ng","初めての加入なら"+zo.free+"無料（「期間限定の割引も入れる」で反映）"))}
+    if(pid==="docomo_max"||pid==="docomo_mini"){
+      if(pid==="docomo_max"){
+        L.push(f>=3?it("family","みんなドコモ割",1210,"ok","家族3回線以上","家族がそろうほど全員が安くなる"):f===2?it("family","みんなドコモ割",550,"ok","2回線なので−550円（3回線以上で−1,210円）","家族がそろうほど全員が安くなる"):it("family","みんなドコモ割",0,"ng","家族2回線以上で適用。ahamoやminiの家族も回線数に数える"));
+      }else L.push(it("family","みんなドコモ割",0,"na","ドコモ miniは割引の対象外（回線数には数える）"));
+      if(net==="hikari")L.push(it("bb","ドコモ光セット割",1210,"ok","家族のだれかがドコモ光を契約","おうちのネットをそろえるだけで家族全員ずっと−1,210円"));
+      else if(net==="hr")L.push(it("hr","home 5G セット割",1210,"ok","家族のだれかがhome 5Gを契約（ドコモ光と両方は付かない）","工事なしで光と同じ割引"));
+      else L.push(it("bb","ドコモ光／home 5G セット割",0,"ng","ドコモ光かhome 5Gを契約すると−1,210円"));
+      L.push(o.denki?it("denki","ドコモでんきセット割",110,"ok","家族のだれかがドコモでんきを契約","電気の契約先を変えるだけで少し安くなる"):it("denki","ドコモでんきセット割",0,"ng","ドコモでんきを契約すると−110円"));
+      L.push(card==="gold"?it("card","dカードお支払割",550,"ok","dカード GOLD U／GOLD／PLATINUMで支払い","支払い方法を変えるだけで毎月−550円"):card==="std"?it("card","dカードお支払割",220,"ok","dカードで支払い（GOLD以上なら−550円）","支払い方法を変えるだけで毎月安くなる"):it("card","dカードお支払割",0,"ng","dカードで払うと−220円、GOLD以上なら−550円"));
+      if(pid==="docomo_max"){
+        L.push(o.long>=20?it("long","長期利用割",220,"ok","ドコモを20年以上利用","長く使っているほどおトク"):o.long>=10?it("long","長期利用割",110,"ok","ドコモを10年以上利用（20年以上で−220円）","長く使っているほどおトク"):it("long","長期利用割",0,"ng","10年以上で−110円、20年以上で−220円"));
+      }else L.push(it("long","長期利用割",0,"na","ドコモ miniは対象外"));
+    }else if(pid==="ahamo"||pid==="ahamo_l"){
+      L.push(it("family","家族割",0,"na","ahamoは割引なし（家族のドコモ回線数には数えられる）"));
+      L.push(it("bb","光セット割",0,"na","ahamoはドコモ光・home 5Gのセット割の対象外"));
+      L.push(it("card","カード払い割",0,"na","料金の割引はなし（dカード特典はデータ増量）"));
+    }else if(pid==="au_vl"||pid==="au_max"){
+      L.push(d<=1?it("low","1GB以下の月の割引",1650,"ok","その月の利用が1GB以下なら自動","使わなかった月は自動で安くなる"):it("low","1GB以下の月の割引",0,"ng","利用が1GB以下の月は自動で−1,650円"));
+      L.push(f>=3?it("family","家族割プラス",1210,"ok","家族3人以上","離れて暮らす家族も対象"):f===2?it("family","家族割プラス",660,"ok","2人なので−660円（3人以上で−1,210円）","離れて暮らす家族も対象"):it("family","家族割プラス",0,"ng","家族2人以上で適用"));
+      L.push(net==="hikari"?it("bb","auスマートバリュー",1100,"ok","ニフティ光＋@nifty光電話など、ネット＋電話のセット","家族全員のスマホがずっと−1,100円"):net==="hr"?it("hr","auスマートバリュー",1100,"ok","au ホームルーター 5Gも対象","工事なしでもスマホが安くなる"):it("bb","auスマートバリュー",0,"ng","対象の光（ネット＋電話）かau ホームルーター 5Gで−1,100円"));
+      L.push(it("denki","auでんき",0,"na","スマホ代の割引はなし（電気代に応じてPontaポイント還元）"));
+      L.push(card==="none"?it("card","au PAYカードお支払い割",0,"ng","au PAYカードで払うと−220円（ゴールドも同額）"):it("card","au PAYカードお支払い割",220,"ok","au PAYカードで支払い（ゴールドも同額）","支払い方法を変えるだけで毎月安くなる"));
+    }else if(pid==="uq_toku"){
+      L.push(d<=5?it("low","5GB以下の月の割引",1100,"ok","その月の利用が5GB以下なら自動","使わなかった月は自動で安くなる"):it("low","5GB以下の月の割引",0,"ng","利用が5GB以下の月は自動で−1,100円"));
+      var home=0;
+      if(net!=="none"){home=1;L.push(it(net==="hr"?"hr":"bb","自宅セット割（インターネットコース）",1100,"ok",net==="hr"?"au ホームルーター 5Gで成立":"ニフティ光＋光電話などで成立","家のネットをそろえるだけでずっと−1,100円"))}
+      else L.push(it("bb","自宅セット割（インターネットコース）",0,"ng","対象の光（ネット＋電話）かホームルーターで−1,100円"));
+      if(o.denki&&!home){home=1;L.push(it("denki","自宅セット割（でんきコース）",1100,"ok","auでんきを契約","ネットを変えなくても、電気だけで−1,100円"))}
+      else if(o.denki&&home)L.push(it("denki","自宅セット割（でんきコース）",0,"ex","インターネットコースと重複しない（ネットが優先）"));
+      else L.push(it("denki","自宅セット割（でんきコース）",0,"ng","auでんきを契約すると−1,100円"));
+      if(f>=2&&!home)L.push(it("family","家族セット割",550,"ok","家族2人以上でUQ","ネットがなくても家族で−550円ずつ"));
+      else if(f>=2&&home)L.push(it("family","家族セット割",0,"ex","自宅セット割と重複しない（自宅セット割が優先）"));
+      else L.push(it("family","家族セット割",0,"ng","家族2人以上で1人−550円（自宅セット割がない場合）"));
+      L.push(card==="none"?it("card","au PAYカードお支払い割",0,"ng","au PAYカードで払うと−220円"):it("card","au PAYカードお支払い割",220,"ok","au PAYカードで支払い","支払い方法を変えるだけで毎月安くなる"));
+    }else if(pid==="uq_komi"){
+      L.push(o.promo?it("promo","UQコミコミおトク割",660,"ok","加入から13か月（au PAY ゴールドカード会員なら継続）","最初の1年ほど安くなる。終了後の金額も伝える"):it("promo","UQコミコミおトク割",0,"ng","期間限定。「期間限定の割引も入れる」で表示"));
+      L.push(it("bb","自宅セット割",0,"na","コミコミプランバリューは対象外"));
+      L.push(it("family","家族セット割",0,"na","コミコミプランバリューは対象外（人数には数える）"));
+      L.push(it("card","au PAYカードお支払い割",0,"na","コミコミプランバリューは対象外"));
+    }else if(pid==="sb_tei"||pid==="sb_pay"||pid==="sb_mini"){
+      if(pid==="sb_mini")L.push(f>=3?it("family","新みんな家族割",550,"ok","家族3人以上（ミニフィット2は−550円）","住所が別の家族も対象"):f===2?it("family","新みんな家族割",220,"ok","2人なので−220円（3人以上で−550円）","住所が別の家族も対象"):it("family","新みんな家族割",0,"ng","家族2人以上で適用"));
+      else L.push(f>=3?it("family","新みんな家族割",1210,"ok","家族3人以上","住所が別の家族も対象"):f===2?it("family","新みんな家族割",660,"ok","2人なので−660円（3人以上で−1,210円）","住所が別の家族も対象"):it("family","新みんな家族割",0,"ng","家族2人以上で適用"));
+      L.push(net==="hikari"?it("bb","おうち割 光セット",1100,"ok","ソフトバンク光＋指定オプション（月550円〜）","家族全員のスマホがずっと−1,100円"):net==="hr"?it("hr","おうち割 光セット",1100,"ok","SoftBank Air（オプション不要）","工事なしでもスマホが安くなる"):it("bb","おうち割 光セット",0,"ng","ソフトバンク光（指定OP）かSoftBank Airで−1,100円"));
+      L.push(it("denki","おうち割 でんきセット",0,"na","このプランが対象か確認できないため計算外（要確認）"));
+      L.push(card==="gold"?it("card","PayPayカード割",550,"ok","PayPayカード ゴールドで支払い","支払い方法を変えるだけで毎月−550円"):card==="std"?it("card","PayPayカード割",330,"ok","PayPayカードで支払い（ゴールドなら−550円）","支払い方法を変えるだけで毎月安くなる"):it("card","PayPayカード割",0,"ng","PayPayカードで−330円、ゴールドなら−550円"));
+    }else{ // ym
+      var ml=(pid!=="ym_s"),C=[];
+      C.push({i:it(net==="hr"?"hr":"bb","おうち割 光セット(A)",1650,"ok",net==="hr"?"SoftBank Air（オプション不要）":"ソフトバンク光＋指定オプション","家のネットをそろえるだけでずっと−1,650円"),on:net!=="none",off:"ソフトバンク光（指定OP）かSoftBank Airで−1,650円"});
+      C.push({i:it("family","家族割引サービス",1100,"ok","2回線目以降の人の金額（1回線目は割引なし）","2人目以降のスマホ代が毎月−1,100円"),on:f>=2,off:"家族2回線目以降に−1,100円"});
+      C.push({i:it("denki","おうち割 でんきセット(E)",1100,"ok","おうちでんきを契約（24か月間）","電気を変えるだけで2年間−1,100円"),on:o.denki&&ml,off:ml?"おうちでんきで−1,100円（24か月）":"シンプル3 Sは対象外"});
+      C.push({i:it("promo","超！おトク割",1100,"ok","M・Lの期間限定割（12か月）","1年間−1,100円。終了後の金額も伝える"),on:o.promo&&ml,off:ml?"期間限定。「期間限定の割引も入れる」で表示":"シンプル3 Sは対象外"});
+      var best=null;C.forEach(function(c){if(c.on&&(!best||c.i.a>best.i.a))best=c});
+      C.forEach(function(c){
+        if(c===best)L.push(c.i);
+        else if(c.on){var x=it(c.i.k,c.i.n,0,"ex","どれか1つだけのグループ。「"+best.i.n+"」が適用されています");L.push(x)}
+        else L.push(it(c.i.k,c.i.n,0,(!ml&&(c.i.k==="denki"||c.i.k==="promo"))?"na":"ng",c.off));
+      });
+      L.push(card==="gold"?it("card","PayPayカード割",770,"ok","ゴールド −550円＋増額特典 −220円","支払い方法を変えるだけで毎月−770円"):card==="std"?it("card","PayPayカード割",330,"ok","PayPayカードで支払い（ゴールドなら−770円）","支払い方法を変えるだけで毎月安くなる"):it("card","PayPayカード割",0,"ng","PayPayカードで−330円、ゴールドなら−770円（他の割引と併用OK）"));
+    }
+    var disc=0;L.forEach(function(x){if(x.s==="ok")disc+=x.a});
+    return {base:base,disc:disc,price:Math.max(0,base-disc),items:L,fits:d<=cap,cap:cap,zo:!!zo};
+  }
+
+  // ---------- one-carrier simulator ----------
+  var brand="docomo",plan="docomo_max";
+  var getNet=seg("o-net",renderOne),getCard=seg("o-card",renderOne),getLong=seg("o-long",renderOne);
+  var brandrow=$("brandrow");
+  Object.keys(BRANDS).forEach(function(k){
+    var b=document.createElement("button");b.type="button";b.id="brand-"+k;b.style.setProperty("--cc",BRANDS[k].cc);
+    b.textContent=BRANDS[k].n;b.setAttribute("aria-pressed",k===brand?"true":"false");
+    b.addEventListener("click",function(){brand=k;plan=BRANDS[k].plans[0];$("o-oomori").checked=false;brandrow.querySelectorAll("button").forEach(function(x){x.setAttribute("aria-pressed",x===b?"true":"false")});buildPlans();renderOne()});
+    brandrow.appendChild(b);
+  });
+  function buildPlans(){
+    var pr=$("planrow");pr.innerHTML="";
+    BRANDS[brand].plans.forEach(function(pid){
+      if(pid==="ahamo_l")return;
+      var b=document.createElement("button");b.type="button";b.id="plan-"+pid;b.className="pbtn";
+      var t1=document.createElement("span");t1.textContent=PLANS[pid].n;var t2=document.createElement("small");t2.textContent=CAPM[pid].s;b.appendChild(t1);b.appendChild(t2);
+      b.setAttribute("aria-pressed",(pid===plan||(pid==="ahamo"&&plan==="ahamo_l"))?"true":"false");
+      b.addEventListener("click",function(){plan=(pid==="ahamo"&&$("o-oomori").checked)?"ahamo_l":pid;pr.querySelectorAll("button").forEach(function(x){x.setAttribute("aria-pressed",x===b?"true":"false")});renderOne()});
+      pr.appendChild(b);
+    });
+    var B=BRANDS[brand];
+    $("o-oomori-wrap").hidden=brand!=="ahamo";
+        $("o-net-sub").textContent=brand==="ahamo"?"ahamoはセット割の対象外です":"光＝"+B.net[0]+"／ホームルーター＝"+B.net[1];
+    $("o-denki-l").textContent=brand==="ahamo"?"でんきもセット":B.denki+"もセット";
+    $("o-card-s").textContent=brand==="ahamo"?"通常カード":B.card;
+    $("o-card-g").textContent="ゴールド";
+    $("o-long-wrap").hidden=brand!=="docomo";
+  }
+  ["o-data","o-fam"].forEach(function(id){$(id).addEventListener("input",renderOne)});
+  ["o-denki","o-promo"].forEach(function(id){$(id).addEventListener("change",renderOne)});
+  $("o-zoryo").addEventListener("change",renderOne);
+  $("o-oomori").addEventListener("change",function(){if(brand==="ahamo"){plan=$("o-oomori").checked?"ahamo_l":"ahamo";buildPlans();renderOne()}});
+  var KC={family:"--k-family",bb:"--k-bb",hr:"--k-hr",denki:"--k-denki",card:"--k-card",long:"--k-long",low:"--k-low",promo:"--k-promo"};
+  function renderOne(){
+    var d=DATA[+$("o-data").value],f=+$("o-fam").value;
+    $("o-data-v").textContent=dataLabel(d);
+    $("o-fam-v").textContent=f>=5?"5人以上":f===1?"1人（自分だけ）":f+"人";
+    var o={data:d,fam:f,net:getNet(),card:getCard(),long:+getLong(),denki:$("o-denki").checked,promo:$("o-promo").checked,zoryo:$("o-zoryo").checked};
+    var zw=$("o-zoryo-wrap");zw.hidden=!ZO[plan];if(ZO[plan])$("o-zoryo-l").textContent=ZO[plan].n+"を付ける（+550円で+"+ZO[plan].gb+"GB、初回"+ZO[plan].free+"無料）";
+    var r=calc(plan,o),P=PLANS[plan];
+    $("planrow").querySelectorAll(".pbtn").forEach(function(b){var q=b.id.replace("plan-","");if(q==="ahamo"&&plan==="ahamo_l")q="ahamo_l";var zc=(o.zoryo&&ZO[q])?ZO[q].gb:0;b.classList.toggle("over",d>PLANS[q].cap+zc);if(ZO[q])b.querySelector("small").textContent=o.zoryo?(PLANS[q].cap+zc)+"GB（増量込み）":CAPM[q].s;if(q.indexOf("ahamo")===0)b.querySelector("small").textContent=CAPM[q].s});
+    $("r-price").textContent=yen(r.price);
+    var cb=$("r-cap");cb.textContent=r.fits?(r.zo?r.cap+"GB（増量込み）":CAPM[plan].tl(d)):"容量オーバー";cb.className="capchip"+(r.fits?"":" ng");
+    $("sim-one").classList.toggle("is-over",!r.fits);
+    drawGauge(plan,d,r);
+    $("o-mini").innerHTML="";var m1=document.createElement("span");m1.textContent=P.n+(r.zo?"＋増量":"")+"・"+(r.fits?(r.zo?r.cap+"GB":CAPM[plan].tl(d)):"容量オーバー");var m2=document.createElement("b");m2.textContent=yen(r.price)+"円";$("o-mini").appendChild(m1);$("o-mini").appendChild(m2);
+    $("r-from").textContent=P.n+(r.zo?"＋"+ZO[plan].n:"")+"（"+capTxt(plan,r.zo)+"）　割引前 "+yen(r.base)+"円 − 割引 "+yen(r.disc)+"円";
+    var st=$("r-stack");st.innerHTML="";
+    var paid=document.createElement("div");paid.className="paid";paid.style.flexBasis=(r.price/r.base*100)+"%";paid.textContent=r.price/r.base>.18?"お支払い "+yen(r.price)+"円":"";st.appendChild(paid);
+    r.items.forEach(function(x){if(x.s!=="ok"||!x.a)return;var s=document.createElement("div");s.className="d";s.style.setProperty("--kc","var("+KC[x.k]+")");s.style.flexBasis=(x.a/r.base*100)+"%";s.textContent=x.a/r.base>.1?"−"+yen(x.a):"";s.title=x.n+" −"+yen(x.a)+"円";st.appendChild(s)});
+    var notes=[];
+    if(plan==="ahamo")notes.push("ahamo基本料金（30GB、増量キャンペーン中は40GB）です。");
+    if(plan==="ahamo_l")notes.push("ahamo 2,970円＋大盛りオプション 1,980円＝4,950円（110GB、増量キャンペーン中は120GB）です。");
+    if(plan==="docomo_mini")notes.push(d<=4?"4GBプランの料金です。":"10GBプランの料金です。");
+    if(plan==="docomo_max")notes.push(d<=1?"〜1GBの段階です。":d<=3?"〜3GBの段階です。":"無制限の段階です。");
+    if(plan==="sb_mini")notes.push(d<=2?"〜2GBの段階です。":"〜5GBの段階です。");
+    if(plan==="sb_pay")notes.push("このほかPayPayポイント+5%（ゴールド連携で+10%）の還元があります。");
+    if(brand==="ym"&&f>=2)notes.push("家族割引サービスは2回線目以降の人の金額です。");
+    $("r-note").textContent=notes.join(" ");
+    var ul=$("r-list");ul.innerHTML="";
+    var order={ok:0,ex:1,ng:2,na:3};
+    r.items.slice().sort(function(a,b){return order[a.s]-order[b.s]}).forEach(function(x){
+      var li=document.createElement("li");if(x.s==="ok")li.className="on";li.style.setProperty("--kc","var("+KC[x.k]+")");
+      var lab={ok:"適用",ng:"条件外",ex:"重複なし",na:"対象外"}[x.s];
+      li.innerHTML='<span class="n"></span><span class="a"></span><span class="why"></span><span class="bn"></span>';
+      var n=li.querySelector(".n");n.textContent=x.n+" ";var sp=document.createElement("span");sp.className="st "+(x.s==="ok"?"ok":x.s==="ex"?"ex":"ng");sp.textContent=lab;n.appendChild(sp);
+      li.querySelector(".a").textContent=x.s==="ok"?"−"+yen(x.a)+"円":"—";
+      li.querySelector(".why").textContent=x.w;
+      li.querySelector(".bn").textContent=x.bn?"お客様のメリット："+x.bn:"";
+      ul.appendChild(li);
+    });
+  }
+  buildPlans();renderOne();
+
+  // ---------- compare ----------
+  var getANet=seg("a-net",renderAll),getACard=seg("a-card",renderAll);
+  ["a-data","a-fam"].forEach(function(id){$(id).addEventListener("input",renderAll)});
+  ["a-denki","a-promo","a-zoryo"].forEach(function(id){$(id).addEventListener("change",renderAll)});
+  function renderAll(){
+    var d=DATA[+$("a-data").value],f=+$("a-fam").value;
+    $("a-data-v").textContent=dataLabel(d);
+    $("a-fam-v").textContent=f>=5?"5人以上":f===1?"1人（自分だけ）":f+"人";
+    var o={data:d,fam:f,net:getANet(),card:getACard(),long:0,denki:$("a-denki").checked,promo:$("a-promo").checked};
+    var rows=[];
+    Object.keys(BRANDS).forEach(function(bk){
+      var best=null;
+      BRANDS[bk].plans.forEach(function(pid){
+        var cands=[calc(pid,o)];
+        if($("a-zoryo").checked&&ZO[pid]){var o2={};for(var k in o)o2[k]=o[k];o2.zoryo=true;cands.push(calc(pid,o2))}
+        cands.forEach(function(r){if(!r.fits)return;if(!best||r.price<best.r.price)best={pid:pid,r:r}});
+      });
+      rows.push({bk:bk,best:best});
+    });
+    rows.sort(function(a,b){if(!a.best)return 1;if(!b.best)return -1;return a.best.r.price-b.best.r.price});
+    var max=11000;rows.forEach(function(x){if(x.best&&x.best.r.base>max)max=x.best.r.base});
+    var c=$("cmp");c.innerHTML="";
+    var am=$("a-mini");am.innerHTML="";if(rows[0]&&rows[0].best){var q1=document.createElement("span");q1.textContent="最安："+BRANDS[rows[0].bk].n+" "+PLANS[rows[0].best.pid].n;var q2=document.createElement("b");q2.textContent=yen(rows[0].best.r.price)+"円";am.appendChild(q1);am.appendChild(q2)}
+    rows.forEach(function(x){
+      var B=BRANDS[x.bk],row=document.createElement("div");row.className="cmprow";row.style.setProperty("--cc",B.cc);
+      var w=document.createElement("div");w.className="who2";
+      var tg=document.createElement("span");tg.className="tag";tg.textContent=B.n;w.appendChild(tg);
+      var sm=document.createElement("small");sm.textContent=x.best?PLANS[x.best.pid].n+(x.best.r.zo?"＋増量":""):"—";w.appendChild(sm);
+      row.appendChild(w);
+      var pr=document.createElement("div");pr.className="pr";
+      if(x.best){var pb=document.createElement("b");pb.textContent=yen(x.best.r.price);pr.appendChild(pb);pr.appendChild(document.createTextNode("円"));var ps=document.createElement("small");ps.textContent=(x.best.r.zo?x.best.r.cap+"GB（増量込み）":CAPM[x.best.pid].tl(d))+"・"+(x.best.r.disc?"割引前 "+yen(x.best.r.base)+"円 −"+yen(x.best.r.disc):"割引なし");pr.appendChild(ps)}
+      row.appendChild(pr);
+      var bar=document.createElement("div");
+      if(!x.best){bar.className="cbar na";var mx=0;B.plans.forEach(function(q){if(PLANS[q].cap>mx)mx=PLANS[q].cap});bar.textContent="容量オーバー：このブランドは最大"+mx+"GBまで";}
+      else{
+        bar.className="cbar";var r=x.best.r;
+        var ba=document.createElement("div");ba.className="base";ba.style.width=(r.base/max*100)+"%";
+        var fi=document.createElement("div");fi.className="fin";fi.style.width=(r.price/max*100)+"%";
+        bar.appendChild(ba);bar.appendChild(fi);
+        bar.title=B.n+" "+PLANS[x.best.pid].n+"：割引前"+yen(r.base)+"円 → "+yen(r.price)+"円";
+      }
+      row.appendChild(bar);c.appendChild(row);
+    });
+    var n=[];
+    if(o.net!=="none")n.push("BBは各社のグループのもの（ドコモ光／ニフティ光＋光電話／ソフトバンク光＋指定OPなど）にした場合です。");
+    if(f>=2)n.push("ワイモバイルの家族割は2回線目以降の人の金額です。");
+    n.push("金額の下は、そのプランで使える容量です。");
+    $("cmp-note").textContent=n.join(" ");
+  }
+  function setMode(m){
+    $("mode-one").setAttribute("aria-pressed",m==="one"?"true":"false");
+    $("mode-all").setAttribute("aria-pressed",m==="all"?"true":"false");
+    $("sim-one").hidden=m!=="one";$("sim-all").hidden=m!=="all";
+    if(m==="all")renderAll();
+  }
+  $("mode-one").addEventListener("click",function(){setMode("one")});
+  $("mode-all").addEventListener("click",function(){setMode("all")});
+  renderAll();
+
+  // ---------- quiz ----------
+  var CH={term:"用語",carrier:"キャリアと料金",sheet:"料金表",iphone:"iPhone",wari:"割引の条件",fee:"手数料と条件",ret:"2年返却",bb:"BB",koji:"開通工事"};
+  var Q=[
+    {c:"term",q:"買場で「BB」と言ったら何のこと？",o:["光回線やホームルーターなど家のインターネット","ブラックベリーの端末","ブランドバッグ","補償サービス"],a:0,e:"BB＝ブロードバンド。お客様には「ご自宅のインターネット」と言いかえます。"},
+    {c:"term",q:"「予番（よばん）」とは？",o:["MNP予約番号","予約した来店番号","端末の製造番号","暗証番号"],a:0,e:"乗り換え用に今の会社で発行する番号で、有効期限は発行日を含めて15日。MNPでは必須、アップグレード（番号移行）のときだけ不要です。"},
+    {c:"term",q:"「移植」とは何の作業？",o:["データ移行（写真・連絡先・LINEなどを新しい端末へ移す）","SIMカードの差し替え","修理","端末の初期化"],a:0,e:"お客様には「データのお引っ越し」と伝えるとわかりやすいです。"},
+    {c:"term",q:"「S4」は何を指す？",o:["補償サービス","端末のサイズ","5Gの規格","料金プラン名"],a:0,e:"故障・紛失に備えるオプション。2年返却で壊れたまま返すときの費用にも関わります。"},
+    {c:"term",q:"「機変」とは？",o:["同じ会社のまま端末だけ替える機種変更","他社への乗り換え","新しい番号での契約","プラン変更"],a:0,e:"他社への乗り換えはMNP（のりかえ）、新しい番号は新規です。"},
+    {c:"term",q:"「実質負担額」の説明として正しいのは？",o:["端末を返却する前提で、お客様が実際に払う額","端末を一括で買ったときの本体価格","毎月の通信料の合計","下取りでもらえる金額"],a:0,e:"返却前提の金額なので、端末は手元に残りません。"},
+    {c:"term",q:"UQ mobileはどのグループのサブブランド？",o:["KDDI（au）","ソフトバンク","ドコモ","楽天"],a:0,e:"UQ mobile＝KDDI、ワイモバイル＝ソフトバンクです。"},
+
+    {c:"carrier",q:"ドコモ MAXで、Lemino・dアニメストア・DAZN・NBA docomoの中から毎月追加料金なしで選べるのはいくつ？",o:["2つ","1つ","3つ","全部"],a:0,e:"4つの中から毎月2つ。動画サービスを契約中のお客様には大きなメリットです。"},
+    {c:"carrier",q:"ahamoの基本料金（割引なし）は？",o:["2,970円（30GB・増量中40GB、5分かけ放題込み）","1,980円（20GB）","4,950円（無制限）","990円（3GB）"],a:0,e:"割引条件なしでこの値段なのが強みです。"},
+    {c:"carrier",q:"auバリューリンクプランに含まれているサービスは？",o:["Pontaパス","LYPプレミアム","Amazonプライム（無期限）","YouTube Premium"],a:0,e:"Pontaパス込みの使い放題。衛星通信のau Starlink Directも使えます。"},
+    {c:"carrier",q:"UQ mobileのコミコミプランバリューの内容は？",o:["35GB＋10分かけ放題込み","30GB＋5分かけ放題込み","無制限＋かけ放題","5GB・通話別"],a:0,e:"3,828円（おトク割で3,168円）。自宅セット割などは対象外です。"},
+    {c:"carrier",q:"ソフトバンクの「ペイトク2」が向いているお客様は？",o:["PayPayでの支払いが多い人","データをほとんど使わない人","ポイントより月額を下げたい人","dポイントを貯めている人"],a:0,e:"PayPayポイント還元が特徴。ポイント不要ならテイガク無制限が安いです。"},
+
+    {c:"wari",q:"UQ mobileの自宅セット割を「でんき」だけで受けるには？",o:["auでんきを契約する","ドコモでんきを契約する","電気はどこでもよい","でんきでは受けられない"],a:0,e:"自宅セット割のでんきコース（−1,100円）。ネットを変えられないお客様にも提案できます。"},
+    {c:"wari",q:"auでんきを契約すると、auのスマホ代は？",o:["割引されない（電気代に応じてPontaポイント還元）","毎月−1,100円","毎月−110円","毎月−550円"],a:0,e:"auのスマホにでんきセット割はありません。UQ mobileなら自宅セット割（でんきコース）になります。"},
+    {c:"wari",q:"ワイモバイルで「家族割引サービス」と「おうち割 光セット(A)」は両方使える？",o:["使えない（どれか1つだけ。大きい方が適用）","両方使える","家族3人以上なら両方","光セットが半額になる"],a:0,e:"家族割・光セット(A)・でんきセット(E)・超！おトク割はどれか1つ。PayPayカード割だけは併用できます。"},
+    {c:"wari",q:"ワイモバイルの家族割引サービスが付くのは？",o:["2回線目以降の回線","全員の回線","1回線目だけ","3回線目以降だけ"],a:0,e:"2回線目以降が−1,100円。1回線目は割引なしです。"},
+    {c:"wari",q:"UQ mobileのコミコミプランバリューで使える割引は？",o:["UQコミコミおトク割（−660円・期間限定）だけ","自宅セット割","家族セット割","au PAYカードお支払い割"],a:0,e:"コミコミプランバリューは自宅・家族・カード割がすべて対象外です。"},
+    {c:"wari",q:"ドコモでドコモ光とhome 5Gを両方契約している家族のスマホの割引は？",o:["どちらか1つ分（−1,210円）","両方で−2,420円","home 5Gだけ","割引なし"],a:0,e:"ドコモ光セット割とhome 5G セット割は重複しません（光が優先）。"},
+    {c:"wari",q:"au・UQのお客様がニフティ光でセット割を受けるのに必要なのは？",o:["@nifty光電話の契約","光BBユニット","dカード","特に何もいらない"],a:0,e:"auスマートバリュー／UQ自宅セット割は「ネット＋電話」が条件。@nifty光電話が必須です。"},
+    {c:"wari",q:"SoftBank Airでおうち割 光セットを受けるときの条件は？",o:["指定オプションは不要","光BBユニットが必須","光電話が必須","3年契約が必須"],a:0,e:"ソフトバンク光は指定オプション（月550円〜）が必要ですが、SoftBank Airは不要です。"},
+    {c:"wari",q:"PayPayカード割の額が一番大きいのは？",o:["ワイモバイル×ゴールド（−770円）","ソフトバンク×ゴールド（−550円）","ワイモバイル×通常（−330円）","ソフトバンク×通常（−330円）"],a:0,e:"ワイモバイルのゴールドは−550円＋増額特典−220円で−770円です。"},
+    {c:"wari",q:"auの家族割プラスで家族が2人のとき、1人あたりの割引は？",o:["−660円","−1,210円","−550円","−1,100円"],a:0,e:"2人−660円、3人以上−1,210円です。"},
+
+    {c:"term",q:"「SIM単」とは？",o:["端末は買わずSIMだけで乗り換えること","SIMカードの単価","SIMの再発行","eSIMのこと"],a:0,e:"施策は、SIM単でも端末購入でも乗り換え元の契約が181日以上必要です（手続き自体はできる）。"},
+    {c:"term",q:"乗り換え元の契約が120日のお客様が乗り換え（SIM単または端末購入）を希望。正しい案内は？",o:["手続きはできるが、施策（ポイント等）は付かない","手続き自体ができない","施策も手続きも問題ない","181日たつまで予番が出ない"],a:0,e:"施策は乗り換え元の契約が181日以上のときだけ。事前に説明しておくとトラブルを防げます。"},
+    {c:"ret",q:"キャリア契約（一括・通常分割含む）で乗り換え施策を使う条件は？",o:["今使っている端末の買取が必須","条件はない","返却プログラムへの加入が必須","光回線の契約が必須"],a:0,e:"分割リセットプログラムなら買取は必須ではありません。"},
+    {c:"ret",q:"今のスマホを子どもに渡したいので手放したくないお客様。施策を使うなら？",o:["分割リセットプログラムを案内（買取が必須ではない）","キャリア契約で一括購入","キャリア契約で通常分割","施策は使えないと伝える"],a:0,e:"キャリア契約で施策を使うには今の端末の買取が必須です。"},
+    {c:"bb",q:"ドコモのスマホ3台の家族が戸建てでドコモ光（5,720円）にすると、実質の負担は？",o:["2,090円（5,720−1,210×3）","5,720円","4,510円","0円"],a:0,e:"光の月額からスマホの割引分を引くと、実質の負担が分かります。"},
+    {c:"bb",q:"au・UQのお客様がニフティ光でセット割を受けるとき、光の月額に加えてかかるものは？",o:["@nifty光電話 月550円","光BBユニット 月550円","なし","ルーター代 月1,100円"],a:0,e:"ソフトバンク光の場合は指定オプション（月550円〜）が必要です。"},
+    {c:"fee",q:"2026年9月時点、ドコモ・au・ソフトバンクなどの店頭の契約事務手数料は？",o:["4,950円","3,300円","2,200円","無料"],a:0,e:"ドコモ・ahamo・au・UQ・ソフトバンク・ワイモバイルとも店頭は4,950円です。"},
+    {c:"fee",q:"お客様に「ブラックリストはありますか？」と聞かれた。適切な答えは？",o:["「ブラックリストはありません。ただし契約の審査があり、通らないこともあります」","「あります。載っていると契約できません」","「お客様なら大丈夫です」","「分かりません」"],a:0,e:"あるかないか・通るかどうかを言い切らないのがポイントです。"},
+    {c:"fee",q:"予番（MNP予約番号）が不要なのはどんなとき？",o:["アップグレード（au⇄UQ、SB⇄Y!mobileの番号移行）","ドコモからauへのMNP","ahamoからソフトバンクへのMNP","どのMNPでも不要"],a:0,e:"MNPでは予番が必須です。"},
+    {c:"ret",q:"2年返却で、傷や故障の査定をするのは？",o:["センター（店舗スタッフではない）","受付した店舗スタッフ","お客様本人","Apple Store"],a:0,e:"店頭で傷の有無を言い切らず、キャリア22,000円・分リセ33,000円かかる可能性を伝えます。"},
+    {c:"ret",q:"月末ぎりぎりに返却するとどうなる可能性がある？",o:["センターの査定が間に合わず、翌月分の端末代がかかる","何も変わらない","返却自体ができない","補償が無効になる"],a:0,e:"査定が完了すると請求が止まるため、目安月の前半の返却を案内します。"},
+    {c:"ret",q:"分リセで壊れたまま返却すると、かかる可能性がある金額は？",o:["33,000円","22,000円","2,200円","0円"],a:0,e:"キャリアの返却プログラムは22,000円です。"},
+    {c:"ret",q:"2024年10月に購入したドコモのいつでもカエドキプログラム。おすすめの返却月は？",o:["2026年9月（23か月目）の前半","2025年10月","2026年10月末","2027年3月"],a:0,e:"購入翌月を1か月目として23か月目。月末は査定が間に合わないことがあるので前半に。"},
+    {c:"iphone",q:"iPhone 17の画面の特徴として正しいのは？",o:["無印で初めて120Hz（なめらか表示）と常時表示に対応","ノッチがある","60Hzのまま","有機ELではない"],a:0,e:"「16 Proと同じなめらかなディスプレイ」と伝えると分かりやすいです。"},
+    {c:"iphone",q:"iPhone Duoのロック解除の方法は？",o:["Touch ID（指紋）","Face ID（顔）","パスコードのみ","虹彩認証"],a:0,e:"Duoだけ顔認証がありません。アクションボタンと望遠カメラもなしです。"},
+    {c:"iphone",q:"17eが16eから進化した点は？",o:["MagSafeに対応し、容量が256GBからに","カメラが3つに","120Hzに対応","SIMカードが使えるように"],a:0,e:"17eはeSIMのみになった点に注意。"},
+    {c:"iphone",q:"8倍の望遠ズームができるのは？",o:["17 Pro／Pro Max、18 Pro／Pro Max","17とAir","16と16e","Duo"],a:0,e:"運動会やライブで遠くを撮りたい方にはPro系を案内します。"},
+    {c:"bb",q:"ソフトバンク光でおうち割を使う場合、実質的に必須になるものは？",o:["光BBユニット（ルーター）のレンタルを含む指定オプション","ドコモ光電話","ホームルーター","10ギガ契約"],a:0,e:"光BBユニット＋Wi-Fiマルチパック＋電話のセット（月550円〜）。解約時は翌月20日までに返却。"},
+    {c:"bb",q:"光コラボの見積もりで「マンション料金」になるかを決めるのは？",o:["建物の共用部にNTTの設備（ラック）があるか","3階建て以上かどうか","お客様の申告","家賃"],a:0,e:"ラック検索で設備の有無を確認。なければ戸建て料金です。"},
+    {c:"fee",q:"MNPで今の会社から出ていくときの転出手数料は？",o:["0円","3,300円","4,950円","11,000円"],a:0,e:"MNP転出手数料はどこも無料です。"},
+    {c:"fee",q:"契約から1年以内に解約するとどうなる？",o:["最大1,100円の契約解除料がかかる","2年縛りの解約金10,450円","何もかからない","端末代が免除される"],a:0,e:"全ブランドで短期解約の契約解除料（最大1,100円）が導入されています。"},
+    {c:"fee",q:"2025年12月2日以降、本人確認書類として使えなくなったのは？",o:["健康保険証","運転免許証","マイナンバーカード","在留カード"],a:0,e:"保険証は使えません。原本の免許証・マイナンバーカードなどを用意してもらいます。"},
+    {c:"fee",q:"端末価格が6万円の場合、回線とセットの値引き上限は？",o:["3万円（価格の半分）","4万円","2万円","上限なし"],a:0,e:"8万円以上は4万円（税抜）、4万〜8万円は価格の半分、4万円以下は2万円まで。"},
+    {c:"fee",q:"ahamoを契約できるのは？",o:["18歳以上","12歳以上","20歳以上","年齢制限なし"],a:0,e:"18歳未満は親名義で契約し、利用者として登録します。"},
+
+    {c:"ret",q:"ドコモ「いつでもカエドキプログラム」で24回目（残価）が不要になる返却時期は？",o:["23か月目","12か月目","25か月目","48か月目"],a:0,e:"22か月目までの早期返却には早期利用特典があります。"},
+    {c:"ret",q:"au「スマホトクするプログラム＋」で返却できる時期は？",o:["13〜25か月目","23か月目のみ","25か月目以降","いつでも"],a:0,e:"13〜25か月目の返却で最終回分が不要になります。"},
+    {c:"ret",q:"ソフトバンク「新トクするサポート＋」の分割回数は？",o:["48回","24回","36回","12回"],a:0,e:"25か月目以降の返却で残り最大24回分が不要です。"},
+    {c:"ret",q:"3社とも返却時にかかるようになった利用料は最大いくら？",o:["22,000円","5,500円","44,000円","かからない"],a:0,e:"同じ会社で次の機種を買い替えれば0円になります。"},
+    {c:"ret",q:"加入時に回線契約が必要なのはどれ？",o:["au スマホトクするプログラム＋","ドコモ いつでもカエドキプログラム","ソフトバンク 新トクするサポート＋","どれも回線なしで加入できる"],a:0,e:"ドコモとソフトバンクは機種のみでも加入できます。"},
+    {c:"ret",q:"ドコモのプログラムで、S4（補償）なしで画面割れのまま返すと？",o:["22,000円","2,200円","0円","端末代の全額"],a:0,e:"補償に入っていれば2,200円です。"},
+    {c:"ret",q:"返却前にお客様にしてもらう操作は？",o:["移植・バックアップ→「iPhoneを探す」などのロック解除→初期化","SIMを入れたまま送る","ケースを付けたまま送る","何もしなくてよい"],a:0,e:"ロックが残っていると返却できません。"},
+
+    {c:"iphone",q:"UQ mobile・ワイモバイルで買える一番新しい新品iPhoneは？",o:["iPhone 17e","iPhone 17","iPhone 18 Pro","iPhone Air"],a:0,e:"17・17 Pro・Air・18 Proは扱いなし。17e（256GB／512GB）を案内します。"},
+    {c:"iphone",q:"UQのお客様がどうしてもiPhone 17を使いたい。案内として適切なのは？",o:["Apple Store等で本体を買ってSIMのみで使う、またはauへアップグレード","UQでは絶対に使えないと伝える","物理SIMを差し替えれば使える","UQで取り寄せる"],a:0,e:"SIMフリー端末の持ち込みはOK（eSIM）。UQ→au移行プログラム（▲2,640×12か月）で本体セットも提案できます。"},
+    {c:"iphone",q:"iPhone 18 Pro／17シリーズ／Airの共通点は？",o:["eSIMのみ（SIMカードは使えない）","SIMカードのみ","ワイモバイルでも販売","5G非対応"],a:0,e:"データ移行や開通の案内もeSIM前提で進めます。"},
+    {c:"iphone",q:"iPhone 16eを新品で扱っているのは？",o:["ソフトバンクとワイモバイル","ドコモとahamo","auとUQ","どこも扱っていない"],a:0,e:"UQの16eは過去の製品扱い。ドコモ・auは扱っていません。"},
+    {c:"sheet",q:"UQ mobile→au 移行プログラムの内容は？",o:["▲2,640×12か月（UQ利用開始月から6か月経過）","▲2,420×12か月（1年経過）","▲1,100ずっと","事務手数料が無料になるだけ"],a:0,e:"同じ番号でauの対象プランへ。スマホミニプラン＋は対象外です。"},
+    {c:"sheet",q:"ワイモバイル→ソフトバンク のりかえ特典＋（2026年6月2日以降の申込）は？",o:["▲2,420×12か月（ワイモバイル契約日から1年経過）","▲2,750×12か月","▲2,640×12か月","▲550ずっと"],a:0,e:"対象はペイトク2・テイガク無制限。ミニフィット2は対象外です。"},
+    {c:"sheet",q:"ソフトバンクの「メリハリ無制限＋」は今どうなっている？",o:["2026年6月1日で受付終了（今はテイガク無制限・ペイトク2）","今も新規受付中","値下げされた","ワイモバイルに移った"],a:0,e:"利用中の人は7月から値上げ。新しく案内するのはテイガク無制限・ペイトク2・ミニフィット2です。"},
+    {c:"sheet",q:"ワイモバイル シンプル3 Lに込みになっている通話は？",o:["1回10分以内の国内通話かけ放題","24時間かけ放題","5分かけ放題","通話込みはない"],a:0,e:"S・Mは10分かけ放題が+880円。Lの人の24時間かけ放題は+1,100円です。"},
+    {c:"sheet",q:"auのスマホミニプラン＋で5GBまで使う人に、先に確認したいことは？",o:["無制限のバリューリンク（8,008円）の方が安い","ahamoに変えれば必ず安い","5GBならどのプランも同じ","スマホミニプラン＋は5GBが一番安い"],a:0,e:"5GBまでの8,228円は、バリューリンク無制限の8,008円より高くなります。"},
+    {c:"sheet",q:"余ったデータを翌月にくりこせるのは？",o:["UQ mobileとワイモバイル","ahamoだけ","ソフトバンク テイガク無制限","どこもできない"],a:0,e:"UQ（トクトクプラン2・コミコミプランバリュー）とワイモバイル（シンプル3）はデータくりこしあり。"},
+    {c:"sheet",q:"ワイモバイル シンプル3 Sにデータ増量オプション（月550円）を付けると容量は？",o:["5GB → 7GB（+2GB）","5GB → 10GB","5GB → 30GB","変わらない"],a:0,e:"M・Lは+5GB。初めての加入で6か月無料。UQの増量オプションⅡは+5GBで7か月無料です。"},
+    {c:"sheet",q:"ahamo大盛りの正しい説明は？",o:["ahamoに付けるオプション（+1,980円で合計4,950円・110GB）","別の料金プラン","ドコモ MAXのこと","家族割の一種"],a:0,e:"増量キャンペーン中は120GB。"},
+    {c:"sheet",q:"ソフトバンク ミニフィット2の段階は？",o:["〜2GB／〜5GBの2段階","〜1GB／〜2GB／〜3GBの3段階","〜10GBの1段階","無制限"],a:0,e:"5,258円／6,358円。全割引で3,058円／4,158円です。"},
+    {c:"bb",q:"ドコモのお客様に提案するBBで、スマホが−1,210円になるのは？",o:["ドコモ光またはhome 5G","ソフトバンク光","ニフティ光","SoftBank Air"],a:0,e:"ahamoのお客様は対象外なので注意。"},
+    {c:"bb",q:"ソフトバンク光の月額は2026年12月からどうなる？",o:["330円値上げされ、名称が「SoftBank 光＋」に","値下げ","変わらない","サービス終了"],a:0,e:"11月30日までの解約は解除料なしの措置があります。"},
+    {c:"bb",q:"ニフティ光の契約事務手数料は？",o:["3,300円","4,950円","無料","11,000円"],a:0,e:"ドコモ光・ソフトバンク光は4,950円、ニフティ光は3,300円です。"},
+    {c:"bb",q:"ホームルーターを案内するときに必ず伝えることは？",o:["登録した住所でしか使えない","外出先でも自由に使える","工事が必要","光回線より必ず速い"],a:0,e:"工事できない賃貸の代わりや、開通待ちのつなぎとして提案できます。"},
+    {c:"bb",q:"「光コラボ」の説明として正しいのは？",o:["NTTの光回線を借りて各社が自社サービスとして提供する仕組み","KDDIが自前で敷いた光回線","ホームルーターのこと","マンション専用の回線"],a:0,e:"ドコモ光・ニフティ光・ソフトバンク光が光コラボ。auひかりやNURO光は独自回線です。"},
+    {c:"bb",q:"ソフトバンク光からドコモ光へ乗り換える手続きは？",o:["事業者変更（原則工事不要）","転用","新規工事が必要","MNP"],a:0,e:"光コラボ同士は事業者変更。今の会社から事業者変更承諾番号をもらいます。"},
+    {c:"bb",q:"フレッツ光からニフティ光へ乗り換える手続きは？",o:["転用（工事不要）","事業者変更","新規工事が必要","MNP"],a:0,e:"フレッツ光→光コラボは転用。お客様がNTTから転用承諾番号をもらいます。"},
+    {c:"bb",q:"home 5Gの本体が実質0円になる条件は？",o:["月々サポートを受けながら48か月使う","12か月使う","ドコモ光も契約する","条件なしで0円"],a:0,e:"途中でやめると割引が止まり、本体の残りを払うことになります。"},
+    {c:"bb",q:"10ギガ回線の速度を出すために必要なものは？",o:["10ギガ対応ルーター、カテゴリ6a以上のLANケーブル、10G対応PC","特に何もいらない","Wi-Fi中継器を増やす","スマホを最新にするだけ"],a:0,e:"回線だけ10ギガでも速くなりません。"},
+
+    {c:"koji",q:"派遣工事（立ち会いが必要な工事）になるのはどんなとき？",o:["家に光コンセントがないとき","転用のとき","事業者変更のとき","ルーターを買い替えたとき"],a:0,e:"転用・事業者変更は基本的に無派遣です。"},
+    {c:"koji",q:"開通工事が混み合い、1か月以上かかることもある時期は？",o:["3〜4月","7〜8月","11〜12月","1年中同じ"],a:0,e:"引っ越しシーズン。早めの申込とつなぎの提案が大切です。"},
+    {c:"koji",q:"賃貸住宅で派遣工事をする前に必要なことは？",o:["大家さん・管理会社の承諾をもらう","特に何もいらない","隣の部屋の許可をもらう","市役所に届け出る"],a:0,e:"穴あけなどの可能性があるためです。"},
+    {c:"koji",q:"今使っている回線はいつ解約するよう案内する？",o:["新しい回線が開通してから","申し込んだ日にすぐ","工事日の前日","どちらでもよい"],a:0,e:"先に解約するとネットが使えない期間ができます。"},
+    {c:"koji",q:"マンションの「VDSL方式」とは？",o:["共用部から部屋までは電話線を使う方式で、速度が出にくい","部屋まで光ファイバーが来ている方式","部屋までLANケーブルの方式","モバイル回線の方式"],a:0,e:"最大100Mbps程度になりやすい。方式は建物で決まります。"}
+  ];
+  var scopes=[{k:"all",t:"全範囲",s:"全"+Q.length+"問からランダム"}];
+  Object.keys(CH).forEach(function(k){scopes.push({k:k,t:CH[k],s:Q.filter(function(x){return x.c===k}).length+"問"})});
+  var scopeEl=$("scope"),sel="all";
+  scopes.forEach(function(s){
+    var b=document.createElement("button");b.type="button";b.id="scope-"+s.k;
+    b.innerHTML="<b>"+s.t+"</b><small>"+s.s+"</small>";
+    b.setAttribute("aria-pressed",s.k===sel?"true":"false");
+    b.addEventListener("click",function(){sel=s.k;scopeEl.querySelectorAll("button").forEach(function(x){x.setAttribute("aria-pressed","false")});b.setAttribute("aria-pressed","true");bestLine()});
+    scopeEl.appendChild(b);
+  });
+  function getBest(){try{return JSON.parse(localStorage.getItem("tsd-best")||"{}")}catch(e){return {}}}
+  function setBest(k,v){try{var b=getBest();if(b[k]==null||v>b[k]){b[k]=v;localStorage.setItem("tsd-best",JSON.stringify(b))}}catch(e){}}
+  function bestLine(){var b=getBest()[sel];$("bestline").textContent=b!=null?"この範囲のベスト正答率："+b+"%":""}
+  bestLine();
+  function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
+  var run=[],idx=0,correct=0,missed=[],runScope="all";
+  function start(list,k){
+    runScope=k;
+    run=list.map(function(x){var ord=shuffle([0,1,2,3]);return {src:x,opts:ord.map(function(i){return x.o[i]}),ans:ord.indexOf(x.a)}});
+    idx=0;correct=0;missed=[];
+    $("setup").hidden=true;$("result").hidden=true;$("qcard").hidden=false;render();
+  }
+  function render(){
+    var q=run[idx];
+    $("qpos").textContent=(idx+1)+" / "+run.length+" 問";$("qch").textContent=CH[q.src.c];
+    $("qbar").style.width=(idx/run.length*100)+"%";$("qtext").textContent=q.src.q;
+    var o=$("opts");o.innerHTML="";
+    q.opts.forEach(function(t,i){
+      var b=document.createElement("button");b.type="button";b.className="opt";b.id="opt-"+i;
+      b.innerHTML='<span class="k">'+"ABCD"[i]+'</span><span></span>';b.lastChild.textContent=t;
+      b.addEventListener("click",function(){answer(i)});o.appendChild(b);
+    });
+    $("fb").hidden=true;$("next").hidden=true;$("next").textContent=idx===run.length-1?"結果を見る":"次へ";
+  }
+  function answer(i){
+    var q=run[idx],ok=i===q.ans;
+    $("opts").querySelectorAll(".opt").forEach(function(b,j){b.disabled=true;if(j===q.ans)b.classList.add("ok");else if(j===i)b.classList.add("ng")});
+    if(ok)correct++;else missed.push(q.src);
+    var fb=$("fb");fb.className="fb "+(ok?"ok":"ng");
+    fb.innerHTML="<b>"+(ok?"正解":"不正解")+"</b><span></span>";
+    fb.lastChild.textContent=(ok?"":"正解は「"+q.opts[q.ans]+"」。")+q.src.e;
+    fb.hidden=false;$("next").hidden=false;$("next").focus();
+    $("qbar").style.width=((idx+1)/run.length*100)+"%";
+  }
+  function finish(){
+    $("qcard").hidden=true;$("result").hidden=false;
+    var pct=Math.round(correct/run.length*100);
+    $("score").innerHTML=correct+'<small>/ '+run.length+"問（"+pct+"%）</small>";
+    $("comment").textContent=pct===100?"全問正解。この範囲はお客様に説明できるレベルです。":pct>=70?"あと少し。間違えた問題の解説を読んで、もう一度挑戦しましょう。":"「学ぶ」タブの該当の章を読み直してから再挑戦しましょう。";
+    if(runScope!=="miss")setBest(runScope,pct);
+    var m=$("miss");m.innerHTML="";
+    if(missed.length){
+      var hh=document.createElement("h3");hh.textContent="間違えた問題";m.appendChild(hh);
+      missed.forEach(function(x){
+        var d=document.createElement("div");
+        var a1=document.createElement("span");a1.textContent=x.q;
+        var a2=document.createElement("span");a2.className="a";a2.textContent="正解："+x.o[x.a];
+        var a3=document.createElement("span");a3.className="note";a3.textContent=x.e;
+        d.appendChild(a1);d.appendChild(a2);d.appendChild(a3);m.appendChild(d);
+      });
+    }
+    $("retryMiss").hidden=!missed.length;
+  }
+  $("start").addEventListener("click",function(){var pool=sel==="all"?Q:Q.filter(function(x){return x.c===sel});start(shuffle(pool).slice(0,10),sel)});
+  $("next").addEventListener("click",function(){if(idx<run.length-1){idx++;render()}else finish()});
+  $("quit").addEventListener("click",function(){$("qcard").hidden=true;$("setup").hidden=false;bestLine()});
+  $("again").addEventListener("click",function(){$("result").hidden=true;$("setup").hidden=false;bestLine()});
+  $("retryMiss").addEventListener("click",function(){start(shuffle(missed),"miss")});
+})();
+</script>
+
+<script>if('serviceWorker' in navigator){addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})})}</script></body></html>
