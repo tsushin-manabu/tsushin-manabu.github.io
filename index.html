@@ -98,6 +98,7 @@ td.r,th.r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:grid;gap:10px;align-content:start;border-top:4px solid var(--cc)}
 .card .grp{font-size:12px;color:var(--muted);font-weight:500}
 .card .one{font-weight:500}
+.rev.docomo{border-left-color:var(--c-docomo)}.rev.docomo .rb-n,.rev.docomo .rb-legend i.n{background:var(--c-docomo)}.rev-sub{font-size:15px;margin:6px 0 0;padding-top:10px;border-top:1px dashed var(--line)}.rev-h+.rev-sub{border-top:0;padding-top:0}.rb-x{height:22px;display:flex;align-items:center;font-size:12px;color:var(--bad);font-weight:700}.revcmp.docomo{border-left-color:var(--c-docomo)}.revcmp.docomo .rv-bar i.n{background:var(--c-docomo)}.revcmp .rv-row{grid-template-columns:118px 1fr auto}.revnote2{display:inline-block;margin-left:6px;font-size:11px;color:var(--c-docomo)}
 .rev{display:grid;gap:12px;background:var(--surface);border:1px solid var(--line);border-left:5px solid var(--c-ahamo);border-radius:var(--r);padding:16px}.rev-h{display:flex;align-items:baseline;gap:6px 12px;flex-wrap:wrap}.rev-h h3{font-size:17px}.rev-date{font-size:12px;color:var(--muted)}.rev-lead{margin:0}.revbars{display:grid;gap:10px}.rb-legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;color:var(--muted)}.rb-legend i{display:inline-block;width:14px;height:10px;border-radius:2px;margin-right:5px;vertical-align:middle}.rb-legend i.o,.rb-o{background:color-mix(in srgb,var(--muted) 35%,var(--surface))}.rb-legend i.n,.rb-n{background:var(--c-ahamo)}.rb{display:grid;grid-template-columns:104px 1fr 76px;gap:10px;align-items:center}.rb-l{font-weight:700;font-size:13.5px}.rb-bars{display:grid;gap:3px}.rb-o,.rb-n{height:22px;border-radius:4px;display:flex;align-items:center;justify-content:flex-end;padding-right:6px;min-width:64px}.rb-o span,.rb-n span{font-size:12px;font-weight:700;font-variant-numeric:tabular-nums}.rb-o span{color:var(--ink)}.rb-n span{color:#fff}.rb-d{font-size:13px;text-align:right}.up{color:var(--bad);font-weight:700;white-space:nowrap}.down{color:var(--good);font-weight:700;white-space:nowrap}.revt td small{display:block;font-size:11.5px;color:var(--muted)}.revt tbody th{white-space:nowrap;font-size:13px}@media (max-width:560px){.rb{grid-template-columns:78px 1fr 64px}.rb-l{font-size:12px}}.revnote{display:block;font-size:11.5px;color:var(--c-ahamo);font-weight:700}.rev-ctl{display:flex;align-items:center;gap:6px 12px;flex-wrap:wrap;margin-top:10px}.rev-ctl .lab{font-weight:700;font-size:14px}.rev-ctl .sub{font-size:12.5px;color:var(--muted)}.revcmp{display:grid;gap:6px;border:1px solid var(--line);border-left:4px solid var(--c-ahamo);border-radius:8px;padding:10px 12px;background:var(--surface2)}.rv-h{font-weight:700;font-size:13.5px}.rv-row{display:grid;grid-template-columns:86px 1fr auto;gap:8px;align-items:center}.rv-l{font-size:13px;font-weight:700;line-height:1.2}.rv-l small{display:block;font-size:10.5px;font-weight:500;color:var(--muted)}.rv-bar{height:14px;border-radius:4px;background:var(--surface);overflow:hidden}.rv-bar i{display:block;height:100%}.rv-bar i.o{background:color-mix(in srgb,var(--muted) 45%,var(--surface))}.rv-bar i.n{background:var(--c-ahamo)}.rv-row b{font-variant-numeric:tabular-nums}.rv-d{margin:0;font-size:14px}.rv-d small{display:block;font-size:11.5px;font-weight:500;color:var(--muted)}.rv-x{margin:0;font-size:13px;color:var(--bad)}
 .cgroups{display:grid;gap:22px}.cgroup{display:grid;gap:12px}.cgroup-h{display:flex;align-items:baseline;gap:4px 12px;flex-wrap:wrap;padding-bottom:6px;border-bottom:3px solid var(--cc)}.cgroup-h h3{font-size:19px}.cgroup-h span{font-size:13px;color:var(--muted)}.carriers.pair{grid-template-columns:repeat(auto-fit,minmax(290px,1fr))}.cgrp td{background:var(--surface2);font-weight:700;font-size:13px;color:var(--ink);border-left:4px solid var(--cc)}.cgrp td span{font-weight:500;font-size:11.5px;color:var(--muted);margin-left:10px}
 .plist{display:grid;gap:6px;margin:0;padding:0;list-style:none;font-size:14px}
@@ -526,9 +527,9 @@ table.pt{width:100%;min-width:0;border-collapse:collapse;font-size:13px;table-la
           <ul class="plist">
             <li><span>ドコモ MAX（〜1GB／〜3GB／無制限）</span><span class="price">5,698／6,798／8,448円</span><small>全割引で2,398／3,498／5,148円。どの段階でも割引は全部効く。Lemino・dアニメストア・DAZN・NBA docomoから毎月2つを選べる。</small></li>
             <li><span>ドコモ ポイ活 MAX（無制限）</span><span class="price">11,748円</span><small>d払い・dカードの利用でポイント上乗せ。ポイ活好きのお客様向け。</small></li>
-            <li><span>ドコモ mini（4GB／10GB）</span><span class="price">2,750／3,850円</span><small>全割引で880／1,980円。家族割（みんなドコモ割）と長期利用割は対象外。</small></li>
+            <li><span>ドコモ mini（4GB／10GB）</span><span class="price">2,750／3,850円</span><small>全割引で880／1,980円。家族割（みんなドコモ割）と長期利用割は対象外。<b>11月30日で新規受付終了</b>。</small></li><li><span>ドコモ mini2（6GB／12GB）<b class="revnote2">12月1日から</b></span><span class="price">3,278／4,598円</span><small>全割引で858／2,178円。みんなドコモ割（2回線以上で−550円）の対象。</small></li>
           </ul>
-          <div class="merit"><b>お客様のメリット</b>動画サービスを別に払っている人は、その分がまるごと浮く。海外旅行でも追加料金なしでデータが使える。</div>
+          <p class="disc"><strong>年齢の割引</strong>：22歳以下はU22割（最大7か月）、23〜29歳はU29割（最大3か月）、60歳以上は60歳以上割（10月1日から・最大3か月）。どれも27GBのボーナス付き。くわしくはこの下の「新しいプランと割引」。</p><div class="merit"><b>お客様のメリット</b>動画サービスを別に払っている人は、その分がまるごと浮く。海外旅行でも追加料金なしでデータが使える。</div>
           <div class="who"><b>こんなお客様に</b>家族でドコモ／dカード・dポイントを使う／動画サービスを契約している</div>
         </article>
 
@@ -543,7 +544,7 @@ table.pt{width:100%;min-width:0;border-collapse:collapse;font-size:13px;table-la
           <div class="who"><b>こんなお客様に</b>手続きを自分でできる／割引条件をそろえたくない／20〜30GBくらい使う。<br>※家族割・光セット割は対象外（家族の回線数には数えられる）。契約は18歳以上。</div>
         </article>
 
-        </div><div class="rev" id="ahamo-rev-box"><div class="rev-h"><span class="tag" style="--cc:var(--c-ahamo)">ahamo</span><h3>12月1日から料金が変わります：改定前と改定後の比較</h3><span class="rev-date">2026年9月25日発表</span></div><p class="rev-lead">使ったデータ量で<strong>40GB・60GB・120GBの3段階</strong>に自動で決まる料金になります。大盛りオプションはなくなり、手続きは不要です。</p><div class="revbars"><div class="rb-legend"><span><i class="o"></i>改定前（〜11月30日）</span><span><i class="n"></i>改定後（12月1日〜）</span></div><div class="rb"><span class="rb-l">〜40GB</span><div class="rb-bars"><div class="rb-o" style="width:58.1%"><span>2,970円</span></div><div class="rb-n" style="width:61.3%"><span>3,135円</span></div></div><span class="rb-d"><span class="up">+165円</span></span></div><div class="rb"><span class="rb-l">40GB超〜60GB</span><div class="rb-bars"><div class="rb-o" style="width:96.8%"><span>4,950円</span></div><div class="rb-n" style="width:80.6%"><span>4,125円</span></div></div><span class="rb-d"><span class="down">−825円</span></span></div><div class="rb"><span class="rb-l">60GB超〜120GB</span><div class="rb-bars"><div class="rb-o" style="width:96.8%"><span>4,950円</span></div><div class="rb-n" style="width:100.0%"><span>5,115円</span></div></div><span class="rb-d"><span class="up">+165円</span></span></div></div><div class="tbl"><table class="revt"><thead><tr><th></th><th>改定前（〜11月30日）</th><th>改定後（12月1日〜）</th></tr></thead><tbody><tr><th>料金のしくみ</th><td>30GBで2,970円。もっと使うなら大盛りオプションを付ける</td><td><strong>使った量で3段階に自動</strong>で決まる。申し込みは不要</td></tr><tr><th>〜40GB</th><td>2,970円<small>30GB。11月までは増量キャンペーンで40GB</small></td><td><strong>3,135円</strong> <span class="up">+165円</span></td></tr><tr><th>40GB超〜60GB</th><td>4,950円<small>大盛りオプション（+1,980円）が必要</small></td><td><strong>4,125円</strong> <span class="down">−825円</span></td></tr><tr><th>60GB超〜120GB</th><td>4,950円<small>大盛り 110GB。11月までは増量で120GB</small></td><td><strong>5,115円</strong> <span class="up">+165円</span></td></tr><tr><th>大盛りオプション</th><td>+1,980円で+80GB</td><td>11月30日で終了（契約中の人は自動で廃止）</td></tr><tr><th>国内通話</th><td>1回5分以内は無料</td><td>変わらず（1回5分以内は無料）</td></tr><tr><th>海外データ</th><td>月30GB（最長15日）</td><td><strong>月40GB</strong>（最長15日）。15日を超えるときは「海外データ通信日数追加オプション」</td></tr><tr><th>上限設定</th><td>なし</td><td>無料の「上限設定オプション」で、上限を40GBか60GBにできる</td></tr></tbody></table></div><div class="callout"><h3>接客のポイント</h3><ul class="tight"><li><strong>40GB超〜60GB使う人は安くなる</strong>（大盛り4,950円 → 4,125円で−825円）。それ以外の量は165円の値上げ。</li><li>11月1日時点で契約中の人（大盛りを付けている人を除く）は、12月1日から<strong>上限40GBが自動で設定</strong>される。40GBより多く使う人は上限の設定を変える必要がある。</li><li>大盛りを付けている人は自動で廃止され、使った量に応じた料金（最大5,115円）になる。</li><li>料金は自動で切り替わるので、お客様の手続きは不要。</li></ul></div><p class="note">出典：<a href="https://www.docomo.ne.jp/info/news_release/2026/09/25_00.html" target="_blank" rel="noopener">NTTドコモ 報道発表（2026年9月25日）</a>・<a href="https://ahamo.com/new-ahamo/index.html" target="_blank" rel="noopener">ahamo公式「新しいahamo」</a>。金額は税込。</p></div></section><section class="cgroup" style="--cc:var(--c-au)"><div class="cgroup-h"><h3>au系</h3><span>au・UQ mobile（KDDIの回線）</span></div><div class="carriers pair"><article class="card" style="--cc:var(--c-au)">
+        </div><div class="rev docomo" id="docomo-new-box"><div class="rev-h"><span class="tag" style="--cc:var(--c-docomo)">ドコモ</span><h3>新しいプランと割引：ドコモ mini2・年齢の割引（U22割・U29割・60歳以上割）</h3><span class="rev-date">2026年9月25日発表</span></div><h4 class="rev-sub">ドコモ mini2（12月1日から）— 今のドコモ miniと比べると</h4><p class="rev-lead">データ量が<strong>6GB・12GBの2段階</strong>に増え、<strong>みんなドコモ割（家族2回線以上で−550円）の対象</strong>になります。ドコモ miniは11月30日で新規受付終了（今使っている人はそのまま使える）。</p><div class="revbars"><div class="rb-legend"><span><i class="o"></i>ドコモ mini（割引前）</span><span><i class="n"></i>ドコモ mini2（割引前）</span></div><div class="rb"><span class="rb-l">〜4GB</span><div class="rb-bars"><div class="rb-o" style="width:59.8%"><span>2,750円</span></div><div class="rb-n" style="width:71.3%"><span>3,278円</span></div></div><span class="rb-d"><span class="up">+528円</span></span></div><div class="rb"><span class="rb-l">4GB超〜6GB</span><div class="rb-bars"><div class="rb-o" style="width:83.7%"><span>3,850円</span></div><div class="rb-n" style="width:71.3%"><span>3,278円</span></div></div><span class="rb-d"><span class="down">−572円</span></span></div><div class="rb"><span class="rb-l">6GB超〜10GB</span><div class="rb-bars"><div class="rb-o" style="width:83.7%"><span>3,850円</span></div><div class="rb-n" style="width:100.0%"><span>4,598円</span></div></div><span class="rb-d"><span class="up">+748円</span></span></div><div class="rb"><span class="rb-l">10GB超〜12GB</span><div class="rb-bars"><div class="rb-x">ドコモ miniでは容量オーバー</div><div class="rb-n" style="width:100.0%"><span>4,598円</span></div></div><span class="rb-d"></span></div></div><div class="tbl"><table class="revt"><thead><tr><th>使う量</th><th>mini 割引前</th><th>mini2 割引前</th><th>mini 割引を全部</th><th>mini2 割引を全部</th></tr></thead><tbody><tr><th>〜4GB</th><td>2,750円</td><td><strong>3,278円</strong></td><td>880円</td><td><strong>858円</strong> <span class="down">−22円</span></td></tr><tr><th>4GB超〜6GB</th><td>3,850円</td><td><strong>3,278円</strong></td><td>1,980円</td><td><strong>858円</strong> <span class="down">−1,122円</span></td></tr><tr><th>6GB超〜10GB</th><td>3,850円</td><td><strong>4,598円</strong></td><td>1,980円</td><td><strong>2,178円</strong> <span class="up">+198円</span></td></tr><tr><th>10GB超〜12GB</th><td>容量オーバー</td><td><strong>4,598円</strong></td><td>—</td><td><strong>2,178円</strong> </td></tr></tbody></table></div><ul class="tight"><li>mini2の割引：みんなドコモ割（2回線以上）−550円、dカードお支払割（GOLD・GOLD U・PLATINUM −550円／dカード −220円）、ドコモ光セット割・home 5G セット割 −1,210円、ドコモでんきセット割 −110円。全部そろうと<strong>858円／2,178円</strong>。</li><li>miniの「割引を全部」はみんなドコモ割なし（miniは対象外）の金額。</li><li>ファミリー割引の家族あての国内通話が24時間無料。60歳以上はかけ放題オプションが<strong>990円</strong>（通常1,980円）。</li><li>12GBを超えると、月末まで通信速度が最大128kbpsになる。長期利用割は発表に記載なし。</li></ul><h4 class="rev-sub">ドコモ MAXの年齢の割引：U22割・U29割・60歳以上割</h4><p class="rev-lead">利用者の年齢に合わせて、ドコモ MAXが<strong>最初の数か月安く</strong>なり、<strong>27GBのボーナスパケット</strong>が付きます。ボーナスのぶん料金の段階がずれて、〜28GBまでが「〜1GB」、〜30GBまでが「〜3GB」の料金になります。60歳以上割は<strong>10月1日から</strong>の新しい割引です。</p><div class="tbl"><table class="revt"><thead><tr><th></th><th>U22割</th><th>U29割</th><th>60歳以上割</th></tr></thead><tbody><tr><th>利用者の年齢</th><td><strong>22歳以下</strong></td><td><strong>23〜29歳</strong></td><td><strong>60歳以上</strong></td></tr><tr><th>割引の期間</th><td>最大7か月</td><td>最大3か月</td><td>最大3か月</td></tr><tr><th>受付</th><td>2025年11月27日〜</td><td>2025年9月1日〜</td><td>2026年10月1日〜</td></tr><tr><th>〜28GB（〜1GBの段階）</th><td>−2,728円</td><td>−2,728円</td><td>−1,870円</td></tr><tr><th>28GB超〜30GB（〜3GBの段階）</th><td>−3,828円</td><td>−3,828円</td><td>−2,970円</td></tr><tr><th>30GB超（無制限）</th><td>−550円</td><td>−550円</td><td>−550円</td></tr><tr><th>3つの割引と合わせた月額</th><td><strong>30GBまで0円</strong><small>30GB超は4,928円</small></td><td><strong>30GBまで0円</strong><small>30GB超は4,928円</small></td><td><strong>30GBまで858円</strong><small>30GB超は4,928円</small></td></tr><tr><th>割引が終わったあと</th><td colspan="3">通常の段階に戻る：〜1GB 2,728円／〜3GB 3,828円／無制限 5,478円（3つの割引の場合）</td></tr></tbody></table></div><p class="note">3つの割引＝みんなドコモ割（3回線以上）−1,210円・dカードお支払割（GOLD等）−550円・ドコモ光／home 5G セット割 −1,210円。</p><div class="callout"><h3>接客のポイント</h3><ul class="tight"><li>年齢は<strong>契約者ではなく利用者</strong>で見る（手続きの時点）。個人名義・5G契約のドコモ MAXで、新規・機種変更・プラン変更などのときに<strong>申し込みが必要</strong>。</li><li>割引の期間は<strong>「ドコモでんきセット割」「長期利用割」が付かない</strong>（年齢の割引が優先）。期間が終わると付く。</li><li>22歳以下はU29割よりU22割が優先。</li><li>期間のあとの金額も必ず伝える（例：U22割で20GB使う人は7か月0円 → 8か月目から5,478円。60歳以上割なら3か月858円 → 4か月目から5,478円）。</li><li>60歳以上割は、一度終わると再適用できない。</li></ul></div><p class="note">出典：<a href="https://www.docomo.ne.jp/info/news_release/2026/09/25_00.html" target="_blank" rel="noopener">NTTドコモ 報道発表（2026年9月25日）</a>・<a href="https://www.docomo.ne.jp/campaign_event/promotion/docomo_o60_wari/" target="_blank" rel="noopener">60歳以上割</a>・<a href="https://www.docomo.ne.jp/campaign_event/promotion/docomo_u22_wari/" target="_blank" rel="noopener">U22割</a>・<a href="https://www.docomo.ne.jp/campaign_event/promotion/docomo_u29_wari/" target="_blank" rel="noopener">U29割</a>（ドコモ公式）。金額は税込。</p></div><div class="rev" id="ahamo-rev-box"><div class="rev-h"><span class="tag" style="--cc:var(--c-ahamo)">ahamo</span><h3>12月1日から料金が変わります：改定前と改定後の比較</h3><span class="rev-date">2026年9月25日発表</span></div><p class="rev-lead">使ったデータ量で<strong>40GB・60GB・120GBの3段階</strong>に自動で決まる料金になります。大盛りオプションはなくなり、手続きは不要です。</p><div class="revbars"><div class="rb-legend"><span><i class="o"></i>改定前（〜11月30日）</span><span><i class="n"></i>改定後（12月1日〜）</span></div><div class="rb"><span class="rb-l">〜40GB</span><div class="rb-bars"><div class="rb-o" style="width:58.1%"><span>2,970円</span></div><div class="rb-n" style="width:61.3%"><span>3,135円</span></div></div><span class="rb-d"><span class="up">+165円</span></span></div><div class="rb"><span class="rb-l">40GB超〜60GB</span><div class="rb-bars"><div class="rb-o" style="width:96.8%"><span>4,950円</span></div><div class="rb-n" style="width:80.6%"><span>4,125円</span></div></div><span class="rb-d"><span class="down">−825円</span></span></div><div class="rb"><span class="rb-l">60GB超〜120GB</span><div class="rb-bars"><div class="rb-o" style="width:96.8%"><span>4,950円</span></div><div class="rb-n" style="width:100.0%"><span>5,115円</span></div></div><span class="rb-d"><span class="up">+165円</span></span></div></div><div class="tbl"><table class="revt"><thead><tr><th></th><th>改定前（〜11月30日）</th><th>改定後（12月1日〜）</th></tr></thead><tbody><tr><th>料金のしくみ</th><td>30GBで2,970円。もっと使うなら大盛りオプションを付ける</td><td><strong>使った量で3段階に自動</strong>で決まる。申し込みは不要</td></tr><tr><th>〜40GB</th><td>2,970円<small>30GB。11月までは増量キャンペーンで40GB</small></td><td><strong>3,135円</strong> <span class="up">+165円</span></td></tr><tr><th>40GB超〜60GB</th><td>4,950円<small>大盛りオプション（+1,980円）が必要</small></td><td><strong>4,125円</strong> <span class="down">−825円</span></td></tr><tr><th>60GB超〜120GB</th><td>4,950円<small>大盛り 110GB。11月までは増量で120GB</small></td><td><strong>5,115円</strong> <span class="up">+165円</span></td></tr><tr><th>大盛りオプション</th><td>+1,980円で+80GB</td><td>11月30日で終了（契約中の人は自動で廃止）</td></tr><tr><th>国内通話</th><td>1回5分以内は無料</td><td>変わらず（1回5分以内は無料）</td></tr><tr><th>海外データ</th><td>月30GB（最長15日）</td><td><strong>月40GB</strong>（最長15日）。15日を超えるときは「海外データ通信日数追加オプション」</td></tr><tr><th>上限設定</th><td>なし</td><td>無料の「上限設定オプション」で、上限を40GBか60GBにできる</td></tr></tbody></table></div><div class="callout"><h3>接客のポイント</h3><ul class="tight"><li><strong>40GB超〜60GB使う人は安くなる</strong>（大盛り4,950円 → 4,125円で−825円）。それ以外の量は165円の値上げ。</li><li>11月1日時点で契約中の人（大盛りを付けている人を除く）は、12月1日から<strong>上限40GBが自動で設定</strong>される。40GBより多く使う人は上限の設定を変える必要がある。</li><li>大盛りを付けている人は自動で廃止され、使った量に応じた料金（最大5,115円）になる。</li><li>料金は自動で切り替わるので、お客様の手続きは不要。</li></ul></div><p class="note">出典：<a href="https://www.docomo.ne.jp/info/news_release/2026/09/25_00.html" target="_blank" rel="noopener">NTTドコモ 報道発表（2026年9月25日）</a>・<a href="https://ahamo.com/new-ahamo/index.html" target="_blank" rel="noopener">ahamo公式「新しいahamo」</a>。金額は税込。</p></div></section><section class="cgroup" style="--cc:var(--c-au)"><div class="cgroup-h"><h3>au系</h3><span>au・UQ mobile（KDDIの回線）</span></div><div class="carriers pair"><article class="card" style="--cc:var(--c-au)">
           <div><span class="tag" style="--cc:var(--c-au)">au</span> <span class="grp">／メインブランド（KDDI）</span></div>
           <p class="one">使い放題にPontaパス・衛星通信・海外データが付く。</p>
           <ul class="plist">
@@ -1270,7 +1271,7 @@ table.pt{width:100%;min-width:0;border-collapse:collapse;font-size:13px;table-la
         <button type="button" id="mode-one" aria-pressed="true">1社ずつ（割引の内訳）</button>
         <button type="button" id="mode-all" aria-pressed="false">全社くらべ</button>
       </div>
-<div class="rev-ctl"><span class="lab">ahamoの料金</span><div class="seg-ctl" role="group" aria-label="ahamoの料金" id="ahamo-rev"><button type="button" data-v="old" aria-pressed="true">改定前（〜11月30日）</button><button type="button" data-v="new" aria-pressed="false">改定後（12月1日〜）</button></div><span class="sub">12月1日から、使った量で40GB・60GB・120GBの3段階に自動で決まる料金になります。</span></div>
+<div class="rev-ctl"><span class="lab">料金の時期</span><div class="seg-ctl" role="group" aria-label="料金の時期" id="ahamo-rev"><button type="button" data-v="old" aria-pressed="true">改定前（〜11月30日）</button><button type="button" data-v="new" aria-pressed="false">改定後（12月1日〜）</button></div><span class="sub">改定後（12月1日〜）は、ahamoが40GB・60GB・120GBの3段階制に、ドコモ miniがドコモ mini2に替わります。</span></div>
 
       <!-- one -->
       <div id="sim-one" class="simgrid">
@@ -1315,7 +1316,7 @@ table.pt{width:100%;min-width:0;border-collapse:collapse;font-size:13px;table-la
               <button type="button" data-v="20" aria-pressed="false">20年〜</button>
             </div>
           </div>
-          <label class="tog"><input type="checkbox" id="o-promo"><span>期間限定の割引も入れる</span></label>
+          <label class="tog"><input type="checkbox" id="o-promo"><span>期間限定の割引も入れる</span></label><div class="ctl" id="o-age-wrap" hidden><span class="lab">年齢の割引（ドコモ MAX）</span><div class="seg-ctl" role="group" aria-label="年齢の割引" id="o-age"><button type="button" data-v="none" aria-pressed="true">なし</button><button type="button" data-v="u22" aria-pressed="false">22歳以下</button><button type="button" data-v="u29" aria-pressed="false">23〜29歳</button><button type="button" data-v="o60" aria-pressed="false">60歳以上</button></div><span class="sub">利用者の年齢。U22割は最大7か月、U29割・60歳以上割（10月1日から）は最大3か月の割引です。</span></div>
           <div class="mini" id="o-mini" aria-hidden="true"></div>
         </div>
 
@@ -1849,7 +1850,7 @@ table.pt{width:100%;min-width:0;border-collapse:collapse;font-size:13px;table-la
     c:{s:"40／60／120GB（使った量で自動）",t:[40,60],tl:function(d){return d<=40?"〜40GB":d<=60?"〜60GB":"〜120GB"}},
     t:[["〜40GB",40,3135],["〜60GB",60,4125],["〜120GB",120,5115]]};
   var ahamoRev="old";
-  function setAhamoRev(v){ahamoRev=v;var A=v==="new"?AHAMO_NEW:AHAMO_OLD;BRANDS.ahamo.plans=A.plans;PLANS.ahamo=A.p;CAPM.ahamo=A.c;TIERP.ahamo=A.t}
+  function setAhamoRev(v){ahamoRev=v;var A=v==="new"?AHAMO_NEW:AHAMO_OLD;BRANDS.ahamo.plans=A.plans;PLANS.ahamo=A.p;CAPM.ahamo=A.c;TIERP.ahamo=A.t;BRANDS.docomo.plans=v==="new"?["docomo_max","docomo_mini2"]:["docomo_max","docomo_mini"]}
   function ahamoOld(d){return d<=40?{p:2970,t:"ahamo 30GB（増量中40GB）"}:d<=120?{p:4950,t:"ahamo＋大盛り 110GB（増量中120GB）"}:null}
   function ahamoNew(d){return d<=40?{p:3135,t:"〜40GB"}:d<=60?{p:4125,t:"〜60GB"}:d<=120?{p:5115,t:"〜120GB"}:null}
   function drawRev(d){
@@ -1861,6 +1862,23 @@ table.pt{width:100%;min-width:0;border-collapse:collapse;font-size:13px;table-la
     H+='<div class="rv-row"><span class="rv-l">改定後<small>12月1日〜</small></span><div class="rv-bar"><i class="n" style="width:'+(b.p/5115*100)+'%"></i></div><b>'+yen(b.p)+'円</b></div>';
     var df=b.p-a.p;
     H+='<p class="rv-d">'+(df>0?'<span class="up">+'+yen(df)+'円の値上げ</span>':'<span class="down">−'+yen(-df)+'円の値下げ</span>')+'<small>改定前：'+a.t+'／改定後：'+b.t+'の段階</small></p>';
+    el.innerHTML=H;
+  }
+  // ドコモ MAX の年齢の割引（割引額は 〜28GB／28GB超〜30GB／30GB超。27GBのボーナスで段階がずれる）
+  var AG={u22:{n:"ドコモU22割",m:7,w:"利用者が22歳以下",a:[2728,3828,550]},u29:{n:"ドコモU29割",m:3,w:"利用者が23〜29歳",a:[2728,3828,550]},o60:{n:"ドコモ MAX 60歳以上割",m:3,w:"利用者が60歳以上（10月1日から）",a:[1870,2970,550]}};
+  // ドコモ mini2（12月1日から）
+  PLANS.docomo_mini2={b:"docomo",n:"ドコモ mini2",base:function(d){return d<=6?3278:4598},cap:12,capNote:"6GB／12GB"};
+  CAPM.docomo_mini2={s:"6GB／12GB",t:[6],tl:function(d){return d<=6?"〜6GB":"〜12GB"}};
+  TIERP.docomo_mini2=[["〜6GB",6,3278],["〜12GB",12,4598]];
+  function drawMiniRev(o){
+    var el=$("r-rev");if(!el)return;
+    var a=calc("docomo_mini",o),b=calc("docomo_mini2",o),mx=Math.max(a.base,b.base,4598);
+    el.className="revcmp docomo";el.hidden=false;
+    function row(lab,sub,r,cap,cls){return '<div class="rv-row"><span class="rv-l">'+lab+'<small>'+sub+'</small></span>'+(r.fits?'<div class="rv-bar"><i class="'+cls+'" style="width:'+(r.price/mx*100)+'%"></i></div><b>'+yen(r.price)+'円</b>':'<span class="rv-x">容量オーバー（最大'+cap+'GB）</span><b></b>')+'</div>'}
+    var H='<div class="rv-h">ドコモ miniとmini2（'+dataLabel(o.data)+'・今の条件で割引込み）</div>';
+    H+=row("mini","11月30日で受付終了",a,10,"o")+row("mini2","12月1日〜",b,12,"n");
+    if(a.fits&&b.fits){var df=b.price-a.price;H+='<p class="rv-d">'+(df>0?'<span class="up">mini2のほうが+'+yen(df)+'円</span>':df<0?'<span class="down">mini2のほうが−'+yen(-df)+'円</span>':'同じ金額')+'<small>mini：'+CAPM.docomo_mini.tl(o.data)+'／mini2：'+CAPM.docomo_mini2.tl(o.data)+'の段階</small></p>'}
+    else if(b.fits)H+='<p class="rv-d"><span class="down">この量はmini2なら容量内</span></p>';
     el.innerHTML=H;
   }
   function capTxt(pid,zo){return zo&&ZO[pid]?(PLANS[pid].cap+ZO[pid].gb)+"GB（"+PLANS[pid].cap+"GB＋増量"+ZO[pid].gb+"GB）":CAPM[pid].s}
@@ -1894,7 +1912,7 @@ table.pt{width:100%;min-width:0;border-collapse:collapse;font-size:13px;table-la
         H+='<p class="gmsg ok">容量内です（あと約'+(cap-dd)+'GBの余裕）。'+((P.b==="uq"||P.b==="ym")?'余ったデータは翌月にくりこせます。':'')+(TIERP[pid].length>1?'使った量で料金の段階が変わります。':'')+'</p>';
       }
     }
-    var cur=null;if(pid==="ahamo"&&ahamoRev==="old")cur=0;else if(pid==="ahamo_l")cur=1;else TIERP[pid].forEach(function(t,i){if(cur===null&&d<=t[1])cur=i});
+    var cur=null;if(pid==="ahamo"&&ahamoRev==="old")cur=0;else if(pid==="ahamo_l")cur=1;else TIERP[pid].forEach(function(t,i){if(cur===null&&(r.bonus?(d<=28?1:d<=30?3:9999):d)<=t[1])cur=i});
     if(cur===null&&r.zo&&d<=r.cap)cur=TIERP[pid].length-1;
     H+='<div class="gtiers"><span>容量ごとの料金（割引前）</span>';
     TIERP[pid].forEach(function(t,i){H+='<span class="tp'+(i===cur?' now':'')+'">'+t[0]+'　'+yen(t[2])+'円</span>'});
@@ -1911,13 +1929,13 @@ table.pt{width:100%;min-width:0;border-collapse:collapse;font-size:13px;table-la
   function it(k,n,a,s,w,bn){return {k:k,n:n,a:a,s:s,w:w,bn:bn||""}}
   function calc(pid,o){
     var P=PLANS[pid],d=o.data,f=o.fam,net=o.net,card=o.card,L=[];
-    var base=P.base(d);
+    var ag=(pid==="docomo_max"&&o.age&&AG[o.age])?o.age:null,bonus=!!ag,base=bonus?P.base(d<=28?1:d<=30?3:9999):P.base(d);
     var zo=o.zoryo&&ZO[pid]?ZO[pid]:null,cap=P.cap+(zo?zo.gb:0);
     if(zo){base+=550;L.push(o.promo?it("promo",zo.n+"の無料期間",550,"ok","初めての加入で"+zo.free+"無料（+550円が0円に）","最初の"+zo.free+"は追加料金なしで容量アップ"):it("promo",zo.n+"の無料期間",0,"ng","初めての加入なら"+zo.free+"無料（「期間限定の割引も入れる」で反映）"))}
-    if(pid==="docomo_max"||pid==="docomo_mini"){
+    if(pid==="docomo_max"||pid==="docomo_mini"||pid==="docomo_mini2"){
       if(pid==="docomo_max"){
         L.push(f>=3?it("family","みんなドコモ割",1210,"ok","家族3回線以上","家族がそろうほど全員が安くなる"):f===2?it("family","みんなドコモ割",550,"ok","2回線なので−550円（3回線以上で−1,210円）","家族がそろうほど全員が安くなる"):it("family","みんなドコモ割",0,"ng","家族2回線以上で適用。ahamoやminiの家族も回線数に数える"));
-      }else L.push(it("family","みんなドコモ割",0,"na","ドコモ miniは割引の対象外（回線数には数える）"));
+      }else if(pid==="docomo_mini2")L.push(f>=2?it("family","みんなドコモ割",550,"ok","家族2回線以上（ドコモ mini2は−550円）","家族がそろうと毎月−550円"):it("family","みんなドコモ割",0,"ng","家族2回線以上で−550円"));else L.push(it("family","みんなドコモ割",0,"na","ドコモ miniは割引の対象外（回線数には数える）"));
       if(net==="hikari")L.push(it("bb","ドコモ光セット割",1210,"ok","家族のだれかがドコモ光を契約","おうちのネットをそろえるだけで家族全員ずっと−1,210円"));
       else if(net==="hr")L.push(it("hr","home 5G セット割",1210,"ok","家族のだれかがhome 5Gを契約（ドコモ光と両方は付かない）","工事なしで光と同じ割引"));
       else L.push(it("bb","ドコモ光／home 5G セット割",0,"ng","ドコモ光かhome 5Gを契約すると−1,210円"));
@@ -1925,7 +1943,7 @@ table.pt{width:100%;min-width:0;border-collapse:collapse;font-size:13px;table-la
       L.push(card==="gold"?it("card","dカードお支払割",550,"ok","dカード GOLD U／GOLD／PLATINUMで支払い","支払い方法を変えるだけで毎月−550円"):card==="std"?it("card","dカードお支払割",220,"ok","dカードで支払い（GOLD以上なら−550円）","支払い方法を変えるだけで毎月安くなる"):it("card","dカードお支払割",0,"ng","dカードで払うと−220円、GOLD以上なら−550円"));
       if(pid==="docomo_max"){
         L.push(o.long>=20?it("long","長期利用割",220,"ok","ドコモを20年以上利用","長く使っているほどおトク"):o.long>=10?it("long","長期利用割",110,"ok","ドコモを10年以上利用（20年以上で−220円）","長く使っているほどおトク"):it("long","長期利用割",0,"ng","10年以上で−110円、20年以上で−220円"));
-      }else L.push(it("long","長期利用割",0,"na","ドコモ miniは対象外"));
+      }else L.push(it("long","長期利用割",0,"na",pid==="docomo_mini2"?"ドコモ mini2は発表に記載がないため計算に入れていません":"ドコモ miniは対象外"));if(pid==="docomo_max"){if(ag){var A=AG[ag];L.push(it("age",A.n,A.a[d<=28?0:d<=30?1:2],"ok",A.w+"・最大"+A.m+"か月。27GBのボーナスで料金の段階は〜28GB／〜30GB／30GB超","最初の"+A.m+"か月はデータが27GB多く、月額も安い"));L.forEach(function(x){if((x.k==="denki"||x.k==="long")&&x.s==="ok"){x.s="ex";x.w=A.n+"が優先（割引の期間は付かず、終わると付く）"}})}else L.push(it("age","年齢の割引（U22割・U29割・60歳以上割）",0,"ng","22歳以下・23〜29歳・60歳以上なら最初の数か月が割引（「年齢の割引」で選ぶ）"))}
     }else if(pid==="ahamo"||pid==="ahamo_l"){
       L.push(it("family","家族割",0,"na","ahamoは割引なし（家族のドコモ回線数には数えられる）"));
       L.push(it("bb","光セット割",0,"na","ahamoはドコモ光・home 5Gのセット割の対象外"));
@@ -1974,12 +1992,12 @@ table.pt{width:100%;min-width:0;border-collapse:collapse;font-size:13px;table-la
       L.push(card==="gold"?it("card","PayPayカード割",770,"ok","ゴールド −550円＋増額特典 −220円","支払い方法を変えるだけで毎月−770円"):card==="std"?it("card","PayPayカード割",330,"ok","PayPayカードで支払い（ゴールドなら−770円）","支払い方法を変えるだけで毎月安くなる"):it("card","PayPayカード割",0,"ng","PayPayカードで−330円、ゴールドなら−770円（他の割引と併用OK）"));
     }
     var disc=0;L.forEach(function(x){if(x.s==="ok")disc+=x.a});
-    return {base:base,disc:disc,price:Math.max(0,base-disc),items:L,fits:d<=cap,cap:cap,zo:!!zo};
+    return {base:base,disc:disc,price:Math.max(0,base-disc),items:L,fits:d<=cap,cap:cap,zo:!!zo,bonus:bonus};
   }
 
   // ---------- one-carrier simulator ----------
   var brand="docomo",plan="docomo_max";
-  var getNet=seg("o-net",renderOne),getCard=seg("o-card",renderOne),getLong=seg("o-long",renderOne);
+  var getNet=seg("o-net",renderOne),getCard=seg("o-card",renderOne),getLong=seg("o-long",renderOne),getAge=seg("o-age",renderOne);
   var brandrow=$("brandrow");
   Object.keys(BRANDS).forEach(function(k){
     var b=document.createElement("button");b.type="button";b.id="brand-"+k;b.style.setProperty("--cc",BRANDS[k].cc);
@@ -2009,12 +2027,12 @@ table.pt{width:100%;min-width:0;border-collapse:collapse;font-size:13px;table-la
   ["o-denki","o-promo"].forEach(function(id){$(id).addEventListener("change",renderOne)});
   $("o-zoryo").addEventListener("change",renderOne);
   $("o-oomori").addEventListener("change",function(){if(brand==="ahamo"){plan=$("o-oomori").checked?"ahamo_l":"ahamo";buildPlans();renderOne()}});
-  var KC={family:"--k-family",bb:"--k-bb",hr:"--k-hr",denki:"--k-denki",card:"--k-card",long:"--k-long",low:"--k-low",promo:"--k-promo"};
+  var KC={age:"--k-promo",family:"--k-family",bb:"--k-bb",hr:"--k-hr",denki:"--k-denki",card:"--k-card",long:"--k-long",low:"--k-low",promo:"--k-promo"};
   function renderOne(){
     var d=DATA[+$("o-data").value],f=+$("o-fam").value;
     $("o-data-v").textContent=dataLabel(d);
     $("o-fam-v").textContent=f>=5?"5人以上":f===1?"1人（自分だけ）":f+"人";
-    var o={data:d,fam:f,net:getNet(),card:getCard(),long:+getLong(),denki:$("o-denki").checked,promo:$("o-promo").checked,zoryo:$("o-zoryo").checked};
+    var o={data:d,fam:f,net:getNet(),card:getCard(),long:+getLong(),denki:$("o-denki").checked,promo:$("o-promo").checked,zoryo:$("o-zoryo").checked};$("o-age-wrap").hidden=plan!=="docomo_max";o.age=plan==="docomo_max"?getAge():"none";
     var zw=$("o-zoryo-wrap");zw.hidden=!ZO[plan];if(ZO[plan])$("o-zoryo-l").textContent=ZO[plan].n+"を付ける（+550円で+"+ZO[plan].gb+"GB、初回"+ZO[plan].free+"無料）";
     var r=calc(plan,o),P=PLANS[plan];
     $("planrow").querySelectorAll(".pbtn").forEach(function(b){var q=b.id.replace("plan-","");if(q==="ahamo"&&plan==="ahamo_l")q="ahamo_l";var zc=(o.zoryo&&ZO[q])?ZO[q].gb:0;b.classList.toggle("over",d>PLANS[q].cap+zc);if(ZO[q])b.querySelector("small").textContent=o.zoryo?(PLANS[q].cap+zc)+"GB（増量込み）":CAPM[q].s;if(q.indexOf("ahamo")===0)b.querySelector("small").textContent=CAPM[q].s});
@@ -2031,11 +2049,11 @@ table.pt{width:100%;min-width:0;border-collapse:collapse;font-size:13px;table-la
     if(plan==="ahamo")notes.push(ahamoRev==="new"?"12月1日からの料金です。使った量で〜40GB 3,135円／〜60GB 4,125円／〜120GB 5,115円に自動で決まります。":"ahamo基本料金（30GB、増量キャンペーン中は40GB）です。");
     if(plan==="ahamo_l")notes.push("ahamo 2,970円＋大盛りオプション 1,980円＝4,950円（110GB、増量キャンペーン中は120GB）です。");
     if(plan==="docomo_mini")notes.push(d<=4?"4GBプランの料金です。":"10GBプランの料金です。");
-    if(plan==="docomo_max")notes.push(d<=1?"〜1GBの段階です。":d<=3?"〜3GBの段階です。":"無制限の段階です。");
+    if(plan==="docomo_max")notes.push(AG[o.age]?(d<=28?AG[o.age].n+"のボーナス27GB込みで「〜1GB」の段階（〜28GB）です。":d<=30?AG[o.age].n+"のボーナス27GB込みで「〜3GB」の段階（〜30GB）です。":"無制限の段階です。"):(d<=1?"〜1GBの段階です。":d<=3?"〜3GBの段階です。":"無制限の段階です。"));if(plan==="docomo_max"&&AG[o.age]){var r4=calc(plan,Object.assign({},o,{age:"none"}));notes.push(AG[o.age].n+"は最初の"+AG[o.age].m+"か月だけです。"+(AG[o.age].m+1)+"か月目からはこの条件で"+yen(r4.price)+"円になります。")}if(plan==="docomo_mini2")notes.push(d<=6?"6GBまでの段階の料金です（12月1日から）。":"12GBまでの段階の料金です（12月1日から。12GBを超えると月末まで最大128kbps）。");
     if(plan==="sb_mini")notes.push(d<=2?"〜2GBの段階です。":"〜5GBの段階です。");
     if(plan==="sb_pay")notes.push("このほかPayPayポイント+5%（ゴールド連携で+10%）の還元があります。");
     if(brand==="ym"&&f>=2)notes.push("家族割引サービスは2回線目以降の人の金額です。");
-    $("r-note").textContent=notes.join(" ");drawRev(brand==="ahamo"?d:null);
+    $("r-note").textContent=notes.join(" ");if(plan==="docomo_mini"||plan==="docomo_mini2")drawMiniRev(o);else{$("r-rev").className="revcmp";drawRev(brand==="ahamo"?d:null)}
     var ul=$("r-list");ul.innerHTML="";
     var order={ok:0,ex:1,ng:2,na:3};
     r.items.slice().sort(function(a,b){return order[a.s]-order[b.s]}).forEach(function(x){
@@ -2057,6 +2075,8 @@ table.pt{width:100%;min-width:0;border-collapse:collapse;font-size:13px;table-la
     function apply(){
       var v=el.querySelector('[aria-pressed="true"]').getAttribute("data-v");setAhamoRev(v);
       if(v==="new"&&plan==="ahamo_l")plan="ahamo";
+      if(v==="new"&&plan==="docomo_mini")plan="docomo_mini2";
+      if(v==="old"&&plan==="docomo_mini2")plan="docomo_mini";
       $("o-oomori").checked=(plan==="ahamo_l");buildPlans();renderOne();
       if(!$("sim-all").hidden)renderAll();
     }
@@ -2110,7 +2130,7 @@ table.pt{width:100%;min-width:0;border-collapse:collapse;font-size:13px;table-la
     var n=[];
     if(o.net!=="none")n.push("BBは各社のグループのもの（ドコモ光／ニフティ光＋光電話／ソフトバンク光＋指定OPなど）にした場合です。");
     if(f>=2)n.push("ワイモバイルの家族割は2回線目以降の人の金額です。");
-    n.push(ahamoRev==="new"?"ahamoは12月1日からの料金（段階制）です。":"ahamoは11月30日までの料金です（上の切り替えで12月1日からの料金も見られます）。");n.push("金額の下は、そのプランで使える容量です。");
+    n.push(ahamoRev==="new"?"ahamo・ドコモは12月1日からの料金（ahamoは段階制、ドコモはmini2）です。":"ahamo・ドコモは11月30日までの料金です（上の「料金の時期」で12月1日からの料金も見られます）。");n.push("金額の下は、そのプランで使える容量です。");
     $("cmp-note").textContent=n.join(" ");
   }
   function setMode(m){
