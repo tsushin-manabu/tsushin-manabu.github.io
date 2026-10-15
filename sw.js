@@ -2,7 +2,7 @@
 // ページ（index.html）は毎回まず最新を取りに行き、通信できないときだけ保存したものを出す（2026-10-12 v12。
 // それまでは保存したものを先に出していたので、ホーム画面に追加した Web アプリでは更新が出なかった）。
 // アイコン・フォントは保存したものをすぐ出しつつ、裏で最新に入れかえる。version.json は保存しない（更新の確認用）。
-const CACHE = 'drill-v18';
+const CACHE = 'drill-v19';
 const CORE = ['./', './index.html', './manifest.webmanifest', './icon-180.png', './icon-192.png'];
 self.addEventListener('install', e => {
   // ブラウザーの一時保存（HTTPキャッシュ）を通さずに取る
