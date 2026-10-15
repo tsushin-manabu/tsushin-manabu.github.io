@@ -1,6 +1,6 @@
 {
   "name": "通信カウンター新人ドリル",
-  "short_name": "新人ドリル",
+  "short_name": "通信ドリル",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
