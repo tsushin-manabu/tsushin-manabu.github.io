@@ -2,15 +2,16 @@
 // ページ（index.html）は毎回まず最新を取りに行き、通信できないときだけ保存したものを出す（2026-10-12 v12。
 // それまでは保存したものを先に出していたので、ホーム画面に追加した Web アプリでは更新が出なかった）。
 // アイコン・フォントは保存したものをすぐ出しつつ、裏で最新に入れかえる。version.json は保存しない（更新の確認用）。
-const CACHE = 'drill-v41';
+const CACHE = 'drill-v44';
 const CORE = ['./', './index.html', './manifest.webmanifest', './icon-180.png', './icon-192.png'];
 self.addEventListener('install', e => {
   // ブラウザーの一時保存（HTTPキャッシュ）を通さずに取る
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(CORE.map(u => new Request(u, {cache: 'reload'})))));
   self.skipWaiting();
 });
+// 消すのは、このドリルの古い保存（drill- で始まるもの）だけ。同じ所に置いたほかのアプリの保存は消さない（2026-11-02 点検）
 self.addEventListener('activate', e => {
-  e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim()));
+  e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== CACHE && k.indexOf('drill-') === 0).map(k => caches.delete(k)))).then(() => self.clients.claim()));
 });
 function page(e) {
   return caches.open(CACHE).then(c => {
